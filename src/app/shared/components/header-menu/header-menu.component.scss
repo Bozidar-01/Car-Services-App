@@ -15,7 +15,7 @@
 .content{
     height: 70.8vh;
     border-top-right-radius: 3.5em;
-    padding-top:20px;
+    padding-top:30px;
     padding-right: 20px;
     background: #ffffff !important;
     padding-bottom: 90px;
@@ -40,5 +40,23 @@ ion-card-subtitle{
 }
 
 ion-item{
-    padding: 10px 0;
+    margin-bottom: 15px;
+    --padding-top: 0 !important;
+    --padding-bottom: 0 !important;
+    height: 65px;
+    ion-label{
+        color: var(--ion-color-primary);
+        font-weight: 550;
+        margin-top: 5px;
+    }
+    p{
+        margin-top: 8px;
+        color: var(--ion-color-dark);
+    }
+}
+
+.divider{
+    width: 90%;
+    margin: 10px auto;
+    border-bottom: 1px solid rgb(170, 165, 165);
 }

@@ -8,8 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderMenuComponent  implements OnInit {
 
+  roadsideContacts = [
+    {
+      name: 'AMSM',
+      contact: '196'
+    },
+    {
+      name: 'Police',
+      contact: '192'
+    },
+    {
+      name: 'Fire Department',
+      contact: '193'
+    }
+  ]
+
   constructor() { }
 
   ngOnInit() {}
+
+  callNow(number: string) {
+    if (number) {
+      const phoneUrl = `tel:${number}`;
+      window.open(phoneUrl, '_system'); // Opens the native dialer
+    } else {
+      console.log('Invalid phone number');
+    }
+  }
 
 }

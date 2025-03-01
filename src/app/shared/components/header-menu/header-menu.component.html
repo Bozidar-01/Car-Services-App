@@ -6,7 +6,7 @@
         <img src="/assets/profile.png" style="height:50px; width: 50px; border-radius: 10px;" />
         <ion-card-subtitle style="font-size: 18px;">
           Bozidar Pejoski <br> 
-          <small style="font-size: 10px;">
+          <small style="font-size: 12px;">
             bozidarpejoski!hotmail.com
           </small>
         </ion-card-subtitle>
@@ -38,6 +38,22 @@
           <ion-icon name="exit-outline" style="margin-right: 10px;"></ion-icon>
           Logout
         </ion-button>
+    </ion-item>
+
+    <div class="divider"></div>
+
+    <ion-item lines="none" style="font-size: 20px; color: var(--ion-color-primary);margin-bottom: 0 !important;">
+      Roadside Assistance 
+    </ion-item>
+
+    <ion-item (click)="callNow(assist.contact)" lines="none" button detail="false" *ngFor="let assist of roadsideContacts">
+      <ion-label position="stacked"  >
+        {{assist.name}}
+      </ion-label>
+      <p style="font-size: 20px;">
+      <ion-icon name="call-outline" style="margin-right: 10px; "></ion-icon>         {{assist.contact}}
+    </p>
+    <ion-icon color="medium" name="chevron-forward" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);"></ion-icon>
     </ion-item>
 
     </div>
