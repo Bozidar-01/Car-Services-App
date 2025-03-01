@@ -1,0 +1,7 @@
+{
+  "name": "Car-Services-App",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
