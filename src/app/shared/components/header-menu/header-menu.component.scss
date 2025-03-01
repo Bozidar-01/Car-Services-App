@@ -1,0 +1,44 @@
+.header {
+    height: 15%;
+    background: var(--ion-color-primary);
+    border-bottom-left-radius: 3em;
+    position: relative;
+    z-index: 0;   
+    display: flex;
+    align-items: center;
+    padding-left: 25px;
+}
+
+
+
+
+.content{
+    height: 70.8vh;
+    border-top-right-radius: 3.5em;
+    padding-top:20px;
+    padding-right: 20px;
+    background: #ffffff !important;
+    padding-bottom: 90px;
+}
+
+
+.content-wrapper{
+    transform: translateZ(0);
+    border: none !important;
+    height: auto;
+    background: var(--ion-color-primary);
+}
+
+ion-card-subtitle{
+    text-transform: none;
+    color: #fff !important;
+    font-style: 12px;
+    font-weight: normal;
+    margin-left: 20px;
+    width: 100%;
+    line-height: 0.9;
+}
+
+ion-item{
+    padding: 10px 0;
+}

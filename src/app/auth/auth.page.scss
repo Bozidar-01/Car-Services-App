@@ -1,0 +1,18 @@
+ion-card{
+    border-radius: 10px;
+    border: 0.5px solid #124a49;
+    box-shadow: none;
+    padding: 3px 10px;
+    width: 98%;
+    margin: 5px auto;
+}
+
+ion-card-subtitle{
+    color:#124a49 !important;
+}
+
+ion-button{
+    --background:#124a49 !important;
+    width: 90%;
+    margin: 40px auto;
+}

@@ -1,0 +1,27 @@
+<ion-content [fullscreen]="true">
+
+  <ion-img src="assets/logo.png" style="width: 100%; margin: 0 auto;"></ion-img>
+
+
+    <ion-card-subtitle color="dark" style="text-align: center; text-transform: none; font-size: 40px; margin-bottom: 30px;">
+      Login
+    </ion-card-subtitle>
+
+    <ion-list>
+      <ion-item lines="none">
+          <ion-card>
+            <ion-input type="text" placeholder="E-mail address"></ion-input>
+          </ion-card>
+      </ion-item>
+      <ion-item lines="none">
+          <ion-card>
+            <ion-input type="password" placeholder="Password"></ion-input>
+          </ion-card>
+      </ion-item>
+
+      <ion-button expand="block" (click)="login()">
+          Login
+      </ion-button>
+    </ion-list>
+
+</ion-content>

@@ -1,3 +1,16 @@
 <ion-app>
+  <div class="ion-page" id="main-content"></div>
   <ion-router-outlet></ion-router-outlet>
+
+  <ion-menu
+    style="--width: 100% !important;"
+    side="start"
+    menuId="main-header"
+    contentId="main-content"
+    [swipeGesture]="false"
+  >
+  <ion-content>
+   <app-header-menu ></app-header-menu>
+   </ion-content>
+  </ion-menu>
 </ion-app>

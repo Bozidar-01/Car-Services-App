@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  baseLink: 'https://new-api.tippito.com',
+  apiLink: 'https://new-api.tippito.com/api',
+  production: false,
+  carServiceStorageKey: {
+    device_id: 'device_id',
+    user: 'CarServicesUser',
+    userLogin: 'userLogin',
+    token: 'CarServicesToken',
+  },
 };
 
 /*

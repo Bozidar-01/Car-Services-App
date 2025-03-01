@@ -1,0 +1,182 @@
+.header {
+    height: 8%;
+    background: var(--ion-color-primary);
+    border-bottom-left-radius: 3em;
+    position: relative;
+    z-index: 0;   
+}
+
+
+
+
+.content{
+    height: 83.8vh;
+    border-top-right-radius: 3.5em;
+    padding-top: 20px;
+    background: #ffffff !important;
+    padding-bottom: 90px;
+    overflow: auto;
+
+}
+
+
+.content-wrapper{
+    border: none !important;
+    height: auto;
+    background: var(--ion-color-primary) !important;
+}
+
+
+ion-segment {
+    width: 80%;
+    margin: 0 auto;
+    background: #fff !important; // No background for the segment
+    --border-color: transparent; // No border
+    --color: #333; // Default text color for inactive tabs (dark gray)
+    --padding-start: 0;
+    --padding-end: 0;
+    box-shadow: none !important;
+
+  
+    ion-segment-button {
+      --background: transparent !important; // No background for buttons (inactive or active)
+      --background-checked: transparent !important; // No background for active button
+      --color: #333; // Inactive text color (dark gray)
+      --color-checked: var(--ion-color-primary) !important; // Active text color (light blue)
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --padding-top: 10px; // Reduced padding for a tighter fit
+      --padding-bottom: 10px;
+      box-shadow: none !important;
+      border-radius: 25px;
+      ion-label {
+        text-transform: none; // Match uppercase text in the image
+        font-size: 14px; // Adjust font size to match the image (tweak as needed)
+        font-weight: 500; // Slightly bold for clarity
+        margin: 0; // Remove any default margins
+      }
+    }
+  }
+
+  .swiper-slide-prev {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8); /* Shrinks the left slide */
+  }
+  
+  .swiper-slide {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  .swiper-slide-active {
+    transform: scale(1);
+    z-index: 2;
+  }
+  
+  .swiper-slide-next {
+    transform: scale(0.9); /* Slightly smaller */
+    z-index: 1;
+    opacity: 0.7; /* Partially visible */
+  }
+  
+ .swiper-container {
+  margin-top: 30px;
+  position: relative; // Ensure positioning context if needed
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center; // Center the content in each slide
+  width: 100%;
+  height: 100%; // Ensure the slide fills the container
+}
+
+.custom-card {
+
+  margin: 30px 0;
+  width: 340px;
+  height: 300px !important;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1),
+              0px 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 12px; /* Adjusted for smooth corners */
+  background: var(--ion-background-color, #fff); /* Ensures theme consistency */
+
+  ion-img {
+    position: absolute; // Use absolute positioning to allow overflow
+    top: 39%;
+    left: 55%;
+    width: 105%;
+    height: 150px;
+    transform: translate(-61%, -45%); // Center the image within the card
+    height: auto; // Maintain aspect ratio
+    object-fit: contain; // Scale the image proportionally
+  }
+}
+
+
+
+.view-details-button {
+  position: absolute;
+  height: 1% !important;
+  padding: 0 !important;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%; /* Adjust width as needed */
+  font-weight: 600;
+}
+
+
+
+
+.custom-filter-card {
+  margin: 0 10px;
+  width: 89%;
+  height: 110px !important;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1),
+              0px 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  background: var(--ion-background-color, #fff);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Clicked effect */
+.custom-filter-card:active {
+  transform: scale(0.95);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Default overlay */
+.subtitle-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 102%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(3px);
+  border-radius: 8px;
+  transition: background 0.3s ease-in-out;
+}
+
+/* When clicked, darken the overlay */
+.custom-filter-card.clicked .subtitle-overlay {
+  background: rgba(18, 74, 73, 0.6);
+}
+
+.custom-filter-card ion-card-subtitle {
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
