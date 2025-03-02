@@ -1,54 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { DetailsComponent } from './details/details.component';
-
+import { animate, style, transition, trigger } from '@angular/animations';
 @Component({
   standalone:false,
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('200ms ease-in-out', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in-out', style({ opacity: 0 }))
+      ]),
+  
+      transition(':enter', [
+        style({ opacity: 0 }), 
+        animate('200ms ease-in-out', style({ opacity: 1 })) 
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in-out', style({ opacity: 0 })) 
+      ])
+    ]),
+  ]
 })
 export class DashboardPage implements OnInit {
-  selectedCard: HTMLElement | null = null; // Track the currently selected card
-
-  constructor(private modalCtrl: ModalController) { }
+  carsSegment:string = 'own'
+  constructor() { }
 
   ngOnInit() {
   }
 
 
-  async viewDetails(){
-    const modal = await this.modalCtrl.create({
-      component: DetailsComponent,
-      cssClass: 'details-modal',
-      backdropDismiss: true, 
-      animated: true, 
-    });
-  
-    await modal.present();
-  
-    const {data} = await modal.onDidDismiss();
-  
-    if(data){
-    }
+  changeSegment(event:any){
+    setTimeout(() => {
+      this.carsSegment = event.detail.value
+    }, 200);
   }
 
-
-  toggleCard(event: Event) {
-    const clickedCard = event.currentTarget as HTMLElement;
-  
-    // Remove 'clicked' class from the previously selected card
-    if (this.selectedCard && this.selectedCard !== clickedCard) {
-      this.selectedCard.classList.remove("clicked");
-    }
-  
-    // Toggle 'clicked' class on the newly clicked card
-    clickedCard.classList.toggle("clicked");
-  
-    // Update the selected card
-    this.selectedCard = clickedCard.classList.contains("clicked") ? clickedCard : null;
-  }
-  
   
 
 }

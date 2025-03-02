@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   standalone:false,
@@ -7,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-header.component.scss'],
 })
 export class MainHeaderComponent  implements OnInit {
-
-  constructor() { }
+  isVisible: boolean = true;
+  
+  constructor(private router: Router) { 
+    this.router.events.subscribe(() => {
+      this.isVisible = this.router.url !== '/authed/user/profile';
+    });
+  }
+  
 
   ngOnInit() {}
 

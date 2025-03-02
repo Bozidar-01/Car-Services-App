@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   standalone:false,
@@ -23,7 +24,7 @@ export class HeaderMenuComponent  implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {}
 
@@ -34,6 +35,18 @@ export class HeaderMenuComponent  implements OnInit {
     } else {
       console.log('Invalid phone number');
     }
+  }
+
+  logOut(){
+    this.navCtrl.navigateRoot('auth/login')
+  }
+
+  goToProfile(){
+    this.navCtrl.navigateRoot('authed/user/profile')
+  }
+
+  goHome(){
+    this.navCtrl.navigateRoot('authed/user/dashboard')
   }
 
 }

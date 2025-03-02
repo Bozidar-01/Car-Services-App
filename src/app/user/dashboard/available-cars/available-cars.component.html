@@ -1,0 +1,98 @@
+
+      <swiper-container 
+      class="swiper-container"
+      slides-per-view="1.2" 
+      centered-slides="true"
+      space-between="15"
+    >
+      <swiper-slide class="swiper-slide">
+        <div class="custom-card">
+          <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
+            Audi
+          </ion-card-subtitle>
+          <ion-img src="assets/car.png"></ion-img>
+          <ion-card-subtitle style="text-transform: none; font-size: 20px; padding: 15px; font-weight: 550; position: absolute; bottom: 65px; left: 50%; transform: translate(-50%);" color="dark">
+            A6
+          </ion-card-subtitle>
+          <ion-button 
+          expand="block" 
+          shape="round" 
+          color="primary" 
+          class="view-details-button"
+          (click)="viewDetails()">
+          View Details
+        </ion-button>
+        </div>
+      </swiper-slide>
+    
+      <swiper-slide class="swiper-slide">
+        <div class="custom-card">
+          <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
+            Audi
+          </ion-card-subtitle>
+          <ion-img src="assets/car.png"></ion-img>
+          <ion-card-subtitle style="text-transform: none; font-size: 20px; padding: 15px; font-weight: 550; position: absolute; bottom: 65px; left: 50%; transform: translate(-50%);" color="dark">
+            A6
+          </ion-card-subtitle>
+          <ion-button 
+          expand="block" 
+          shape="round" 
+          color="primary" 
+          class="view-details-button">
+          View Details
+        </ion-button>
+        </div>
+      </swiper-slide>
+    
+      <swiper-slide class="swiper-slide">
+        <div class="custom-card">
+          <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
+            Audi
+          </ion-card-subtitle>
+          <ion-img src="assets/car.png"></ion-img>
+          <ion-card-subtitle style="text-transform: none; font-size: 20px; padding: 15px; font-weight: 550; position: absolute; bottom: 65px; left: 50%; transform: translate(-50%);" color="dark">
+            A6
+          </ion-card-subtitle>
+          <ion-button 
+          expand="block" 
+          shape="round" 
+          color="primary" 
+          class="view-details-button"
+          (click)="viewDetails()">
+          View Details
+        </ion-button>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+    
+    
+<ion-item lines="none" style="margin-top: 20px; margin-bottom: 10px;">
+<ion-icon name="filter" style="margin-bottom: 2px; margin-right: 10px;"></ion-icon>  <ion-label style="font-size: 22px; font-weight: bold;">Filter</ion-label> 
+<ion-label slot="end" color="medium" style="font-size: 12px; font-weight: normal;">
+<ion-button fill="clear" class="ion-no-padding" (click)="toggleCard($event)">
+  Reset
+</ion-button>  
+</ion-label> 
+</ion-item>
+
+  <ion-row class="ion-no-padding ion-no-margin ion-justify-content-center">
+    <ion-col size="6" class="ion-no-padding ion-no-margin">
+      <div class="custom-filter-card" (click)="toggleCard($event)">
+        <ion-img src="assets/brands.jpg"></ion-img>
+        <div class="subtitle-overlay"></div>
+        <ion-card-subtitle>
+          Brands
+        </ion-card-subtitle>
+      </div>
+      
+      </ion-col>
+      <ion-col size="6" class="ion-no-padding ion-no-margin">
+        <div class="custom-filter-card" (click)="toggleCard($event)">
+          <ion-img src="assets/brands.jpg"></ion-img>
+          <div class="subtitle-overlay"></div>
+          <ion-card-subtitle>
+            Cars
+          </ion-card-subtitle>
+        </div>
+        </ion-col>
+  </ion-row>

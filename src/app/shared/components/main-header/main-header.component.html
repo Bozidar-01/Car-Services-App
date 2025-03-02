@@ -18,7 +18,7 @@
       </ion-menu-toggle>
       </ion-col>
 
-      <ion-col class="ion-padding-end ion-text-end ion-no-padding ion-no-margin">
+      <ion-col *ngIf="isVisible" class="ion-padding-end ion-text-end ion-no-padding ion-no-margin">
         <img src="assets/profile.png" style="width: 42px; height: 42px; border-radius: 10px; object-fit: cover;" />
         </ion-col>
     </ion-row>

@@ -1,0 +1,63 @@
+<ion-content [fullscreen]="true" >
+  <ion-content scrollY="false">
+    <div class="header">
+
+
+        <ion-row class="ion-no-padding ion-justify-content-center" style="padding-top: 10px;">
+          <ion-col size="12" style="position: relative;">
+            <img src="assets/profile.png" style="width: 40%;  border-radius: 10px; object-fit: cover; margin: 0 auto; border-radius: 50%; display: flex; justify-content: center; padding: 2px 0; " />
+            <ion-button class="ion-no-padding ion-no-margin galleryImg" onclick="document.getElementById('fileInput').click()" fill="clear">
+            <ion-icon
+            color="snow"
+              name="image"
+            ></ion-icon>
+            <input
+            type="file"
+            multiple="false"
+            (change)="popFileChooser($event)"
+            id="fileInput"
+            style="display: none"
+            accept="image/*"
+          /> 
+            
+            </ion-button>
+          </ion-col>
+        </ion-row>
+    </div>
+  
+    <div class="content-wrapper">
+      <div class="content">
+
+      
+        <ion-item lines="none" style="margin-top: 100px;">
+          <ion-card>
+            <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="Name"></ion-input>
+          </ion-card>
+      </ion-item>
+        <ion-item lines="none">
+          <ion-card>
+            <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="Last Name"></ion-input>
+          </ion-card>
+      </ion-item>
+        <ion-item lines="none">
+          <ion-card>
+            <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="Address"></ion-input>
+          </ion-card>
+      </ion-item>
+      <ion-item lines="none" >
+        <ion-card>
+          <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="E-mail address"></ion-input>
+        </ion-card>
+    </ion-item>
+      <ion-item lines="none">
+          <ion-card>
+            <ion-input (ionBlur)="scrollToTop()" type="password" placeholder="Password"></ion-input>
+          </ion-card>
+      </ion-item>
+
+      <ion-button expand="block" class="saveBtn" >
+        Save
+    </ion-button>
+        </div>
+    </div>
+</ion-content>

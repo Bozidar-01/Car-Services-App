@@ -1,0 +1,112 @@
+<ion-content scrollX="false" scrollY="false" #content fullscreen="true">
+  <div class="header">
+    <ion-toolbar class="ion-no-border" style="--background: transparent !important;">
+      <ion-buttons slot="start">
+          <ion-button (click)="modalCtrl.dismiss()" style="font-size: 16px;" color="snow">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <ion-label slot="start" style="font-size:22px; font-weight: bold; color: #fff;">
+        Audi A6
+      </ion-label>
+      <img slot="end" src="assets/profile.png" style="width: 42px; height: 42px; border-radius: 10px; object-fit: cover; margin-right: 15px;" />
+    </ion-toolbar>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+      <ion-item lines="none" style="padding: 20px; padding-bottom: 0 !important;">
+          <ion-label slot="start" style="color: var(--ion-color-primary); font-weight: bold;">2.7 TDI</ion-label>
+          <ion-label slot="end" style="color: var(--ion-color-primary); font-weight: bold;">190HP</ion-label>
+      </ion-item>
+      <ion-img src="assets/car.png" class="img"></ion-img>
+
+      <ion-item lines="none">
+        <ion-label   [ngStyle]="{
+          'font-size': '20px',
+          'margin-top': '5px',
+          'font-weight': 'bold',
+          'color': type === 'needsService' ? 'var(--ion-color-warning)' : 'var(--ion-color-primary)'
+        }">
+          {{type=='firstStep' || type == 'secondStep' ? 'Let us know a few things first' : type == 'thirdStep' ? 'Services' : ''}}
+          {{type=='needsService' ? '3 Overdue Service' : type == 'serviced' ? 'Completed Services' : type == 'mods' ? 'Mods' : ''}}
+        </ion-label>
+        <ion-label slot="end" style="height: 40px;">
+          <ion-button *ngIf="type !='firstStep' && type != 'secondStep' && type != 'thirdStep'" fill="clear" class="action-button ion-no-padding ion-no-margin" (click)="type='thirdStep'">
+            <ion-icon style="font-size: 30px !important;" name="close-circle-outline" [color]="type === 'needsService'? 'warning':'primary'"></ion-icon>
+          </ion-button>
+        </ion-label>
+      </ion-item>
+
+ 
+    <!-- FIRST STEP -->
+<div *ngIf="type == 'firstStep'" [@enterAnimation] style="margin-top: 30px;">
+  <ion-item lines="none" >
+    <ion-card class="input">
+      <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="Purchase date"></ion-input>
+    </ion-card>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-card class="input">
+      <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="KM on car"></ion-input>
+    </ion-card>
+  </ion-item>
+
+  <ion-button color="primary" style="width: 92%; margin: 20px auto;" expand="block" shape="round"
+    (click)="submit()">
+    Submit
+  </ion-button>
+</div>
+
+<!-- SECOND STEP -->
+<div *ngIf="type == 'secondStep'" [@enterAnimation] [@exitLeftAnimation] style="margin-top: 30px;">
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; ">
+    <ion-icon name="checkmark-circle" style="font-size: 140px;" color="primary"></ion-icon>
+    <ion-card-subtitle style="font-size: 26px; text-transform: none;">Thank you!</ion-card-subtitle>
+  </div>
+</div>
+
+<!-- THIRD STEP -->
+<div *ngIf="type == 'thirdStep'" [@enterRightAnimation] style="margin-top: 30px;">
+  <ion-card button (click)="type='needsService'">
+    <div class="subtitle-overlay-alert"></div>
+    <ion-item lines="none">
+      <ion-label style="font-size: 16px; font-weight: bold; color: rgb(180, 139, 6);">
+        5 Items Need Attention
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card button (click)="type='serviced'">
+    <div class="subtitle-overlay-completed"></div>
+    <ion-item lines="none">
+      <ion-label style="font-size: 16px; font-weight: bold; color: var(--ion-color-primary);">
+        Completed Services
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card button (click)="type='mods'">
+    <div class="subtitle-overlay-completed"></div>
+    <ion-item lines="none">
+      <ion-label style="font-size: 16px; font-weight: bold; color: var(--ion-color-primary);">
+        Track your Mods!
+      </ion-label>
+    </ion-item>
+  </ion-card>
+</div>
+
+<div *ngIf="type == 'needsService'" [@enterAnimation] style="margin-top: 30px;">
+<app-needs-service></app-needs-service>
+</div>
+
+<div *ngIf="type == 'serviced'" [@enterAnimation] style="margin-top: 0;">
+<app-serviced></app-serviced>
+</div>
+
+<div *ngIf="type == 'mods'" [@enterAnimation] style="margin-top: 0;">
+<app-mods></app-mods>
+</div>
+
+      </div>
+   </div>
+</ion-content>

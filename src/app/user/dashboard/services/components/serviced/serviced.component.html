@@ -1,0 +1,29 @@
+
+<ion-item lines="none" style="padding: 0 10px;">
+  <ion-label style="font-weight: bold;">
+    Total
+  </ion-label>
+  <ion-label slot="end">
+    <ion-button fill="outline" disabled style="opacity: 1; margin-right: 10px;">
+      400 den
+    </ion-button>
+    <ion-button fill="outline" disabled style="opacity: 1;">
+      8 Euro
+    </ion-button>
+  </ion-label>
+</ion-item>
+
+<ion-card class="service-card" *ngFor="let item of [0,1,2,3,4,5]" >
+  <ion-item lines="none">
+      <ion-label>
+        Brake Fluid
+        <br>
+        <small style="font-size: 14px;">Used: Dot 4</small>
+      </ion-label>
+      <ion-label slot="end">
+        <ion-button fill="outline" disabled style="opacity: 1;">
+          400 den
+        </ion-button>
+      </ion-label>
+  </ion-item>
+</ion-card>

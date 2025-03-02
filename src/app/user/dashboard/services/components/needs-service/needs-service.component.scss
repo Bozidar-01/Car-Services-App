@@ -1,0 +1,23 @@
+.service-card{
+    margin: 15px;
+   background: rgba(255, 196, 9, 0.4) !important;
+   --background: rgba(255, 196, 9, 0.4) !important;
+    box-shadow: none;
+    padding: 10px;
+    border-radius: 15px;
+        ion-item{
+            --background: transparent !important;
+            background: transparent !important;
+            backdrop-filter: blur(6px) !important;
+
+    }
+    ion-label{
+        font-weight: bold;
+        font-size: 16px;
+        color: var(--ion-color-dark);
+        ion-button{
+            font-size: 13px;
+            font-weight: bold;
+        }
+    }
+}
