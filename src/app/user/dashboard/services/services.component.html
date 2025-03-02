@@ -107,6 +107,20 @@
 <app-mods></app-mods>
 </div>
 
+
+
       </div>
    </div>
+   <div  *ngIf="type=='thirdStep'">
+     <ion-fab slot="fixed" vertical="bottom" horizontal="start">
+       <ion-fab-button color="snow">
+         <ion-icon name="add-outline" color="primary"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      <ion-fab slot="fixed" vertical="bottom" horizontal="end" >
+        <ion-fab-button color="snow">
+          <ion-icon name="cog-outline" ></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
 </ion-content>

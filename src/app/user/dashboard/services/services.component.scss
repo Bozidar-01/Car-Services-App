@@ -81,3 +81,7 @@
     background: var(--ion-color-primary) !important;
 }
 
+ion-fab-button{
+    --background: transparent !important; 
+    box-shadow: none !important;
+}
