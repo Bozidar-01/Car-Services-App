@@ -13,9 +13,11 @@ import { first } from 'rxjs';
 export class AvailableCarsComponent  implements OnInit {
   selectedCard: HTMLElement | null = null; // Track the currently selected card
   cars:Array<any>=[]
+  filteredCars:Array<any>=[]
   carModels:Array<any>=[]
   carBrands:Array<any>=[]
   selectedFilter:string = 'cars';
+  selectedBrand = null;
   constructor(private modalCtrl: ModalController,private carService: CarService) { }
 
   ngOnInit() {
@@ -46,6 +48,10 @@ export class AvailableCarsComponent  implements OnInit {
   toggleCard(event: Event,filter:string) {
     const clickedCard = event.currentTarget as HTMLElement;
     this.selectedFilter = filter
+
+    if(filter=='cars'){
+      this.filteredCars = this.cars
+    }
     // Remove 'clicked' class from the previously selected card
     if (this.selectedCard && this.selectedCard !== clickedCard) {
       this.selectedCard.classList.remove("clicked");
@@ -63,6 +69,7 @@ export class AvailableCarsComponent  implements OnInit {
     this.carService.getCars().pipe(first()).subscribe({
       next:(response)=>{
         this.cars = response.data
+        this.filteredCars = this.cars
       }
     })
 }
@@ -87,6 +94,12 @@ export class AvailableCarsComponent  implements OnInit {
 
       }
     })
+}
+
+showBrandCars(brandID: number) {
+  this.filteredCars = this.cars.filter(car => car.car_brand_id === brandID);
+
+  this.selectedFilter = 'cars'
 }
 
 }

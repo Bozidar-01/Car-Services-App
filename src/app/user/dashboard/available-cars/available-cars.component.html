@@ -7,7 +7,7 @@
     >
     <ng-container *ngIf="selectedFilter == 'cars'">
 
-      <swiper-slide  class="swiper-slide" *ngFor="let car of cars">
+      <swiper-slide  class="swiper-slide" *ngFor="let car of filteredCars">
         <div class="custom-card">
           <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
             {{ car.model.split(' ')[0] }}
@@ -45,13 +45,14 @@
           shape="round" 
           color="primary" 
           class="view-details-button"
-          (click)="viewDetails()">
+          (click)="showBrandCars(brand.id)">
           View Cars
         </ion-button>
       </div>
     </swiper-slide>
     
   </ng-container>
+
 
     </swiper-container>
     
