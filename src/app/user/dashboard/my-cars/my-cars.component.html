@@ -9,6 +9,7 @@ space-between="15"
     <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
       {{ car.car_model.cars.model.split(' ')[0] }}
     </ion-card-subtitle>
+    <ion-icon *ngIf="carsInNeedOfService.includes(car.id)" slot="end" name="alert-circle-outline" color="warning" style="position: absolute; top: 43px; right: 30px; z-index: 99; font-size: 26px;"></ion-icon>
     <ion-img src="assets/car.png"></ion-img>
     <ion-card-subtitle style="text-transform: none; font-size: 20px; padding: 15px; font-weight: 550; position: absolute; bottom: 65px; left: 50%; transform: translate(-50%);" color="dark">
       {{ car.car_model.cars.model.split(' ')[1] }}
@@ -27,11 +28,19 @@ space-between="15"
 
 
 
-<ion-card button>
+<ion-card *ngIf="count>0" class="service">
 
-  <ion-item lines="none">
-      1 Car needs attention 
+  <ion-item lines="none" >
+     {{count}} Car needs attention 
       <ion-icon slot="end" name="alert-circle-outline" color="warning"></ion-icon>
+  </ion-item>
+
+  </ion-card>
+<ion-card *ngIf="count==0" class="serviced">
+
+  <ion-item lines="none" >
+      {{myCars.length>1 ? 'Cars' : 'Car'}} Serviced!
+      <ion-icon slot="end" name="checkmark-circle-outline" color="success"></ion-icon>
   </ion-item>
 
   </ion-card>

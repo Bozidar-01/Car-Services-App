@@ -5,24 +5,24 @@
   </ion-label>
   <ion-label slot="end">
     <ion-button fill="outline" disabled style="opacity: 1; margin-right: 10px;">
-      400 den
+      {{total}} den
     </ion-button>
     <ion-button fill="outline" disabled style="opacity: 1;">
-      8 Euro
+      {{totalEuro}} Euro
     </ion-button>
   </ion-label>
 </ion-item>
 
-<ion-card class="service-card" *ngFor="let item of [0,1,2,3,4,5]" >
+<ion-card class="service-card" *ngFor="let service of services" >
   <ion-item lines="none">
       <ion-label>
-        Brake Fluid
+        {{service.default_service.name}}
         <br>
-        <small style="font-size: 14px;">Used: Dot 4</small>
+        <small style="font-size: 14px;">Used:  {{service.product_used}}</small>
       </ion-label>
       <ion-label slot="end">
         <ion-button fill="outline" disabled style="opacity: 1;">
-          400 den
+          {{service.price}}
         </ion-button>
       </ion-label>
   </ion-item>

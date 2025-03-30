@@ -27,7 +27,7 @@
 }
 
 
-ion-card{
+.service{
     border-radius: 10px;
     border: 0.5px solid var(--ion-color-warning);
     box-shadow: none;
@@ -35,4 +35,19 @@ ion-card{
     width: 90%;
     margin: 30px auto;
     font-weight: 550;
+    ion-item{
+        color: var(--ion-color-warning);
+    }
+}
+.serviced{
+    border-radius: 10px;
+    border: 0.5px solid var(--ion-color-success);
+    box-shadow: none;
+    padding: 3px 10px;
+    width: 90%;
+    margin: 30px auto;
+    font-weight: 550;
+    ion-item{
+        color: var(--ion-color-primary);
+    }
 }

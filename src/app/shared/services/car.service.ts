@@ -37,11 +37,40 @@ export class CarService {
     return this.httpApiClient.get<any>(`cars/defaultServices`)
   }
   
-  getUserServices(): Observable<any> {
-    return this.httpApiClient.get<any>(`cars/activeServices`)
+  getUserServices(id:number): Observable<any> {
+    return this.httpApiClient.get<any>(`cars/activeServices/${id}`)
+  }
+
+  getAllServices(id:number): Observable<any> {
+    return this.httpApiClient.get<any>(`cars/getAllServices/${id}`)
+  }
+
+  getCompletedServices(id:number): Observable<any> {
+    return this.httpApiClient.get<any>(`cars/completedServices/${id}`)
   }
 
   completeService(data): Observable<any> {
     return this.httpApiClient.post<any>(`cars/completeService`,data,true)
   }
+
+  addCustomService(data): Observable<any> {
+    return this.httpApiClient.post<any>(`cars/addCustomService`,data,true)
+  }
+
+  updateService(data): Observable<any> {
+    return this.httpApiClient.post<any>(`cars/updateService`,data,true)
+  }
+
+  addMod(data): Observable<any> {
+    return this.httpApiClient.post<any>(`cars/addMod`,data,true)
+  }
+
+  getAllMods(id:number): Observable<any> {
+    return this.httpApiClient.get<any>(`cars/getAllMods/${id}`)
+  }
+
+  countServiceCars(): Observable<any> {
+    return this.httpApiClient.get<any>(`cars/countServiceCars`)
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import { first } from 'rxjs';
@@ -13,7 +13,7 @@ import { CarService } from 'src/app/shared/services/car.service';
 })
 export class CompleteServiceComponent  implements OnInit {
   serviceForm:FormGroup
-  
+  @Input() service:any
   constructor(public modalCtrl: ModalController,
     private alertController: AlertController,
     private carService: CarService,
@@ -61,6 +61,7 @@ export class CompleteServiceComponent  implements OnInit {
       return;
     }else{
       let data = {
+        service_id: this.service.id,
         price: this.serviceForm.value.price,
         product_used: this.serviceForm.value.product_used,
       }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { IonContent, IonModal, ModalController, ViewWillEnter } from '@ionic/angular';
+import { IonContent, IonModal, IonSelect, ModalController, ViewWillEnter } from '@ionic/angular';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ChangeSettingsComponent } from './components/change-settings/change-settings.component';
 import { AddServiceComponent } from './components/add-service/add-service.component';
@@ -42,8 +42,13 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
   @ViewChild('dateModal') modal: IonModal
   @Input() car:any;
   @ViewChild(IonContent, { static: false }) content!: IonContent;
-  defaultServices:Array<any>;
+  @ViewChild('addSelect', { static: false }) addSelect: IonSelect;
+  allServices:Array<any>;
   services:Array<any>;
+  addOptions = [
+    { value: 'service', label: 'Add New Service' },
+    { value: 'mod', label: 'Add New Mod' },
+  ];
 
   constructor(public modalCtrl: ModalController,
     private carService: CarService,
@@ -62,7 +67,7 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
       this.type = 'firstStep'
     }else{
       await Promise.all([
-        this.getDefaultServices(),
+        this.getAllServices(),
         this.getServices()
       ]);
         this.type = 'thirdStep'
@@ -73,7 +78,7 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
     this.type = 'secondStep'
     setTimeout(async() => {
       await Promise.all([
-        this.getDefaultServices(),
+        this.getAllServices(),
         this.getServices()
       ]);
         this.type = 'thirdStep'
@@ -89,13 +94,28 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
     }, 200); // Short delay to allow focus change detection
   }
 
+  async handleAddOption(event: CustomEvent) {
+    const selectedValue = event.detail.value;
+    if (selectedValue === 'service') {
+      await this.addServiceModal('service');
+    } else if (selectedValue === 'mod') {
+      await this.addServiceModal('mod');
+    }
+
+    // Reset the ion-select value to null after action
+    if (this.addSelect) {
+      this.addSelect.value = null;
+    }
+  }
+
 
    async changeSettingsModal(){
       const modal = await this.modalCtrl.create({
         component: ChangeSettingsComponent,
         cssClass: 'editServiceSettings',
         componentProps:{
-          defaultServices:this.defaultServices
+          services:this.allServices,
+          car:this.car
         },
         backdropDismiss: true, 
         animated: true, 
@@ -109,10 +129,14 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
       }
     }
 
-   async addServiceModal(){
+   async addServiceModal(type:string){
       const modal = await this.modalCtrl.create({
         component: AddServiceComponent,
         cssClass: 'addServiceModal',
+        componentProps:{
+            car:this.car,
+            type:type
+        },
         backdropDismiss: true, 
         animated: true, 
       });
@@ -121,7 +145,10 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
     
       const {data} = await modal.onDidDismiss();
     
-      if(data){
+      if(data?.value){
+        if(type === 'service'){
+          this.allServices.push(data?.value)
+        }
       }
     }
 
@@ -161,16 +188,16 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
       return dateRegex.test(value);
     }
 
-    getDefaultServices(){
-      this.carService.getDefaultServices().pipe(first()).subscribe({
+    getAllServices(){
+      this.carService.getAllServices(this.car.id).pipe(first()).subscribe({
         next:(response)=>{
-            this.defaultServices = response.data
+            this.allServices = response.data
         }
       })
     }
 
     getServices(){
-      this.carService.getUserServices().pipe(first()).subscribe({
+      this.carService.getUserServices(this.car.id).pipe(first()).subscribe({
         next:(response)=>{
             this.services = response.data
         }

@@ -9,10 +9,13 @@ import { AddServiceComponent } from '../add-service/add-service.component';
   styleUrls: ['./change-settings.component.scss'],
 })
 export class ChangeSettingsComponent  implements OnInit {
-  @Input() defaultServices:any
+  @Input() services:any
+  @Input() car:any;
   constructor(public modalCtrl: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.services)
+  }
 
 
      async editService(service:any){
@@ -20,7 +23,8 @@ export class ChangeSettingsComponent  implements OnInit {
           component: AddServiceComponent,
           cssClass: 'addServiceModal',
           componentProps:{
-              service:service
+              service:service,
+              car:this.car
           },
           backdropDismiss: true, 
           animated: true, 
@@ -30,7 +34,12 @@ export class ChangeSettingsComponent  implements OnInit {
       
         const {data} = await modal.onDidDismiss();
       
-        if(data){
+        if(data?.value){
+            // Update the service in the services array
+            const index = this.services.findIndex(s => s.id === service.id);
+            if (index !== -1) {
+              this.services[index] = { ...this.services[index], ...data.value };
+            }
         }
       }
 

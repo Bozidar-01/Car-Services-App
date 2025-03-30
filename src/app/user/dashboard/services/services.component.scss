@@ -88,3 +88,14 @@ ion-fab-button{
 ion-modal {
     --height: auto;
   }
+
+  ion-fab-button {
+    --overflow: visible; // Ensure select dropdown isn’t clipped
+  }
+  
+  ion-select {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0; // Hide the select visually, but keep it clickable
+  }

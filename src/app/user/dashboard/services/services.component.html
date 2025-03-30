@@ -103,7 +103,7 @@
 
 <!-- THIRD STEP -->
 <div *ngIf="type == 'thirdStep'" [@enterRightAnimation] style="margin-top: 30px;">
-  <ion-card button (click)="type='needsService'">
+  <ion-card button (click)="type='needsService'" *ngIf="services?.length">
     <div class="subtitle-overlay-alert"></div>
     <ion-item lines="none">
       <ion-label style="font-size: 16px; font-weight: bold; color: rgb(180, 139, 6);">
@@ -134,11 +134,11 @@
 </div>
 
 <div *ngIf="type == 'serviced'" [@enterAnimation] style="margin-top: 0;">
-<app-serviced></app-serviced>
+<app-serviced [car]="car"></app-serviced>
 </div>
 
 <div *ngIf="type == 'mods'" [@enterAnimation] style="margin-top: 0;">
-<app-mods></app-mods>
+<app-mods [car]="car"></app-mods>
 </div>
 
 
@@ -147,11 +147,22 @@
    </div>
 
    <div  *ngIf="type=='thirdStep'">
-     <ion-fab slot="fixed" vertical="bottom" horizontal="start">
-       <ion-fab-button color="snow" (click)="addServiceModal()">
-         <ion-icon name="add-outline" color="primary"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="start">
+      <ion-fab-button color="snow">
+        <ion-icon name="add-outline" color="primary"></ion-icon>
+        <ion-select 
+          #addSelect 
+          interface="action-sheet" 
+          [interfaceOptions]="{ header: 'Select' }"
+          [value]="null"
+          (ionChange)="handleAddOption($event)"
+        >
+          <ion-select-option *ngFor="let option of addOptions" [value]="option.value">
+            {{ option.label }}
+          </ion-select-option>
+        </ion-select>
+      </ion-fab-button>
+    </ion-fab>
       <ion-fab slot="fixed" vertical="bottom" horizontal="end" >
         <ion-fab-button color="snow" (click)="changeSettingsModal()">
           <ion-icon name="cog-outline" ></ion-icon>

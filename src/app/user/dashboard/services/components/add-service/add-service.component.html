@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border" style="background: #fff !important; padding: 10px;">
   <ion-toolbar class="ion-no-border" style="--background: #fff !important;">
     <ion-label slot="start" style="font-size:18px; font-weight: bold;">
-      Add a custom service
+      {{type === 'service' ? 'Add a custom service' : 'Add a mod'}}
     </ion-label>
     <ion-buttons slot="end">
         <ion-button (click)="modalCtrl.dismiss()" style="font-size: 22px;">
@@ -13,7 +13,7 @@
 
 
 <ion-content>
-  <form [formGroup]="serviceForm">
+  <form *ngIf="type === 'service'" [formGroup]="serviceForm">
     <ion-item lines="none" style="margin-top: 10px;">
       <ion-card>
         <ion-input formControlName="name" style="--placeholder-opacity:1;" type="text" placeholder="Service Name"></ion-input>
@@ -29,12 +29,25 @@
       </ion-card>
     </ion-item>
   </form>
+
+  <form *ngIf="type === 'mod'" [formGroup]="modForm">
+    <ion-item lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-input formControlName="mod_type" style="--placeholder-opacity:1;" type="text" placeholder="Mod Type"></ion-input>
+      </ion-card>
+    </ion-item>
+    <ion-item lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-input formControlName="price" style="--placeholder-opacity:1;" type="number" placeholder="Price"></ion-input>
+      </ion-card>
+    </ion-item>
+  </form>
   </ion-content>
 
 
 <ion-footer style="padding: 10px;">
   <ion-button color="primary" style="width: 95%; margin: 0 auto;" expand="block" shape="round"
-   (click)="modalCtrl.dismiss()">
-    {{service ? 'Update' : 'Add Service'}}
+  (click)="type === 'service' ? (service ? updateService() : addCustomService()) : addMod()">
+    {{type === 'service' ? service ? 'Update' : 'Add Service' : 'Add Mod'}}
   </ion-button>
 </ion-footer>
