@@ -40,28 +40,33 @@ export class AvailableCarsComponent  implements OnInit {
   
     const {data} = await modal.onDidDismiss();
   
-    if(data){
+    if(data?.value){
+      this.getCars()
+      this.getCarBrands()
     }
   }
 
 
-  toggleCard(event: Event,filter:string) {
+  toggleCard(event: Event, filter: string) {
     const clickedCard = event.currentTarget as HTMLElement;
-    this.selectedFilter = filter
+    this.selectedFilter = filter;
 
-    if(filter=='cars'){
-      this.filteredCars = this.cars
+    if (filter === 'cars') {
+      this.filteredCars = this.cars;
     }
-    // Remove 'clicked' class from the previously selected card
+
+    // Remove 'clicked' class from the previously selected card (if different)
     if (this.selectedCard && this.selectedCard !== clickedCard) {
       this.selectedCard.classList.remove("clicked");
     }
-  
-    // Toggle 'clicked' class on the newly clicked card
-    clickedCard.classList.toggle("clicked");
-  
+
+    // Add 'clicked' class, but don’t remove it if already present
+    if (!clickedCard.classList.contains("clicked")) {
+      clickedCard.classList.add("clicked");
+    }
+
     // Update the selected card
-    this.selectedCard = clickedCard.classList.contains("clicked") ? clickedCard : null;
+    this.selectedCard = clickedCard;
   }
 
   getCars(){

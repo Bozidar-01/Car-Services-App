@@ -29,6 +29,19 @@ export class CarService {
     return this.httpApiClient.post<any>(`cars/addUserCar`,data,true)
   }
 
+  addNewUserCarDetails(data:any): Observable<any> {
+    return this.httpApiClient.post<any>(`cars/updateUserCar`,data,true)
+  }
 
+  getDefaultServices(): Observable<any> {
+    return this.httpApiClient.get<any>(`cars/defaultServices`)
+  }
+  
+  getUserServices(): Observable<any> {
+    return this.httpApiClient.get<any>(`cars/activeServices`)
+  }
 
+  completeService(data): Observable<any> {
+    return this.httpApiClient.post<any>(`cars/completeService`,data,true)
+  }
 }

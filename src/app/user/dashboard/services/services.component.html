@@ -2,7 +2,7 @@
   <div class="header">
     <ion-toolbar class="ion-no-border" style="--background: transparent !important;">
       <ion-buttons slot="start">
-          <ion-button (click)="modalCtrl.dismiss()" style="font-size: 16px;" color="snow">
+          <ion-button (click)="modalCtrl.dismiss({value:''})" style="font-size: 16px;" color="snow">
             <ion-icon name="chevron-back-outline"></ion-icon>
           </ion-button>
       </ion-buttons>
@@ -40,24 +40,58 @@
 
  
     <!-- FIRST STEP -->
-<div *ngIf="type == 'firstStep'" [@enterAnimation] style="margin-top: 30px;">
-  <ion-item lines="none" >
-    <ion-card class="input">
-      <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="Purchase date"></ion-input>
-    </ion-card>
-  </ion-item>
+     <form [formGroup]="newCarForm">
+       <div *ngIf="type == 'firstStep'" [@enterAnimation] style="margin-top: 30px;">
+         <ion-item lines="none"  id="datePickerModal">
+           <ion-card class="input">
+             <!-- <ion-input formControlName="purchase_date" (ionBlur)="scrollToTop()" type="text" placeholder="Purchase date"></ion-input> -->
+             <ion-label
+             style="padding: 14px 0"
+             class="ion-no-padding"
+           >
+           <p style="font-weight: 600;">
+             {{ newCarForm?.get('purchase_date')?.value ?(newCarForm?.get('purchase_date')?.value | date: 'MMM d, y') : 'Purchase Date'}}
+             </p>
+           </ion-label>
+            </ion-card>
+          </ion-item>
 
-  <ion-item lines="none">
-    <ion-card class="input">
-      <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="KM on car"></ion-input>
-    </ion-card>
-  </ion-item>
-
-  <ion-button color="primary" style="width: 92%; margin: 20px auto;" expand="block" shape="round"
-    (click)="submit()">
-    Submit
-  </ion-button>
-</div>
+          <ion-modal
+          #dateModal
+          [initialBreakpoint]="1"
+          [breakpoints]="[0, 1]"
+          [keepContentsMounted]="true"
+          trigger="datePickerModal"
+          cssClass="bottom-modal my-custom-modal"
+        >
+          <ng-template>
+            <ion-card-subtitle style="text-transform: none; padding: 20px; font-size: 26px;" color="dark">
+              Purchase Date
+            </ion-card-subtitle>
+            <ion-datetime
+              style="width: 100%; height: 350px; background: var(--ion-color-snow); padding-bottom: 20px;"
+              presentation="date"
+              [locale]="'en-EN'"
+              size="cover"
+              id="datetime"
+              formControlName="purchase_date"
+              (ionChange)="selectDate($event)"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+          
+          <ion-item lines="none">
+            <ion-card class="input">
+              <ion-input formControlName="car_km" (ionBlur)="scrollToTop()" type="text" placeholder="KM on car"></ion-input>
+            </ion-card>
+          </ion-item>
+          
+          <ion-button color="primary" style="width: 92%; margin: 20px auto;" expand="block" shape="round"
+          (click)="addNewCarDetails()">
+          Submit
+        </ion-button>
+      </div>
+    </form>
 
 <!-- SECOND STEP -->
 <div *ngIf="type == 'secondStep'" [@enterAnimation] [@exitLeftAnimation] style="margin-top: 30px;">
@@ -73,7 +107,7 @@
     <div class="subtitle-overlay-alert"></div>
     <ion-item lines="none">
       <ion-label style="font-size: 16px; font-weight: bold; color: rgb(180, 139, 6);">
-        5 Items Need Attention
+        {{services.length}} {{services.length>1 ? 'Items' : 'Item'}} {{services.length>1 ? 'Need' : 'Needs'}} Attention
       </ion-label>
     </ion-item>
   </ion-card>
@@ -96,7 +130,7 @@
 </div>
 
 <div *ngIf="type == 'needsService'" [@enterAnimation] style="margin-top: 30px;">
-<app-needs-service></app-needs-service>
+<app-needs-service [services]="services"></app-needs-service>
 </div>
 
 <div *ngIf="type == 'serviced'" [@enterAnimation] style="margin-top: 0;">
@@ -111,7 +145,7 @@
 
       </div>
    </div>
-   
+
    <div  *ngIf="type=='thirdStep'">
      <ion-fab slot="fixed" vertical="bottom" horizontal="start">
        <ion-fab-button color="snow" (click)="addServiceModal()">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AddServiceComponent } from '../add-service/add-service.component';
 
@@ -9,16 +9,19 @@ import { AddServiceComponent } from '../add-service/add-service.component';
   styleUrls: ['./change-settings.component.scss'],
 })
 export class ChangeSettingsComponent  implements OnInit {
-
+  @Input() defaultServices:any
   constructor(public modalCtrl: ModalController) { }
 
   ngOnInit() {}
 
 
-     async editService(){
+     async editService(service:any){
         const modal = await this.modalCtrl.create({
           component: AddServiceComponent,
           cssClass: 'addServiceModal',
+          componentProps:{
+              service:service
+          },
           backdropDismiss: true, 
           animated: true, 
         });

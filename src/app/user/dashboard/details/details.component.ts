@@ -39,7 +39,7 @@ selectedModel:any = null
       next:(response)=>{
         this.alertsService.presentToast('Car Added Successfully', 'bottom' , 'success');
         
-        this.modalCtrl.dismiss()
+        this.modalCtrl.dismiss({value:'done'})
       }
     })
   }else{

@@ -1,12 +1,12 @@
-<ion-card class="service-card" *ngFor="let item of [0,1,2,3]">
+<ion-card class="service-card" *ngFor="let service of services">
   <ion-item lines="none">
       <ion-label>
-        Brake Fluid
+          {{service.default_service.name}}
         <br>
-        <small style="font-size: 14px;">Overdue: 2 days</small>
+        <small style="font-size: 14px;">{{ getDaysDifference(service.next_service).text }}</small>
       </ion-label>
       <ion-label slot="end">
-        <ion-button fill="outline" (click)="presentAlert()">
+        <ion-button fill="outline" (click)="completeServiceModal(service)">
           Complete Service
         </ion-button>
       </ion-label>

@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -16,6 +16,7 @@ import { NeedsServiceComponent } from './services/components/needs-service/needs
 import { ModsComponent } from './services/components/mods/mods.component';
 import { AddServiceComponent } from './services/components/add-service/add-service.component';
 import { ChangeSettingsComponent } from './services/components/change-settings/change-settings.component';
+import { CompleteServiceComponent } from './services/components/complete-service/complete-service.component';
 
 @NgModule({
   imports: [
@@ -23,8 +24,9 @@ import { ChangeSettingsComponent } from './services/components/change-settings/c
     FormsModule,
     IonicModule,
     DashboardPageRoutingModule,
+    ReactiveFormsModule
   ],
-  declarations: [DashboardPage,DetailsComponent,AvailableCarsComponent,MyCarsComponent,ServicesComponent,ServicedComponent,NeedsServiceComponent,ModsComponent,AddServiceComponent,ChangeSettingsComponent],
+  declarations: [DashboardPage,DetailsComponent,AvailableCarsComponent,MyCarsComponent,ServicesComponent,ServicedComponent,NeedsServiceComponent,ModsComponent,AddServiceComponent,ChangeSettingsComponent,CompleteServiceComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
   
 })

@@ -16,10 +16,10 @@
 
   <ion-list class="ion-padding">
 
-    <ion-card *ngFor="let item of [1,2,3,4,5]" button>
+    <ion-card *ngFor="let service of defaultServices" button>
 
-    <ion-item lines="none"  (click)="editService()">
-        Engine Oil 
+    <ion-item lines="none"  (click)="editService(service)">
+        {{service.name}} 
         <ion-icon slot="end" color="medium" name="chevron-forward-outline"></ion-icon>
     </ion-item>
 

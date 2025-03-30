@@ -21,9 +21,12 @@ export class MyCarsComponent  implements OnInit {
    this.getMyCars()
   }
 
-    async viewServices(){
+    async viewServices(car:any){
       const modal = await this.modalCtrl.create({
         component: ServicesComponent,
+        componentProps:{
+          car:car
+        },
         cssClass: '',
         backdropDismiss: true, 
         animated: true, 
@@ -34,6 +37,7 @@ export class MyCarsComponent  implements OnInit {
       const {data} = await modal.onDidDismiss();
     
       if(data){
+        this.getMyCars()
       }
     }
 

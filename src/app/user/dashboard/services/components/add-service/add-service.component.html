@@ -13,26 +13,28 @@
 
 
 <ion-content>
-  <ion-item lines="none" style="margin-top: 10px;">
-    <ion-card>
-      <ion-input style="--placeholder-opacity:1;" type="text" placeholder="Service Name"></ion-input>
-    </ion-card>
-</ion-item>
-  <ion-item lines="none" style="margin-top: 10px;">
-    <ion-card>
-      <ion-select style="width: 100%;" interface="action-sheet" label="Service Interval">
-        <ion-select-option value="interface" *ngFor="let interval of serviceIntervals">
+  <form [formGroup]="serviceForm">
+    <ion-item lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-input formControlName="name" style="--placeholder-opacity:1;" type="text" placeholder="Service Name"></ion-input>
+      </ion-card>
+    </ion-item>
+    <ion-item lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-select formControlName="service_interval" style="width: 100%;" interface="action-sheet" label="Service Interval">
+          <ion-select-option [value]="interval" *ngFor="let interval of serviceIntervals">
             {{interval}} km
-        </ion-select-option>
-      </ion-select>
-    </ion-card>
-</ion-item>
-</ion-content>
+          </ion-select-option>
+        </ion-select>
+      </ion-card>
+    </ion-item>
+  </form>
+  </ion-content>
 
 
 <ion-footer style="padding: 10px;">
   <ion-button color="primary" style="width: 95%; margin: 0 auto;" expand="block" shape="round"
    (click)="modalCtrl.dismiss()">
-    Add Service
+    {{service ? 'Update' : 'Add Service'}}
   </ion-button>
 </ion-footer>

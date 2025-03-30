@@ -1,0 +1,37 @@
+<ion-header class="ion-no-border" style="background: #fff !important; padding: 10px;">
+  <ion-toolbar class="ion-no-border" style="--background: #fff !important;">
+    <ion-label slot="start" style="font-size:18px; font-weight: bold;">
+      Complete Service
+    </ion-label>
+    <ion-buttons slot="end">
+        <ion-button (click)="modalCtrl.dismiss()" style="font-size: 22px;">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content scrollY="false">
+  <form [formGroup]="serviceForm">
+    <ion-item lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-input formControlName="price" style="--placeholder-opacity:1;" type="text" placeholder="Price"></ion-input>
+      </ion-card>
+    </ion-item>
+    <ion-item lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-input formControlName="product_used" style="--placeholder-opacity:1;" type="text" 
+        placeholder="Product Used"></ion-input>
+      </ion-card>
+    </ion-item>
+  </form>
+  </ion-content>
+
+
+<ion-footer style="padding: 10px;">
+  <ion-button color="primary" style="width: 95%; margin: 0 auto;" expand="block" shape="round"
+   (click)="presentAlert()">
+    Complete Service
+  </ion-button>
+</ion-footer>
