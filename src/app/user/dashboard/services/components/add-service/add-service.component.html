@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border" style="background: #fff !important; padding: 10px;">
+  <ion-toolbar class="ion-no-border" style="--background: #fff !important;">
+    <ion-label slot="start" style="font-size:18px; font-weight: bold;">
+      Add a custom service
+    </ion-label>
+    <ion-buttons slot="end">
+        <ion-button (click)="modalCtrl.dismiss()" style="font-size: 22px;">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-item lines="none" style="margin-top: 10px;">
+    <ion-card>
+      <ion-input style="--placeholder-opacity:1;" type="text" placeholder="Service Name"></ion-input>
+    </ion-card>
+</ion-item>
+  <ion-item lines="none" style="margin-top: 10px;">
+    <ion-card>
+      <ion-select style="width: 100%;" interface="action-sheet" label="Service Interval">
+        <ion-select-option value="interface" *ngFor="let interval of serviceIntervals">
+            {{interval}} km
+        </ion-select-option>
+      </ion-select>
+    </ion-card>
+</ion-item>
+</ion-content>
+
+
+<ion-footer style="padding: 10px;">
+  <ion-button color="primary" style="width: 95%; margin: 0 auto;" expand="block" shape="round"
+   (click)="modalCtrl.dismiss()">
+    Add Service
+  </ion-button>
+</ion-footer>

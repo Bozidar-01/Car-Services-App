@@ -111,16 +111,18 @@
 
       </div>
    </div>
+   
    <div  *ngIf="type=='thirdStep'">
      <ion-fab slot="fixed" vertical="bottom" horizontal="start">
-       <ion-fab-button color="snow">
+       <ion-fab-button color="snow" (click)="addServiceModal()">
          <ion-icon name="add-outline" color="primary"></ion-icon>
         </ion-fab-button>
       </ion-fab>
       <ion-fab slot="fixed" vertical="bottom" horizontal="end" >
-        <ion-fab-button color="snow">
+        <ion-fab-button color="snow" (click)="changeSettingsModal()">
           <ion-icon name="cog-outline" ></ion-icon>
         </ion-fab-button>
       </ion-fab>
     </div>
+
 </ion-content>

@@ -8,7 +8,8 @@
             <img src="assets/profile.png" style="width: 40%;  border-radius: 10px; object-fit: cover; margin: 0 auto; border-radius: 50%; display: flex; justify-content: center; padding: 2px 0; " />
             <ion-button class="ion-no-padding ion-no-margin galleryImg" onclick="document.getElementById('fileInput').click()" fill="clear">
             <ion-icon
-            color="snow"
+            style="background: #fff; border-radius: 50%; padding: 5px; font-size: 22px;"
+            color="dark"
               name="image"
             ></ion-icon>
             <input
@@ -31,7 +32,7 @@
       
         <ion-item lines="none" style="margin-top: 100px;">
           <ion-card>
-            <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="Name"></ion-input>
+            <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="First Name"></ion-input>
           </ion-card>
       </ion-item>
         <ion-item lines="none">

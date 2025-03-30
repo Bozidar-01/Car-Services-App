@@ -14,6 +14,8 @@ import { ServicesComponent } from './services/services.component';
 import { ServicedComponent } from './services/components/serviced/serviced.component';
 import { NeedsServiceComponent } from './services/components/needs-service/needs-service.component';
 import { ModsComponent } from './services/components/mods/mods.component';
+import { AddServiceComponent } from './services/components/add-service/add-service.component';
+import { ChangeSettingsComponent } from './services/components/change-settings/change-settings.component';
 
 @NgModule({
   imports: [
@@ -22,7 +24,7 @@ import { ModsComponent } from './services/components/mods/mods.component';
     IonicModule,
     DashboardPageRoutingModule,
   ],
-  declarations: [DashboardPage,DetailsComponent,AvailableCarsComponent,MyCarsComponent,ServicesComponent,ServicedComponent,NeedsServiceComponent,ModsComponent],
+  declarations: [DashboardPage,DetailsComponent,AvailableCarsComponent,MyCarsComponent,ServicesComponent,ServicedComponent,NeedsServiceComponent,ModsComponent,AddServiceComponent,ChangeSettingsComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
   
 })

@@ -183,3 +183,20 @@ ion-header{
   transform: translate(-50%, -50%);
   z-index: 2;
 }
+
+
+.addServiceModal{
+  --width: 90%;
+  --height: 320px;
+  --border-radius: 12px;
+  --background: #fff !important;
+  --backdrop-opacity:0.6 !important;
+}
+
+.editServiceSettings{
+  --width: 95%;
+  --height: 80%;
+  --border-radius: 12px;
+  --background: #fff !important;
+  --backdrop-opacity:0.6 !important;
+}

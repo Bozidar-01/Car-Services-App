@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { CarService } from 'src/app/shared/services/car.service';
+import { first } from 'rxjs';
 @Component({
   standalone:false,
   selector: 'app-dashboard',
@@ -27,9 +29,10 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 export class DashboardPage implements OnInit {
   carsSegment:string = 'own'
-  constructor() { }
+  constructor(private carService: CarService) { }
 
   ngOnInit() {
+    this.getBrands()
   }
 
 
@@ -39,6 +42,15 @@ export class DashboardPage implements OnInit {
     }, 200);
   }
 
+
+  getBrands(){
+
+      this.carService.getCars().pipe(first()).subscribe({
+        next:(response)=>{
+          console.log(response)
+        }
+      })
+  }
   
 
 }

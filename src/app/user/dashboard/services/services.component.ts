@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, ModalController } from '@ionic/angular';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { ChangeSettingsComponent } from './components/change-settings/change-settings.component';
+import { AddServiceComponent } from './components/add-service/add-service.component';
 
 @Component({
   standalone:false,
@@ -36,7 +38,9 @@ export class ServicesComponent  implements OnInit {
 
   constructor(public modalCtrl: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.addServiceModal()
+  }
 
 
   submit(){
@@ -54,5 +58,38 @@ export class ServicesComponent  implements OnInit {
       }
     }, 200); // Short delay to allow focus change detection
   }
+
+
+   async changeSettingsModal(){
+      const modal = await this.modalCtrl.create({
+        component: ChangeSettingsComponent,
+        cssClass: 'editServiceSettings',
+        backdropDismiss: true, 
+        animated: true, 
+      });
+    
+      await modal.present();
+    
+      const {data} = await modal.onDidDismiss();
+    
+      if(data){
+      }
+    }
+
+   async addServiceModal(){
+      const modal = await this.modalCtrl.create({
+        component: AddServiceComponent,
+        cssClass: 'addServiceModal',
+        backdropDismiss: true, 
+        animated: true, 
+      });
+    
+      await modal.present();
+    
+      const {data} = await modal.onDidDismiss();
+    
+      if(data){
+      }
+    }
 
 }

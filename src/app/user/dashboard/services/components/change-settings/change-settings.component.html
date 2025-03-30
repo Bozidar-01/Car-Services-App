@@ -1,0 +1,30 @@
+<ion-header class="ion-no-border" style="background: #fff !important; padding: 10px;">
+  <ion-toolbar class="ion-no-border" style="--background: #fff !important;">
+    <ion-label slot="start" style="font-size:20px; font-weight: bold;">
+      Change Service Settings
+    </ion-label>
+    <ion-buttons slot="end">
+        <ion-button (click)="modalCtrl.dismiss()" style="font-size: 22px;">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list class="ion-padding">
+
+    <ion-card *ngFor="let item of [1,2,3,4,5]" button>
+
+    <ion-item lines="none"  (click)="editService()">
+        Engine Oil 
+        <ion-icon slot="end" color="medium" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+
+    </ion-card>
+
+  </ion-list>
+
+</ion-content>
