@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DetailsComponent } from '../details/details.component';
 import { ServicesComponent } from '../services/services.component';
+import { CarService } from 'src/app/shared/services/car.service';
+import { first } from 'rxjs';
 
 @Component({
   standalone:false,
@@ -11,10 +13,12 @@ import { ServicesComponent } from '../services/services.component';
 })
 export class MyCarsComponent  implements OnInit {
 
-  constructor(private modalCtrl: ModalController) { }
+  myCars: Array<any> = []
+
+  constructor(private modalCtrl: ModalController, private carService: CarService) { }
 
   ngOnInit() {
-    // this.viewServices()
+   this.getMyCars()
   }
 
     async viewServices(){
@@ -31,6 +35,14 @@ export class MyCarsComponent  implements OnInit {
     
       if(data){
       }
+    }
+
+    getMyCars(){
+      this.carService.getUserCars().pipe(first()).subscribe({
+        next:(response)=>{
+            this.myCars = response.data
+        }
+      })
     }
 
 }

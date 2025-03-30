@@ -4,20 +4,20 @@ slides-per-view="1.2"
 centered-slides="true"
 space-between="15"
 >
-<swiper-slide class="swiper-slide" *ngFor="let car of [0,1]">
+<swiper-slide class="swiper-slide" *ngFor="let car of myCars">
   <div class="custom-card">
     <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
-      Audi
+      {{ car.car_model.cars.model.split(' ')[0] }}
     </ion-card-subtitle>
     <ion-img src="assets/car.png"></ion-img>
     <ion-card-subtitle style="text-transform: none; font-size: 20px; padding: 15px; font-weight: 550; position: absolute; bottom: 65px; left: 50%; transform: translate(-50%);" color="dark">
-      A6
+      {{ car.car_model.cars.model.split(' ')[1] }}
     </ion-card-subtitle>
     <ion-button 
     expand="block" 
     shape="round" 
     color="primary" 
-    class="view-details-button"
+    class="view-details-button"s
     (click)="viewServices()">
     Track Services
   </ion-button>

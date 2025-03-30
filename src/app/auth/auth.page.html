@@ -7,21 +7,27 @@
       Login
     </ion-card-subtitle>
 
+    
+    
     <ion-list>
+
+      <form [formGroup]="loginForm">
       <ion-item lines="none">
           <ion-card>
-            <ion-input type="text" placeholder="E-mail address"></ion-input>
+            <ion-input formControlName="email" type="text" placeholder="E-mail address"></ion-input>
           </ion-card>
       </ion-item>
       <ion-item lines="none">
           <ion-card>
-            <ion-input type="password" placeholder="Password"></ion-input>
+            <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
           </ion-card>
       </ion-item>
+      </form>
 
       <ion-button expand="block" (click)="login()">
           Login
       </ion-button>
+      
     </ion-list>
 
 </ion-content>

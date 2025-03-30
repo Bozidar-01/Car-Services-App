@@ -18,26 +18,30 @@
 </ion-item>
 
 
-<ion-item *ngFor="let engine of engines" lines="none" button>
+<ion-item *ngFor="let model of models" lines="none" button (click)="selectModel(model)">
   <ion-label>
     <b style="color: var(--ion-color-primary);">Engine</b> <br>
-    {{engine.engine}}
+    {{model?.engines.type}}
   </ion-label>
   <ion-label>
+    <b style="color: var(--ion-color-primary);">Color</b> <br>
+    {{model?.colors}} 
+  </ion-label>
+  <ion-label style="padding-left: 20px;">
     <b style="color: var(--ion-color-primary);">Power</b> <br>
-    {{engine.power}}
+    {{model?.engines.power}} HP
   </ion-label>
 </ion-item>
 </ion-content>
 
 <ion-footer style="padding: 10px;">
-  <ion-item lines="none">
+  <ion-item lines="none" *ngIf="selectedModel">
     <ion-label style="font-size:14px; font-weight: bold; color: var(--ion-color-primary);">
-      You have selected 2.7TDI with 190Hp
+      You have selected {{selectedModel.engines.type}} with {{selectedModel.engines.power}} HP
     </ion-label>
   </ion-item>
   <ion-button color="primary" style="width: 95%; margin: 0 auto;" expand="block" shape="round"
-   (click)="modalCtrl.dismiss()">
+   (click)="addNewCar()">
     Confirm
   </ion-button>
 </ion-footer>

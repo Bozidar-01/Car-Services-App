@@ -32,51 +32,33 @@ export class AuthenticationService {
         }
       
 
-        this.signedInUser = response.user
+        this.signedInUser = response.data.user
   
         // Log the parsed login response
         if (response.status === 200) {
-          // let userData = response.user
-          // let user = {
-          //   email: userData.email,
-          //   device_id:userData.device_id,
-          //   verification_code: userData.verification_code
-            
-          // }
-          // console.log(userData)
-          
          
-          // if(response.user.is_admin==='1'){
-          //   const newLoginReq: verifyResponse = {
-          //     token: response.user.token,
-          //   };
-          //   let userData = response.user
-          //   let user = new User();
-          //   user = {
-          //     id: userData.id,
-          //     name: userData.name,
-          //     email: userData.email,
-          //     is_admin:userData.is_admin,
-          //     phone:userData.phone,
-          //     token:userData.token,
-          //     device_id:userData.device_id,
-          //     verification_code:userData.verification_code,
-          //     created_at:userData.created_at,
-          //     updated_at:userData.updated_at,
+          if(response.data.user){
+            const newLoginReq: verifyResponse = {
+              token: response.data.token,
+            };
+            let userData = response.data.user
+            let user = new User();
+            user = {
+              id: userData.id,
+              name: userData.name,
+              email: userData.email,              
+            }
+            Preferences.set({
+              key: environment.carServiceStorageKey.user, value: JSON.stringify(user)
+            })
+            Preferences.set({
+              key: environment.carServiceStorageKey.token,
+              value: JSON.stringify(newLoginReq)
+            });
+              this.httpApiClient.setToken(newLoginReq);
               
-          //   }
-          //   Preferences.set({
-          //     key: environment.tipptioStorageKey.user, value: JSON.stringify(user)
-          //   })
-          //   Preferences.set({
-          //     key: environment.tipptioStorageKey.token,
-          //     value: JSON.stringify(newLoginReq)
-          //   });
-          //     this.httpApiClient.setToken(newLoginReq);
-              
-          //   this.userSubject$.next(user);
-          //   this.httpApiClient.setUserRole(user.is_admin)  
-          // }
+            this.userSubject$.next(user);
+          }
             
         } 
         else{
@@ -175,7 +157,7 @@ export class AuthenticationService {
           token: response.data.token,
         };
 
-        this.signedInUser = response.user
+        this.signedInUser = response.data.user
   
         // Log the parsed login response
         let user = new User();
@@ -183,31 +165,9 @@ export class AuthenticationService {
           let userData = response.data
           user = {
             id: userData.id,
-            accuracy: userData.accuracy,
-            followers: userData.followers,
-            following: userData.following,
-            following_users: userData.following_users,
-            first_name: userData.first_name,
-            last_name: userData.last_name,
-            favorite_team: userData.favorite_team,
+            name: userData.name,
             email: userData.email,
-            badge_days_7: userData.badge_days_7,
-            badge_days_31: userData.badge_days_31,
-            balance: userData.balance,
-            bio: userData.bio,
-            expert: userData.expert,
-            payments: userData.payments,
-            points: userData.points,
-            last_week_rank: userData.last_week_rank,
-            overall: userData.overall,
-            winning: userData.winning,
-            profile_picture: userData.profile_picture,
-            rank: userData.rank,
-            autorenew: userData.autorenew,
-            rate: userData.rate,
-            subscription: userData.subscription,
-            subscription_ends_at: userData.subscription_ends_at,
-            token:userData.token,          
+         
           }
        
 
