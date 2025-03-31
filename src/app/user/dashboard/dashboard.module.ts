@@ -17,6 +17,7 @@ import { ModsComponent } from './services/components/mods/mods.component';
 import { AddServiceComponent } from './services/components/add-service/add-service.component';
 import { ChangeSettingsComponent } from './services/components/change-settings/change-settings.component';
 import { CompleteServiceComponent } from './services/components/complete-service/complete-service.component';
+import { SkeletonLoaderComponent } from 'src/app/shared/components/skeleton-loader/skeleton-loader.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,7 @@ import { CompleteServiceComponent } from './services/components/complete-service
     DashboardPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [DashboardPage,DetailsComponent,AvailableCarsComponent,MyCarsComponent,ServicesComponent,ServicedComponent,NeedsServiceComponent,ModsComponent,AddServiceComponent,ChangeSettingsComponent,CompleteServiceComponent],
+  declarations: [DashboardPage,DetailsComponent,AvailableCarsComponent,MyCarsComponent,ServicesComponent,ServicedComponent,NeedsServiceComponent,ModsComponent,AddServiceComponent,ChangeSettingsComponent,CompleteServiceComponent,SkeletonLoaderComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
   
 })

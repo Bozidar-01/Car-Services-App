@@ -25,16 +25,15 @@ async getUserFromLocalStorage(){
 canActivate() {
 this.getUserFromLocalStorage();
 
-  // return from(this.userService.loadUser().then(user => {  
-  //     if (user) {
-  //       return true;
-  //     } else {
-  //       this.navCtrl.navigateRoot('auth/login');
-  //       return false;
-  //     }
+  return from(this.userService.loadUser().then(user => {  
+      if (user) {
+        return true;
+      } else {
+        this.navCtrl.navigateRoot('auth/login');
+        return false;
+      }
       
 
-  // }));
-  return true
+  }));
 }
 }

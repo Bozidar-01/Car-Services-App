@@ -13,8 +13,10 @@
   </ion-label>
 </ion-item>
 
-<ion-card class="service-card" *ngFor="let mod of allMods">
-  <ion-item lines="none">
+<ng-container *ngIf="allMods.length">
+
+  <ion-card class="service-card" *ngFor="let mod of allMods">
+    <ion-item lines="none">
       <ion-label>
         {{mod.mod_type}}
         <!-- <br> -->
@@ -25,5 +27,13 @@
           {{mod.price}} den
         </ion-button>
       </ion-label>
+    </ion-item>
+  </ion-card>
+  
+</ng-container>
+
+<ion-card class="service-card" *ngIf="!allMods.length"  style="text-align: center; justify-content: center; display: flex;">
+  <ion-item lines="none" >
+   No Mods yet!
   </ion-item>
-</ion-card>
+  </ion-card>

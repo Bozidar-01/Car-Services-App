@@ -17,6 +17,7 @@ export class AddServiceComponent  implements OnInit {
   @Input() type:string='service';
   serviceForm:FormGroup
   modForm:FormGroup
+  carForm:FormGroup
   
   serviceIntervals: number[] = [
     5000, 
@@ -58,10 +59,14 @@ export class AddServiceComponent  implements OnInit {
           this.service?.custom_service.name || '', Validators.required],
           service_interval: [initialInterval, Validators.required],
         });
-      }else{
+      }else if (this.type === 'mod'){
         this.modForm = this.fb.group({
           mod_type: ['', Validators.required],
           price: ['', Validators.required],
+       });
+      }else{
+        this.carForm = this.fb.group({
+          car_km: [this.car.car_km, Validators.required],
        });
       }
 }
@@ -129,8 +134,6 @@ export class AddServiceComponent  implements OnInit {
         user_car_id: this.car.id
     }
 
-    console.log(data)
-
     this.carService.addMod(data).pipe(first()).subscribe({
       next:(response)=>{
         this.alertService.presentToast('Mod added!','bottom','success');
@@ -138,6 +141,35 @@ export class AddServiceComponent  implements OnInit {
       }
     })
   }
+  }
+
+
+  updateKm(){
+    if(this.carForm.invalid){
+      this.alertService.presentToast('Please fill the above fields!','bottom','danger');
+      return;
+    }else{
+
+      if(this.carForm.value.car_km == this.car.car_km){
+        this.alertService.presentToast('Km cannot be same with previous Km record!','bottom','danger');
+        return;
+      }else if(this.carForm.value.car_km < this.car.car_km){
+        this.alertService.presentToast('Km cannot be smaller then previous Km record!','bottom','danger');
+        return;
+      }else{
+        let data = {
+          car_km: this.carForm.value.car_km,
+          user_car_id: this.car.id
+        }
+        
+        this.carService.updateKm(data).pipe(first()).subscribe({
+          next:(response)=>{
+            this.alertService.presentToast('Km updated!','bottom','success');
+            this.modalCtrl.dismiss({km:this.carForm.value.car_km})
+          }
+        })
+      }
+    }
   }
 
 }

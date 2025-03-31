@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { AuthenticationService } from '../../services/authentication.service';
+import { User } from '../../models/user';
+import { Preferences } from '@capacitor/preferences';
+import { environment } from 'src/environments/environment';
+import { first } from 'rxjs';
 
 @Component({
   standalone:false,
@@ -8,6 +13,7 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./header-menu.component.scss'],
 })
 export class HeaderMenuComponent  implements OnInit {
+  user:any;
 
   roadsideContacts = [
     {
@@ -24,7 +30,7 @@ export class HeaderMenuComponent  implements OnInit {
     }
   ]
 
-  constructor(private navCtrl: NavController) { }
+  constructor(private navCtrl: NavController, private authService: AuthenticationService) { }
 
   ngOnInit() {}
 
@@ -38,7 +44,7 @@ export class HeaderMenuComponent  implements OnInit {
   }
 
   logOut(){
-    this.navCtrl.navigateRoot('auth/login')
+    this.authService.logout()
   }
 
   goToProfile(){
@@ -47,6 +53,29 @@ export class HeaderMenuComponent  implements OnInit {
 
   goHome(){
     this.navCtrl.navigateRoot('authed/user/dashboard')
+  }
+
+  async loadUserData() {
+    const { value } = await Preferences.get({ key: environment.carServiceStorageKey.user });
+    if (value) {
+      this.user = JSON.parse(value);
+    }
+  
+    this.authService
+      .getUserData()
+      .pipe(first())
+      .subscribe({
+        next: (userData: User) => {
+          this.user = userData;
+          Preferences.set({
+            key: environment.carServiceStorageKey.user,
+            value: JSON.stringify(this.user),
+          });
+        },
+        error: (err) => {
+          console.error('Error fetching user data:', err);
+        },
+      });
   }
 
 }

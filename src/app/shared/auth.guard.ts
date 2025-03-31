@@ -18,12 +18,12 @@ export class authGuard implements CanActivate {
   
   canActivate(): Observable<boolean> {
     return from(this.authService.loadUser().then(user => {
-      // if (user) {
-      //   this.navCtrl.navigateRoot('authed/user/dashboard');
-      //   return false;
-      // } else {
-      //   return true;
-      // }
+      if (user) {
+        this.navCtrl.navigateRoot('authed/user/dashboard');
+        return false;
+      } else {
+        return true;
+      }
       return true;
     }));
   }

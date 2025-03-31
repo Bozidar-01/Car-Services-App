@@ -4,26 +4,45 @@ slides-per-view="1.2"
 centered-slides="true"
 space-between="15"
 >
-<swiper-slide class="swiper-slide" *ngFor="let car of myCars">
-  <div class="custom-card">
-    <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
-      {{ car.car_model.cars.model.split(' ')[0] }}
-    </ion-card-subtitle>
-    <ion-icon *ngIf="carsInNeedOfService.includes(car.id)" slot="end" name="alert-circle-outline" color="warning" style="position: absolute; top: 43px; right: 30px; z-index: 99; font-size: 26px;"></ion-icon>
-    <ion-img src="assets/car.png"></ion-img>
-    <ion-card-subtitle style="text-transform: none; font-size: 20px; padding: 15px; font-weight: 550; position: absolute; bottom: 65px; left: 50%; transform: translate(-50%);" color="dark">
-      {{ car.car_model.cars.model.split(' ')[1] }}
-    </ion-card-subtitle>
-    <ion-button 
-    expand="block" 
-    shape="round" 
-    color="primary" 
-    class="view-details-button"s
-    (click)="viewServices(car)">
-    Track Services
-  </ion-button>
+<ng-container *ngIf="!myCars.length">
+  <swiper-slide  class="swiper-slide" *ngFor="let item of [0,1,2,3,4]">
+    <app-skeleton-loader [type]="'cars'"></app-skeleton-loader>
+  </swiper-slide>
+</ng-container>
+
+<ng-container *ngIf="!myCars.length && !showLoader">
+  <swiper-slide  class="swiper-slide">
+    <div class="custom-card">
+    <h2  style="width: 100%; height: 100%; margin: 0; text-align: center; display: flex;justify-content: center;
+        align-items: center;">
+      No Cars Available
+  </h2>      
+  </div>
+  </swiper-slide>
+</ng-container>
+
+<ng-container *ngIf="myCars.length">
+  <swiper-slide class="swiper-slide" *ngFor="let car of myCars">
+    <div class="custom-card">
+      <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
+        {{ car.car_model.cars.model.split(' ')[0] }}
+      </ion-card-subtitle>
+      <ion-icon *ngIf="carsInNeedOfService.includes(car.id)" slot="end" name="alert-circle-outline" color="warning" style="position: absolute; top: 43px; right: 30px; z-index: 99; font-size: 26px;"></ion-icon>
+      <ion-img src="assets/car.png"></ion-img>
+      <ion-card-subtitle style="text-transform: none; font-size: 20px; padding: 15px; font-weight: 550; position: absolute; bottom: 65px; left: 50%; transform: translate(-50%);" color="dark">
+        {{ car.car_model.cars.model.split(' ')[1] }}
+      </ion-card-subtitle>
+      <ion-button 
+      expand="block" 
+      shape="round" 
+      color="primary" 
+      class="view-details-button"s
+      (click)="viewServices(car)">
+      Track Services
+    </ion-button>
   </div>
 </swiper-slide>
+</ng-container>
 </swiper-container>
 
 

@@ -13,7 +13,9 @@
   </ion-label>
 </ion-item>
 
-<ion-card class="service-card" *ngFor="let service of services" >
+<ng-container  *ngFor="let service of services">
+
+<ion-card class="service-card" *ngIf="!service.custom_service && service.default_service && service.status == 'completed'">
   <ion-item lines="none">
       <ion-label>
         {{service.default_service.name}}
@@ -22,8 +24,33 @@
       </ion-label>
       <ion-label slot="end">
         <ion-button fill="outline" disabled style="opacity: 1;">
-          {{service.price}}
+          {{service.price}} den
         </ion-button>
       </ion-label>
   </ion-item>
 </ion-card>
+
+<ion-card class="service-card" *ngIf="service.custom_service && service.status == 'completed'">
+  <ion-item lines="none">
+      <ion-label>
+        {{service.custom_service.name}}
+        <br>
+        <small style="font-size: 14px;">Used:  {{service.product_used}}</small>
+      </ion-label>
+      <ion-label slot="end">
+        <ion-button fill="outline" disabled style="opacity: 1;">
+          {{service.price}} den
+        </ion-button>
+      </ion-label>
+  </ion-item>
+</ion-card>
+
+
+
+</ng-container>
+
+<ion-card class="service-card" *ngIf="!services.length"  style="text-align: center; justify-content: center; display: flex;">
+  <ion-item lines="none" >
+   No completed services yet!
+  </ion-item>
+ </ion-card>

@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border" style="background: #fff !important; padding: 10px;">
   <ion-toolbar class="ion-no-border" style="--background: #fff !important;">
     <ion-label slot="start" style="font-size:20px; font-weight: bold;">
-      Change Service Settings
+      Settings
     </ion-label>
     <ion-buttons slot="end">
         <ion-button (click)="modalCtrl.dismiss()" style="font-size: 22px;">
@@ -15,14 +15,23 @@
 <ion-content>
 
   <ion-list class="ion-padding">
+    <ion-card button>
+
+      <ion-item lines="none"  (click)="editService(null,'car')">
+          Car Mileage - {{car.car_km}} KM
+          <ion-icon slot="end" color="medium" name="chevron-forward-outline"></ion-icon>
+      </ion-item>
+
+  
+      </ion-card>
 
     <ion-card *ngFor="let service of services" button>
 
-    <ion-item *ngIf="!service.custom_service && service.default_service" lines="none"  (click)="editService(service)">
+    <ion-item *ngIf="!service.custom_service && service.default_service" lines="none"  (click)="editService(service,'service')">
         {{service.default_service?.name}} 
         <ion-icon slot="end" color="medium" name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item *ngIf="service.custom_service" lines="none"  (click)="editService(service)">
+    <ion-item *ngIf="service.custom_service" lines="none"  (click)="editService(service,'service')">
         {{service.custom_service.name}} 
         <ion-icon slot="end" color="medium" name="chevron-forward-outline"></ion-icon>
     </ion-item>

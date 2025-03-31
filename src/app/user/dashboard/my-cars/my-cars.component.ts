@@ -16,6 +16,7 @@ export class MyCarsComponent  implements OnInit {
   myCars: Array<any> = []
   count: number = 0
   carsInNeedOfService: Array<any>
+  showLoader: boolean = true
 
   constructor(private modalCtrl: ModalController, private carService: CarService) { }
 
@@ -41,6 +42,7 @@ export class MyCarsComponent  implements OnInit {
     
       if(data){
         this.getMyCars()
+        this.countServiceCars()
       }
     }
 
@@ -48,6 +50,7 @@ export class MyCarsComponent  implements OnInit {
       this.carService.getUserCars().pipe(first()).subscribe({
         next:(response)=>{
             this.myCars = response.data
+            this.showLoader = false
         }
       })
     }

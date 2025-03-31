@@ -7,7 +7,7 @@
           </ion-button>
       </ion-buttons>
       <ion-label slot="start" style="font-size:22px; font-weight: bold; color: #fff;">
-        Audi A6
+        {{car.car_model.cars.model}}
       </ion-label>
       <img slot="end" src="assets/profile.png" style="width: 42px; height: 42px; border-radius: 10px; object-fit: cover; margin-right: 15px;" />
     </ion-toolbar>
@@ -16,8 +16,8 @@
   <div class="content-wrapper">
     <div class="content">
       <ion-item lines="none" style="padding: 20px; padding-bottom: 0 !important;">
-          <ion-label slot="start" style="color: var(--ion-color-primary); font-weight: bold;">2.7 TDI</ion-label>
-          <ion-label slot="end" style="color: var(--ion-color-primary); font-weight: bold;">190HP</ion-label>
+          <ion-label slot="start" style="color: var(--ion-color-primary); font-weight: bold;">{{car.engine.type}}</ion-label>
+          <ion-label slot="end" style="color: var(--ion-color-primary); font-weight: bold;">{{car.engine.power}} HP</ion-label>
       </ion-item>
       <ion-img src="assets/car.png" class="img"></ion-img>
 
@@ -29,7 +29,7 @@
           'color': type === 'needsService' ? 'var(--ion-color-warning)' : 'var(--ion-color-primary)'
         }">
           {{type=='firstStep' || type == 'secondStep' ? 'Let us know a few things first' : type == 'thirdStep' ? 'Services' : ''}}
-          {{type=='needsService' ? '3 Overdue Service' : type == 'serviced' ? 'Completed Services' : type == 'mods' ? 'Mods' : ''}}
+          {{type=='needsService' ? `${overdueServices} Overdue Service` : type == 'serviced' ? 'Completed Services' : type == 'mods' ? 'Mods' : ''}}
         </ion-label>
         <ion-label slot="end" style="height: 40px;">
           <ion-button *ngIf="type !='firstStep' && type != 'secondStep' && type != 'thirdStep'" fill="clear" class="action-button ion-no-padding ion-no-margin" (click)="type='thirdStep'">

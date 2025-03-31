@@ -41,6 +41,7 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
   newCarForm:FormGroup
   @ViewChild('dateModal') modal: IonModal
   @Input() car:any;
+  overdueServices:number = 0;
   @ViewChild(IonContent, { static: false }) content!: IonContent;
   @ViewChild('addSelect', { static: false }) addSelect: IonSelect;
   allServices:Array<any>;
@@ -55,6 +56,7 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
   private alertsService: AlertsService) { }
 
   ngOnInit() {
+    console.log(this.car)
     this.newCarForm = new FormGroup ({
       car_km: new FormControl('',Validators.required),
       purchase_date: new FormControl('',Validators.required),
@@ -147,7 +149,8 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
     
       if(data?.value){
         if(type === 'service'){
-          this.allServices.push(data?.value)
+          this.allServices.push(data?.value);
+          this.getServices()
         }
       }
     }
@@ -200,6 +203,12 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
       this.carService.getUserServices(this.car.id).pipe(first()).subscribe({
         next:(response)=>{
             this.services = response.data
+
+            this.services.forEach(service => {
+              if(service.status === 'active'){
+                this.overdueServices++
+              }
+            });
         }
       })
     }

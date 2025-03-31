@@ -18,6 +18,7 @@ export class AvailableCarsComponent  implements OnInit {
   carBrands:Array<any>=[]
   selectedFilter:string = 'cars';
   selectedBrand = null;
+  showLoader: boolean = true
   constructor(private modalCtrl: ModalController,private carService: CarService) { }
 
   ngOnInit() {
@@ -75,6 +76,8 @@ export class AvailableCarsComponent  implements OnInit {
       next:(response)=>{
         this.cars = response.data
         this.filteredCars = this.cars
+
+          this.showLoader = false
       }
     })
 }

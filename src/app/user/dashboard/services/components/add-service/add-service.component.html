@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border" style="background: #fff !important; padding: 10px;">
   <ion-toolbar class="ion-no-border" style="--background: #fff !important;">
     <ion-label slot="start" style="font-size:18px; font-weight: bold;">
-      {{type === 'service' ? 'Add a custom service' : 'Add a mod'}}
+      {{type === 'service' ? 'Add a custom service' :  type === 'mod' ? 'Add a mod' : 'Update Km'}}
     </ion-label>
     <ion-buttons slot="end">
         <ion-button (click)="modalCtrl.dismiss()" style="font-size: 22px;">
@@ -42,12 +42,20 @@
       </ion-card>
     </ion-item>
   </form>
+
+  <form *ngIf="type === 'car'" [formGroup]="carForm">
+    <ion-item lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-input formControlName="car_km" style="--placeholder-opacity:1;" type="text" placeholder="Update Km"></ion-input>
+      </ion-card>
+    </ion-item>
+  </form>
   </ion-content>
 
 
 <ion-footer style="padding: 10px;">
   <ion-button color="primary" style="width: 95%; margin: 0 auto;" expand="block" shape="round"
-  (click)="type === 'service' ? (service ? updateService() : addCustomService()) : addMod()">
-    {{type === 'service' ? service ? 'Update' : 'Add Service' : 'Add Mod'}}
+  (click)="type === 'service' ? (service ? updateService() : addCustomService()) : type === 'mod' ? addMod() : updateKm()">
+    {{type === 'service' ? service ? 'Update' : 'Add Service' : type === 'mod' ? 'Add Mod' : 'Update Km'}}
   </ion-button>
 </ion-footer>

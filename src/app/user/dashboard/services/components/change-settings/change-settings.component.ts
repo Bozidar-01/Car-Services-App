@@ -18,12 +18,13 @@ export class ChangeSettingsComponent  implements OnInit {
   }
 
 
-     async editService(service:any){
+     async editService(service:any,type:string){
         const modal = await this.modalCtrl.create({
           component: AddServiceComponent,
-          cssClass: 'addServiceModal',
+          cssClass: type == 'car' ? 'editCarKmModal' : 'addServiceModal',
           componentProps:{
               service:service,
+              type:type,
               car:this.car
           },
           backdropDismiss: true, 
@@ -41,6 +42,9 @@ export class ChangeSettingsComponent  implements OnInit {
               this.services[index] = { ...this.services[index], ...data.value };
             }
         }
+        if(data?.km){
+            this.car.car_km = data.km
+         }
       }
 
 }

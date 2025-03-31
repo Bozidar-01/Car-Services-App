@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, from, map, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, first, from, map, Observable, throwError } from 'rxjs';
 import { Preferences } from '@capacitor/preferences';
 import { environment } from 'src/environments/environment';
 import { LoginRequest, VerifyRequest, verifyResponse } from '../models/authenticationModels';
 import { User } from '../models/user';
 import { HttpApiClientService } from './http-api-client.service';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,10 @@ export class AuthenticationService {
   public user$ = this.userSubject$.asObservable();
 
 
-  constructor(private httpApiClient: HttpApiClientService) { 
+  constructor(private httpApiClient: HttpApiClientService,private navCtrl: NavController) { 
     this.loadInitialData();
   }
+
 
   login(loginRequest: LoginRequest): Observable<verifyResponse> {
     const apiUrl = 'login'; 
@@ -47,6 +49,7 @@ export class AuthenticationService {
               id: userData.id,
               name: userData.name,
               email: userData.email,              
+              profile_pic: userData.profile_pic,              
             }
             Preferences.set({
               key: environment.carServiceStorageKey.user, value: JSON.stringify(user)
@@ -65,33 +68,6 @@ export class AuthenticationService {
           this.userSubject$.next(null);
 
         }
-
-  
-        return response;
-      }),
-      catchError(error => {
-        // Log the error details
-        console.error('Login Error:', error);
-        return throwError(error);
-      })
-    );
-
-  }
-
-  resendNumber(loginRequest: LoginRequest): Observable<verifyResponse> {
-    const apiUrl = 'resend'; 
-    
-    return this.httpApiClient.post<any>(apiUrl, loginRequest, true, true).pipe(
-      map(response => {
-        
-        if (response.status !== 200) {
-          console.error('Invalid login response:', response.message);
-          throw new Error(response.message);
-        }
-      
-
-        // this.signedInUser = response.data
-
 
   
         return response;
@@ -140,66 +116,6 @@ export class AuthenticationService {
     });
   }
 
-  verifyCode(VerifyRequest: VerifyRequest): Observable<verifyResponse> {
-    const apiUrl = 'verify'; 
-
-  
-    return this.httpApiClient.post<any>(apiUrl, VerifyRequest, true, true).pipe(
-      map(response => {
-
-        if (response.status !== 200) {
-          console.error('Invalid login response:', response.message);
-          throw new Error(response.message);
-        }
-   
-        
-        const newLoginReq: verifyResponse = {
-          token: response.data.token,
-        };
-
-        this.signedInUser = response.data.user
-  
-        // Log the parsed login response
-        let user = new User();
-        if (response.data) {
-          let userData = response.data
-          user = {
-            id: userData.id,
-            name: userData.name,
-            email: userData.email,
-         
-          }
-       
-
-              Preferences.set({
-                key: environment.carServiceStorageKey.user, value: JSON.stringify(user)
-              })
-
-              this.userSubject$.next(user);
-              // this.httpApiClient.setUserRole(user)  
-            
-        } 
-        else{
-          this.userSubject$.next(null);
-
-        }
-
-        Preferences.set({
-          key: environment.carServiceStorageKey.token,
-          value: JSON.stringify(newLoginReq)
-        });
-          this.httpApiClient.setToken(newLoginReq);
-
-
-  
-        return response;
-      }),
-      catchError(error => {
-        console.error('Login Error:', error);
-        return throwError(error);
-      })
-    );
-  }
 
 
 
@@ -224,6 +140,25 @@ export class AuthenticationService {
     }
   }
 
+  public  logout() {
+    this.httpApiClient.post('logout',null,true,true).pipe(first()).subscribe(res=>{
+      if(res.status){
+        this.userSubject$.next(null);
+        Preferences.remove({key: environment.carServiceStorageKey.token});
+        Preferences.remove({key: environment.carServiceStorageKey.user});
+        this.httpApiClient.setToken(null);
+
+        this.navCtrl.navigateRoot('auth/login')
+        this.httpApiClient.setUserRole(null);
+      }
+    })
+
+  }
 
 
+
+  public get userValue(): User {
+    return this.userSubject$.value;
+  }
+  
 }

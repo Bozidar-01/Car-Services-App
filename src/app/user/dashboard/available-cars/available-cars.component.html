@@ -6,7 +6,25 @@
       space-between="15"
     >
     <ng-container *ngIf="selectedFilter == 'cars'">
+      <ng-container *ngIf="!filteredCars.length && showLoader">
+      <swiper-slide  class="swiper-slide" *ngFor="let item of [0,1,2,3,4]">
+          <app-skeleton-loader [type]="'cars'"></app-skeleton-loader>
+      </swiper-slide>
+    </ng-container>
 
+    <ng-container *ngIf="!filteredCars.length && !showLoader">
+      <swiper-slide  class="swiper-slide">
+        <div class="custom-card">
+        <h2  style="width: 100%; height: 100%; margin: 0; text-align: center; display: flex;justify-content: center;
+            align-items: center;">
+          No Cars Available
+      </h2>      
+      </div>
+      </swiper-slide>
+    </ng-container>
+
+
+    <ng-container *ngIf="filteredCars.length">
       <swiper-slide  class="swiper-slide" *ngFor="let car of filteredCars">
         <div class="custom-card">
           <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
@@ -26,7 +44,7 @@
         </ion-button>
       </div>
     </swiper-slide>
-    
+  </ng-container>
   </ng-container>
 
     <ng-container *ngIf="selectedFilter == 'brands'">

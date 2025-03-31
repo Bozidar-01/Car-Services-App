@@ -72,5 +72,9 @@ export class CarService {
   countServiceCars(): Observable<any> {
     return this.httpApiClient.get<any>(`cars/countServiceCars`)
   }
+  
+  updateKm(data): Observable<any> {
+    return this.httpApiClient.post<any>(`cars/updateCarKm`,data,true)
+  }
 
 }

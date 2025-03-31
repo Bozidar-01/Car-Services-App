@@ -29,34 +29,26 @@
     <div class="content-wrapper">
       <div class="content">
 
-      
-        <ion-item lines="none" style="margin-top: 100px;">
-          <ion-card>
-            <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="First Name"></ion-input>
-          </ion-card>
-      </ion-item>
-        <ion-item lines="none">
-          <ion-card>
-            <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="Last Name"></ion-input>
-          </ion-card>
-      </ion-item>
-        <ion-item lines="none">
-          <ion-card>
-            <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="Address"></ion-input>
-          </ion-card>
-      </ion-item>
-      <ion-item lines="none" >
-        <ion-card>
-          <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="E-mail address"></ion-input>
-        </ion-card>
-    </ion-item>
-      <ion-item lines="none">
-          <ion-card>
-            <ion-input (ionBlur)="scrollToTop()" type="password" placeholder="Password"></ion-input>
-          </ion-card>
-      </ion-item>
+        <form [formGroup]="userForm">
 
-      <ion-button expand="block" class="saveBtn" >
+          <ion-item lines="none" style="margin-top: 100px;">
+            <ion-card>
+              <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="Full Name" formControlName="name"></ion-input>
+            </ion-card>
+          </ion-item>
+          <ion-item lines="none" >
+            <ion-card>
+              <ion-input (ionBlur)="scrollToTop()" type="text" placeholder="E-mail address" formControlName="email"></ion-input>
+            </ion-card>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-card>
+              <ion-input (ionBlur)="scrollToTop()" type="password" placeholder="Password" formControlName="password"></ion-input>
+            </ion-card>
+          </ion-item>
+          
+        </form>
+      <ion-button expand="block" class="saveBtn" (click)="updateUser()">
         Save
     </ion-button>
         </div>
