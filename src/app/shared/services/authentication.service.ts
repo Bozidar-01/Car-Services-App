@@ -6,6 +6,8 @@ import { LoginRequest, VerifyRequest, verifyResponse } from '../models/authentic
 import { User } from '../models/user';
 import { HttpApiClientService } from './http-api-client.service';
 import { NavController } from '@ionic/angular';
+import OneSignal from 'onesignal-cordova-plugin';
+import { Capacitor } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
@@ -150,6 +152,11 @@ export class AuthenticationService {
 
         this.navCtrl.navigateRoot('auth/login')
         this.httpApiClient.setUserRole(null);
+
+        const platform = Capacitor.getPlatform();
+        if (platform === 'ios' || platform === 'android') {
+          OneSignal.logout();
+        }
       }
     })
 

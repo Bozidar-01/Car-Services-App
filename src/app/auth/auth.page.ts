@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { first } from 'rxjs';
 import { AlertsService } from '../shared/services/alerts.service';
 import { Preferences } from '@capacitor/preferences';
+import OneSignal from 'onesignal-cordova-plugin';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   standalone:false,
@@ -54,6 +56,10 @@ export class AuthPage implements OnInit {
             this.alertsService.presentToast('Logged in!', 'bottom' , 'success');
 
             this.navCtrl.navigateForward('authed/user/dashboard')
+            const platform = Capacitor.getPlatform();
+            if (platform === 'ios' || platform === 'android') {
+            this.initializeOneSignal(response.data.user.id)
+            }
           }
 
           },
@@ -69,6 +75,31 @@ export class AuthPage implements OnInit {
       }else{
         this.alertsService.presentToast('Login form invalid', 'bottom' , 'danger');
       }
+        
+      }
+
+
+      initializeOneSignal(user:any) {
+        const platform = Capacitor.getPlatform();
+    
+        if (platform === 'ios' || platform === 'android') {
+          // Initialize OneSignal only for mobile platforms
+          OneSignal.initialize("8dc0fcb2-03e8-4108-90d8-c5e87ac67e36");
+    
+          // Add a notification click event listener
+          OneSignal.Notifications.addEventListener('click', async (e: any) => {
+            let clickData = await e.notification;
+            console.log("Notification Clicked : " + clickData);
+          });
+    
+          // Request notification permission from the user
+          OneSignal.Notifications.requestPermission(true).then((success: Boolean) => {
+            console.log("Notification permission granted: " + success);
+          });
+    
+          const externalUserId = 'carServices-'+user; 
+          OneSignal.login(externalUserId)
+        }
         
       }
 }
