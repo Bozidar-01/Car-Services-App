@@ -30,7 +30,7 @@ export class ProfilePage implements OnInit {
     this.userForm = new FormGroup({
       name: new FormControl(this.user?.name,Validators.required),
       email: new FormControl(this.user?.email,Validators.required),
-      password: new FormControl('',Validators.required),
+      password: new FormControl(''),
     })
   }
 
@@ -94,10 +94,19 @@ export class ProfilePage implements OnInit {
       this.alertService.presentToast('Please fill the fields above!', 'bottom' , 'danger');
       return;
     }else{
-      let data = {
-        name:this.userForm.value.name,
-        email:this.userForm.value.email,
-        password:this.userForm.value.password
+      let data = {}
+
+      if(this.userForm.value.password !== ''){
+         data = {
+          name:this.userForm.value.name,
+          email:this.userForm.value.email,
+          password:this.userForm.value.password
+        }
+      }else{
+        data = {
+          name:this.userForm.value.name,
+          email:this.userForm.value.email,
+        }
       }
       
       this.userService.updateUser(data).pipe(first()).subscribe({

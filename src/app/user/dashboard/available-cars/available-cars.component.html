@@ -5,13 +5,6 @@
       centered-slides="true"
       space-between="15"
     >
-    <ng-container *ngIf="selectedFilter == 'cars'">
-      <ng-container *ngIf="!filteredCars.length && showLoader">
-      <swiper-slide  class="swiper-slide" *ngFor="let item of [0,1,2,3,4]">
-          <app-skeleton-loader [type]="'cars'"></app-skeleton-loader>
-      </swiper-slide>
-    </ng-container>
-
     <ng-container *ngIf="!filteredCars.length && !showLoader">
       <swiper-slide  class="swiper-slide">
         <div class="custom-card">
@@ -22,6 +15,13 @@
       </div>
       </swiper-slide>
     </ng-container>
+    <ng-container *ngIf="selectedFilter == 'cars'">
+      <ng-container *ngIf="!filteredCars.length && showLoader">
+      <swiper-slide  class="swiper-slide" *ngFor="let item of [0,1,2,3,4]">
+          <app-skeleton-loader [type]="'cars'"></app-skeleton-loader>
+      </swiper-slide>
+    </ng-container>
+
 
 
     <ng-container *ngIf="filteredCars.length">

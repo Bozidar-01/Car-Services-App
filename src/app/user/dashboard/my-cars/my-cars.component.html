@@ -4,7 +4,7 @@ slides-per-view="1.2"
 centered-slides="true"
 space-between="15"
 >
-<ng-container *ngIf="!myCars?.length">
+<ng-container *ngIf="!myCars?.length && showLoader">
   <swiper-slide  class="swiper-slide" *ngFor="let item of [0,1,2,3,4]">
     <app-skeleton-loader [type]="'cars'"></app-skeleton-loader>
   </swiper-slide>
@@ -36,7 +36,8 @@ space-between="15"
       expand="block" 
       shape="round" 
       color="primary" 
-      class="view-details-button"s
+      class="view-details-button"
+      style="font-size: 15px;"
       (click)="viewServices(car)">
       Track Services
     </ion-button>
@@ -58,7 +59,7 @@ space-between="15"
 <ion-card *ngIf="count==0" class="serviced">
 
   <ion-item lines="none" >
-      {{myCars.length>1 ? 'Cars' : 'Car'}} Serviced!
+      {{myCars?.length>1 ? 'Cars' : 'Car'}} Serviced!
       <ion-icon slot="end" name="checkmark-circle-outline" color="success"></ion-icon>
   </ion-item>
 

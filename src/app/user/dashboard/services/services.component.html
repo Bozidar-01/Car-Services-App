@@ -103,7 +103,7 @@
 
 <!-- THIRD STEP -->
 <div *ngIf="type == 'thirdStep'" [@enterRightAnimation] style="margin-top: 30px;">
-  <ion-card button (click)="type='needsService'" *ngIf="services?.length">
+  <ion-card button (click)="type='needsService'" *ngIf="services?.length && overdueServices !== 0">
     <div class="subtitle-overlay-alert"></div>
     <ion-item lines="none">
       <ion-label style="font-size: 16px; font-weight: bold; color: rgb(180, 139, 6);">
@@ -130,7 +130,7 @@
 </div>
 
 <div *ngIf="type == 'needsService'" [@enterAnimation] style="margin-top: 30px;">
-<app-needs-service [services]="services"></app-needs-service>
+<app-needs-service [services]="services" (overdueServices)="servicesOverdue($event)"></app-needs-service>
 </div>
 
 <div *ngIf="type == 'serviced'" [@enterAnimation] style="margin-top: 0;">

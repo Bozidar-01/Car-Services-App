@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CompleteServiceComponent } from '../complete-service/complete-service.component';
 
@@ -10,6 +10,9 @@ import { CompleteServiceComponent } from '../complete-service/complete-service.c
 })
 export class NeedsServiceComponent implements OnInit {
   @Input() services:any
+  @Output() overdueServices = new EventEmitter<number>();
+  overdueSrv:number = 0;
+
   constructor(public modalCtrl: ModalController) { }
 
   ngOnInit() {}
@@ -82,6 +85,15 @@ export class NeedsServiceComponent implements OnInit {
             this.services[index] = { ...this.services[index], ...data.value };
             // Example: Update status and other fields
             this.services[index].status = 'completed'; // Adjust based on response
+
+            this.services.forEach(srv => {
+              if(srv.status === 'active'){
+                this.overdueSrv++
+              }
+            });
+
+            this.overdueServices.emit(this.overdueSrv);
+
           }
         }
       }

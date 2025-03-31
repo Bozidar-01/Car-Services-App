@@ -1,33 +1,18 @@
-<ion-content [fullscreen]="true" >
-  <ion-content scrollY="false">
-    <div class="header">
+<ion-content [fullscreen]="true" scrollY="false">
+  <div class="header">
+    <ion-row class="ion-no-padding ion-justify-content-center" style="padding-top: 10px; position: relative; overflow: visible;">
+      <ion-col size="12" style="position: relative; overflow: visible;">
+        <img class="profile-pic" src="assets/profile.png" />
+        <ion-button class="ion-no-padding ion-no-margin galleryImg" onclick="document.getElementById('fileInput').click()" fill="clear">
+          <ion-icon style="background: #fff; border-radius: 50%; padding: 5px; font-size: 32px;" color="dark" name="image"></ion-icon>
+          <input type="file" multiple="false" (change)="popFileChooser($event)" id="fileInput" style="display: none" accept="image/*" />
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
 
-
-        <ion-row class="ion-no-padding ion-justify-content-center" style="padding-top: 10px; position: relative; overflow: visible;">
-          <ion-col size="12" style="position: relative; overflow: visible;">
-            <img src="assets/profile.png" style="width: 40%; z-index: 9999999999;  object-fit: cover; margin: 0 auto; border-radius: 50%; display: flex; justify-content: center; padding: 2px 0; " />
-            <ion-button class="ion-no-padding ion-no-margin galleryImg" onclick="document.getElementById('fileInput').click()" fill="clear">
-            <ion-icon
-            style="background: #fff; border-radius: 50%; padding: 5px; font-size: 22px;"
-            color="dark"
-              name="image"
-            ></ion-icon>
-            <input
-            type="file"
-            multiple="false"
-            (change)="popFileChooser($event)"
-            id="fileInput"
-            style="display: none"
-            accept="image/*"
-          /> 
-            
-            </ion-button>
-          </ion-col>
-        </ion-row>
-    </div>
-  
-    <div class="content-wrapper">
-      <div class="content">
+  <div class="content-wrapper">
+    <div class="content">
 
         <form [formGroup]="userForm">
 

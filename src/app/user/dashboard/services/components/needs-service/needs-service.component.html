@@ -1,6 +1,6 @@
 <ng-container  *ngFor="let service of services">
 
-  <ion-card class="service-card" *ngIf="!service.custom_service && service.default_service && service.status !== 'completed'">
+  <ion-card class="service-card" *ngIf="!service.custom_service && service.default_service && service.status == 'active'">
       <ion-item  lines="none">
         <ion-label>
           {{service.default_service.name}}
@@ -17,7 +17,7 @@
     
   </ion-card>
 
-  <ion-card class="service-card"  *ngIf="service.custom_service && service.status !== 'completed'">
+  <ion-card class="service-card"  *ngIf="service.custom_service && service.status == 'active'">
 
     <ion-item  lines="none">
       <ion-label>

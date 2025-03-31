@@ -167,9 +167,9 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
           car_km: this.newCarForm.value.car_km,
           purchase_date: this.newCarForm.value.purchase_date
         }
-        console.log(data)
         this.carService.addNewUserCarDetails(data).pipe(first()).subscribe({
           next:(response)=>{
+            this.car = {...this.car, car_km: this.newCarForm.value.car_km, purchase_date: this.newCarForm.value.purchase_date}
             this.submit()
           }
         })
@@ -211,6 +211,10 @@ export class ServicesComponent  implements OnInit,ViewWillEnter {
             });
         }
       })
+    }
+
+    servicesOverdue(srv: number) {
+      this.overdueServices = srv; 
     }
 
 }

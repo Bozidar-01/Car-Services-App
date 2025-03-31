@@ -4,57 +4,63 @@
     border-bottom-left-radius: 3em;
     position: relative;
     overflow: visible;
-    z-index: 0;   
-}
-
-
-
-
-.content{
+    z-index: 10; /* Raise above content */
+  }
+  
+  img.profile-pic {
+    width: 40%;
+    object-fit: cover;
+    margin: 0 auto;
+    border-radius: 50%;
+    padding: 2px 0;
+    display: block; /* Replace display: flex */
+    position: relative;
+    z-index: 11; /* Ensure image is above content */
+  }
+  
+  .content-wrapper {
+    border: none !important;
+    height: auto;
+    background: var(--ion-color-primary) !important;
+    position: relative;
+    z-index: 1; /* Below header */
+  }
+  
+  .content {
     height: 76.8vh;
     border-top-right-radius: 3.5em;
     padding-top: 20px;
     background: #ffffff !important;
     padding-bottom: 90px;
     overflow: auto;
-
-}
-
-
-.content-wrapper{
-    border: none !important;
-    height: auto;
-    background: var(--ion-color-primary) !important;
-}
-
-.galleryImg {
+    position: relative;
+    z-index: 2; /* Below image but above wrapper */
+  }
+  
+  .galleryImg {
     position: absolute;
-    left: 58%;
+    left: 55%;
     bottom: 60px;
     font-size: 24px;
-    transform: translate(42%, -50%);
-    border-radius: 50%; 
+    transform: translate(45%, -50%);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 999;
   }
-
-  ion-card{
+  
+  ion-card {
     border-radius: 10px;
     border: 0.5px solid #124a49;
     box-shadow: none;
     padding: 3px 10px;
     width: 98%;
     margin: 5px auto;
-}
-
-ion-card-subtitle{
-    color:#124a49 !important;
-}
-
-.saveBtn{
-    --background:#124a49 !important;
+  }
+  
+  .saveBtn {
+    --background: #124a49 !important;
     width: 90%;
     margin: 40px auto;
-}
+  }

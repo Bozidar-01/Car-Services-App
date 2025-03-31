@@ -1,19 +1,18 @@
-
-<ion-item lines="none" style="padding: 0 10px;">
+<ion-item *ngIf="allMods?.length && loaded" lines="none" style="padding: 0 10px;">
   <ion-label style="font-weight: bold;">
     Total
   </ion-label>
   <ion-label slot="end">
     <ion-button fill="outline" disabled style="opacity: 1; margin-right: 10px;">
-      {{total ? total : 0}} den
+      {{total}} den
     </ion-button>
     <ion-button fill="outline" disabled style="opacity: 1;">
-      {{totalEuro ? totalEuro : 0}} Euro
+      {{totalEuro}} Euro
     </ion-button>
   </ion-label>
 </ion-item>
 
-<ng-container *ngIf="allMods.length">
+<div *ngIf="allMods.length && loaded" style="margin-bottom: 60px;">
 
   <ion-card class="service-card" *ngFor="let mod of allMods">
     <ion-item lines="none">
@@ -29,10 +28,9 @@
       </ion-label>
     </ion-item>
   </ion-card>
-  
-</ng-container>
+</div>
 
-<ion-card class="service-card" *ngIf="!allMods.length"  style="text-align: center; justify-content: center; display: flex;">
+<ion-card class="service-card" *ngIf="!allMods?.length && loaded"  style="text-align: center; justify-content: center; display: flex;">
   <ion-item lines="none" >
    No Mods yet!
   </ion-item>

@@ -12,6 +12,7 @@ export class ServicedComponent  implements OnInit {
   services: Array<any>;
   total: number = 0; // Initialize to 0
   totalEuro: string | number = 0; // Can be string due to toFixed()
+  loaded:boolean = false;
   @Input() car:any;
   constructor(private carService: CarService,private cdr: ChangeDetectorRef) { }
 
@@ -23,7 +24,10 @@ export class ServicedComponent  implements OnInit {
         this.carService.getCompletedServices(this.car.id).pipe(first()).subscribe({
           next:(response)=>{
               this.services = response.data
-              this.calculateTotal(response.data)
+              this.loaded = true;
+              setTimeout(() => {
+                this.calculateTotal(response.data)
+              }, 200);
               this.cdr.detectChanges();
           }
         })
@@ -37,6 +41,6 @@ export class ServicedComponent  implements OnInit {
           this.total += price;
         });
         this.totalEuro = (this.total / 61.3).toFixed(2);
-        console.log('Calculated - Total:', this.total, 'TotalEuro:', this.totalEuro);
+        this.cdr.detectChanges();
       }
 }
