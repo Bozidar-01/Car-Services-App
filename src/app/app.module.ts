@@ -14,7 +14,11 @@ import { HeaderMenuComponent } from './shared/components/header-menu/header-menu
 
 @NgModule({
   declarations: [AppComponent,HeaderMenuComponent],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule, BrowserAnimationsModule],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule, BrowserAnimationsModule,
+      IonicModule.forRoot({
+        mode: 'ios',
+      }),
+    ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },HttpClient],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

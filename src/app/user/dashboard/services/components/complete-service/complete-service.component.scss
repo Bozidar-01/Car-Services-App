@@ -6,3 +6,9 @@ ion-card{
     width: 98%;
     margin: 5px auto;
 }
+
+ion-header ion-toolbar {
+    --padding-top: 5px !important;
+    padding-top: 5px !important;
+    margin-top: 5px !important;
+  }

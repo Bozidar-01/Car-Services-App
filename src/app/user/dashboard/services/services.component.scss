@@ -1,5 +1,5 @@
 .header {
-    height: 10%;
+    height: 13%;
     background: var(--ion-color-primary);
     border-bottom-left-radius: 3em;
     position: relative;
@@ -7,6 +7,7 @@
     display: flex;
     align-items: center;
     padding: 0 10px;
+    padding-top:  env(safe-area-inset-bottom);  
 }
 
 
@@ -98,4 +99,8 @@ ion-modal {
     width: 100%;
     height: 100%;
     opacity: 0; // Hide the select visually, but keep it clickable
+  }
+
+  ion-fab {
+    margin-bottom: env(safe-area-inset-bottom); /* fix notch ios*/
   }

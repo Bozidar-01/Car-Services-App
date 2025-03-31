@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { first } from 'rxjs';
 import { CarService } from 'src/app/shared/services/car.service';
 
@@ -13,7 +13,7 @@ export class ModsComponent  implements OnInit {
   @Input() car:any;
   total:number = 0
   totalEuro:string = '0'
-  constructor(private carService: CarService) { }
+  constructor(private carService: CarService,private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.getAllMods()
@@ -23,17 +23,17 @@ export class ModsComponent  implements OnInit {
         this.carService.getAllMods(this.car.id).pipe(first()).subscribe({
           next:(response)=>{
               this.allMods = response.data
-              this.calculateTotal()
-
+              this.calculateTotal(response.data)
+              this.cdr.detectChanges();
           }
         })
       }
 
-      calculateTotal(){
-        this.allMods.forEach(service => {
+      calculateTotal(services){
+        services.forEach(service => {
               this.total += service.price  
-              this.totalEuro = (this.total / 61.3).toFixed(2);
-          });
+            });
+            this.totalEuro = (this.total / 61.3).toFixed(2);
       }
 
 }

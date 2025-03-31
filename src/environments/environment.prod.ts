@@ -1,6 +1,6 @@
 export const environment = {
-  baseLink: 'https://new-api.tippito.com',
-  apiLink: 'https://new-api.tippito.com/api',
+  baseLink: 'https://car-services.uniscenevie.com',
+  apiLink: 'https://car-services.uniscenevie.com/api',
   production: true,
   carServiceStorageKey: {
     device_id: 'device_id',
@@ -13,5 +13,5 @@ export const environment = {
     email:
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   }
-
+  
 };

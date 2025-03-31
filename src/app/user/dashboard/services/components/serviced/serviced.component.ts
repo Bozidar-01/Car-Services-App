@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { first } from 'rxjs';
 import { CarService } from 'src/app/shared/services/car.service';
 
@@ -10,10 +10,10 @@ import { CarService } from 'src/app/shared/services/car.service';
 })
 export class ServicedComponent  implements OnInit {
   services: Array<any>;
-  total:number = 0
-  totalEuro:string = '0'
+  total: number = 0; // Initialize to 0
+  totalEuro: string | number = 0; // Can be string due to toFixed()
   @Input() car:any;
-  constructor(private carService: CarService) { }
+  constructor(private carService: CarService,private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.getServices()
@@ -23,17 +23,20 @@ export class ServicedComponent  implements OnInit {
         this.carService.getCompletedServices(this.car.id).pipe(first()).subscribe({
           next:(response)=>{
               this.services = response.data
-              this.calculateTotal()
+              this.calculateTotal(response.data)
+              this.cdr.detectChanges();
           }
         })
       }
 
 
-      calculateTotal(){
-        this.services.forEach(service => {
-              this.total += service.price  
-              this.totalEuro = (this.total / 61.3).toFixed(2);
-          });
+      calculateTotal(services) {
+        this.total = 0;
+        services.forEach(service => {
+          const price = Number(service.price) || 0; // Convert to number, default to 0
+          this.total += price;
+        });
+        this.totalEuro = (this.total / 61.3).toFixed(2);
+        console.log('Calculated - Total:', this.total, 'TotalEuro:', this.totalEuro);
       }
-
 }

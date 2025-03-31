@@ -5,10 +5,10 @@
   </ion-label>
   <ion-label slot="end">
     <ion-button fill="outline" disabled style="opacity: 1; margin-right: 10px;">
-      {{total}} den
+      {{total ? total : 0}} den
     </ion-button>
     <ion-button fill="outline" disabled style="opacity: 1;">
-      {{totalEuro}} Euro
+      {{totalEuro ? totalEuro : 0}} Euro
     </ion-button>
   </ion-label>
 </ion-item>
