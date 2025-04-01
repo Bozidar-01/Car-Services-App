@@ -3,7 +3,8 @@
   <ion-row class="ion-justify-content-around" style="width: 97%;">
     <ion-col size="9" style="margin-top: 5px;">
       <div style="display: flex; justify-content: center; align-items: center;">
-        <img src="/assets/profile.png" style="height:50px; width: 50px; border-radius: 10px;" />
+        <img *ngIf="!user?.profile_pic" style="height:50px; width: 50px; border-radius: 10px;"  src="assets/profile.png" />
+        <img *ngIf="user?.profile_pic" style="height:50px; width: 50px; border-radius: 10px; object-fit: cover;"  [src]="user.profile_pic" />
         <ion-card-subtitle style="font-size: 18px;">
           {{user?.name}} <br> 
           <small style="font-size: 12px;">

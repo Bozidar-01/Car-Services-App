@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Preferences } from '@capacitor/preferences';
 import { IonContent } from '@ionic/angular';
-import { first } from 'rxjs';
+import { BehaviorSubject, first } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
 import { AlertsService } from 'src/app/shared/services/alerts.service';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { PublicService } from 'src/app/shared/services/public.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment';
 
@@ -19,10 +20,13 @@ export class ProfilePage implements OnInit {
   user: User;
   chooseFile:any
   userForm: FormGroup
+  private userSubject$ = new BehaviorSubject<User | null>(null);
+
     @ViewChild(IonContent, { static: false }) content!: IonContent;
   constructor(private userService:UserService, 
     private authService: AuthenticationService,
-  private alertService: AlertsService) { }
+  private alertService: AlertsService,
+  private publicService:PublicService) { }
 
   ngOnInit() {
     this.user = this.authService.userValue;
@@ -65,6 +69,9 @@ export class ProfilePage implements OnInit {
             .subscribe({
               next: (userData) => {
                 this.user = { ...this.user, profile_pic: userData.profile_pic };
+                this.userSubject$.next(this.user);
+                this.publicService.updateUser(this.user)
+
               },
               error: (err) => {
                 console.error('Error fetching user data:', err);
@@ -116,6 +123,10 @@ export class ProfilePage implements OnInit {
             key: environment.carServiceStorageKey.user,
             value: JSON.stringify(this.user),
           });
+
+          this.userSubject$.next(this.user);
+          this.publicService.updateUser(this.user)
+
           this.alertService.presentToast('Profile Updated!', 'bottom' , 'success');
 
         }

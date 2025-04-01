@@ -19,7 +19,9 @@
       </ion-col>
 
       <ion-col *ngIf="isVisible" class="ion-padding-end ion-text-end ion-no-padding ion-no-margin">
-        <img src="assets/profile.png" style="width: 42px; height: 42px; border-radius: 10px; object-fit: cover;" />
+        <img *ngIf="!user?.profile_pic" style="width: 42px; height: 42px; border-radius: 10px; object-fit: cover;"  src="assets/profile.png" />
+        <img *ngIf="user?.profile_pic" style="width: 42px; height: 42px; border-radius: 10px; object-fit: cover;"  [src]="user.profile_pic" />
+
         </ion-col>
     </ion-row>
     </ion-grid>

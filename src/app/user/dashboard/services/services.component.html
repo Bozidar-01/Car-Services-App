@@ -19,8 +19,8 @@
           <ion-label slot="start" style="color: var(--ion-color-primary); font-weight: bold;">{{car.engine.type}}</ion-label>
           <ion-label slot="end" style="color: var(--ion-color-primary); font-weight: bold;">{{car.engine.power}} HP</ion-label>
       </ion-item>
-      <ion-img src="assets/car.png" class="img"></ion-img>
-
+      <ion-img *ngIf="!car.image" src="assets/car.png" class="img"></ion-img>
+      <ion-img *ngIf="car.image" [src]="car.image" class="img"></ion-img>
       <ion-item lines="none">
         <ion-label   [ngStyle]="{
           'font-size': '20px',
@@ -102,7 +102,7 @@
 </div>
 
 <!-- THIRD STEP -->
-<div *ngIf="type == 'thirdStep'" [@enterRightAnimation] style="margin-top: 30px;">
+<div *ngIf="type == 'thirdStep'" [@enterRightAnimation] style="margin: 30px 0;">
   <ion-card button (click)="type='needsService'" *ngIf="services?.length && overdueServices !== 0">
     <div class="subtitle-overlay-alert"></div>
     <ion-item lines="none">
