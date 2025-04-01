@@ -25,7 +25,16 @@
           <ion-select-option [value]="interval" *ngFor="let interval of serviceIntervals">
             {{interval}} km
           </ion-select-option>
+          <ion-select-option [value]="'oneTime'">
+            One Time
+          </ion-select-option>
         </ion-select>
+      </ion-card>
+    </ion-item>
+    <ion-item lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-input formControlName="date_interval" style="--placeholder-opacity:1;" type="number" placeholder="Months Interval"></ion-input>
+        <p style="position: absolute; right: 20px; top: 4px;">Months</p>
       </ion-card>
     </ion-item>
   </form>
@@ -46,7 +55,7 @@
   <form *ngIf="type === 'car'" [formGroup]="carForm">
     <ion-item lines="none" style="margin-top: 10px;">
       <ion-card>
-        <ion-input formControlName="car_km" style="--placeholder-opacity:1;" type="text" placeholder="Update Km"></ion-input>
+        <ion-input formControlName="car_km" style="--placeholder-opacity:1;" type="number" placeholder="Update Km"></ion-input>
       </ion-card>
     </ion-item>
   </form>
@@ -57,5 +66,9 @@
   <ion-button color="primary" style="width: 95%; margin: 0 auto;" expand="block" shape="round"
   (click)="type === 'service' ? (service ? updateService() : addCustomService()) : type === 'mod' ? addMod() : updateKm()">
     {{type === 'service' ? service ? 'Update' : 'Add Service' : type === 'mod' ? 'Add Mod' : 'Update Km'}}
+  </ion-button>
+  <ion-button [color]="service.status === 'active' || service.status === 'completed' ? 'danger' : 'success'" style="width: 95%; margin: 0 auto; margin-top: 10px;" expand="block" shape="round" fill="outline" (click)="service.status === 'active' || service.status === 'completed' ? toggleService('inactive') : toggleService('active')"
+  *ngIf="type === 'service' && service">
+    {{service.status === 'active' || service.status === 'completed' ? 'Disable' : 'Enable'}} Service
   </ion-button>
 </ion-footer>

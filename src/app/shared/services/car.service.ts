@@ -53,6 +53,10 @@ export class CarService {
     return this.httpApiClient.post<any>(`cars/completeService`,data,true)
   }
 
+  toggleService(data): Observable<any> {
+    return this.httpApiClient.post<any>(`cars/toggleService`,data,true)
+  }
+
   addCustomService(data): Observable<any> {
     return this.httpApiClient.post<any>(`cars/addCustomService`,data,true)
   }
@@ -75,6 +79,11 @@ export class CarService {
   
   updateKm(data): Observable<any> {
     return this.httpApiClient.post<any>(`cars/updateCarKm`,data,true)
+  }
+
+
+  deleteUserCar(id:number): Observable<any> {
+    return this.httpApiClient.get<any>(`cars/deleteUserCar/${id}`)
   }
 
 }

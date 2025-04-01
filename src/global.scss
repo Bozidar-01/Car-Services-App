@@ -98,8 +98,8 @@ ion-header{
 .custom-card {
 
   margin: 30px 0;
-  width: 340px;
-  height: 300px !important;
+  width: 360px;
+  height: 340px !important;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1),
               0px 4px 12px rgba(0, 0, 0, 0.05);
   border-radius: 12px; /* Adjusted for smooth corners */
@@ -107,11 +107,11 @@ ion-header{
 
   ion-img {
     position: absolute; // Use absolute positioning to allow overflow
-    top: 39%;
+    top: 40%;
     left: 55%;
     width: 105%;
     height: 150px;
-    transform: translate(-61%, -45%); // Center the image within the card
+    transform: translate(-60%, -45%); // Center the image within the card
     height: auto; // Maintain aspect ratio
     object-fit: contain; // Scale the image proportionally
   }
@@ -123,10 +123,11 @@ ion-header{
   position: absolute;
   height: 1% !important;
   padding: 0 !important;
+  font-size: 17px;
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 50%; /* Adjust width as needed */
+  width: 60%; /* Adjust width as needed */
   font-weight: 600;
 }
 
@@ -186,6 +187,22 @@ ion-header{
 
 
 .addServiceModal{
+  --width: 90%;
+  --height: 370px;
+  --border-radius: 12px;
+  --background: #fff !important;
+  --backdrop-opacity:0.6 !important;
+}
+
+.editServiceModal{
+  --width: 90%;
+  --height: 420px;
+  --border-radius: 12px;
+  --background: #fff !important;
+  --backdrop-opacity:0.6 !important;
+}
+
+.addModModal{
   --width: 90%;
   --height: 320px;
   --border-radius: 12px;

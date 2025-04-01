@@ -4,7 +4,10 @@
       Settings
     </ion-label>
     <ion-buttons slot="end">
-        <ion-button (click)="modalCtrl.dismiss()" style="font-size: 22px;">
+      <ion-button (click)="presentAlert()" style="font-size: 16px; --padding-end:25px; --padding-start:25px; margin-right: 10px;" color="danger" fill="outline" shape="round">
+        Remove Car
+      </ion-button>
+        <ion-button (click)="modalCtrl.dismiss({value:services})" style="font-size: 22px;">
           <ion-icon name="close-circle-outline"></ion-icon>
         </ion-button>
     </ion-buttons>
@@ -28,12 +31,19 @@
     <ion-card *ngFor="let service of services" button>
 
     <ion-item *ngIf="!service.custom_service && service.default_service" lines="none"  (click)="editService(service,'service')">
-        {{service.default_service?.name}} 
+
+        {{service.default_service?.name}} - <b [ngStyle]="{'color': service.status == 'active' || service.status === 'completed' ? 'var(--ion-color-success)' : 'var(--ion-color-danger)'}" style="text-transform: capitalize; padding-left: 5px;">{{service.status == 'active' || service.status === 'completed' ? 'Active' : 'Inactive'}}</b>
+
         <ion-icon slot="end" color="medium" name="chevron-forward-outline"></ion-icon>
+
     </ion-item>
+
     <ion-item *ngIf="service.custom_service" lines="none"  (click)="editService(service,'service')">
-        {{service.custom_service.name}} 
+
+        {{service.custom_service.name}} - <b [ngStyle]="{'color': service.status == 'active' || service.status === 'completed' ? 'var(--ion-color-success)' : 'var(--ion-color-danger)'}" style="text-transform: capitalize; padding-left: 5px;">{{service.status == 'active' || service.status === 'completed' ? 'Active' : 'Inactive'}}</b>
+
         <ion-icon slot="end" color="medium" name="chevron-forward-outline"></ion-icon>
+
     </ion-item>
 
     </ion-card>

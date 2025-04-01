@@ -31,7 +31,7 @@
             {{ car.model.split(' ')[0] }}
           </ion-card-subtitle>
           <ion-img *ngIf="!car.image" src="assets/car.png"></ion-img>
-          <ion-img *ngIf="car.image" [src]="car.image"></ion-img>
+          <ion-img style="margin-top: 10px;" *ngIf="car.image" [src]="car.image"></ion-img>
 
           <ion-card-subtitle style="text-transform: none; font-size: 20px; padding: 15px; font-weight: 550; position: absolute; bottom: 65px; left: 50%; transform: translate(-50%);" color="dark">
             {{ car.model.split(' ')[1] }}
@@ -56,7 +56,8 @@
           <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
             {{ brand.name }}
           </ion-card-subtitle>
-          <ion-img src="assets/car.png"></ion-img>
+          <ion-img *ngIf="!brand?.logo" src="assets/car.png"></ion-img>
+            <ion-img *ngIf="brand?.logo" [src]="brand.logo" style="width: 80%; margin: 10px 0px 0px 11px;"></ion-img>
           <ion-card-subtitle style="text-transform: none; font-size: 20px; padding: 15px; font-weight: 550; position: absolute; bottom: 65px; left: 50%; transform: translate(-50%);" color="dark">
             {{ brand.country }}
           </ion-card-subtitle>

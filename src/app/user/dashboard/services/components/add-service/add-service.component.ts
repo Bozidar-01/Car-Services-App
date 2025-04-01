@@ -58,6 +58,8 @@ export class AddServiceComponent  implements OnInit {
         name: [!this.service?.custom_service ? this.service?.default_service.name :
           this.service?.custom_service.name || '', Validators.required],
           service_interval: [initialInterval, Validators.required],
+          date_interval: [!this.service?.custom_service ? this.service?.default_service.date_interval :
+            this.service?.custom_service.date_interval || '', Validators.required],
         });
       }else if (this.type === 'mod'){
         this.modForm = this.fb.group({
@@ -107,6 +109,7 @@ export class AddServiceComponent  implements OnInit {
       custom_service:{
         name: this.serviceForm.value.name,
         service_interval: this.serviceForm.value.service_interval,
+        date_interval: this.serviceForm.value.date_interval,
       },
       user_car_id: this.car.id
     }
@@ -171,5 +174,21 @@ export class AddServiceComponent  implements OnInit {
       }
     }
   }
+
+
+  toggleService(status:string){
+      let data = {
+        service_id: this.service.id,
+        status: status,
+      }
+
+
+      this.carService.toggleService(data).pipe(first()).subscribe({
+        next:(response)=>{
+          this.alertService.presentToast('Service Status Changed!', 'bottom' , 'success');
+          this.service.status = response.data.status
+        }
+      })
+    }
 
 }

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController, NavController } from '@ionic/angular';
 import { AddServiceComponent } from '../add-service/add-service.component';
+import { CarService } from 'src/app/shared/services/car.service';
+import { first } from 'rxjs';
 
 @Component({
   standalone:false,
@@ -11,7 +13,11 @@ import { AddServiceComponent } from '../add-service/add-service.component';
 export class ChangeSettingsComponent  implements OnInit {
   @Input() services:any
   @Input() car:any;
-  constructor(public modalCtrl: ModalController) { }
+  constructor(public modalCtrl: ModalController,
+    private alertController: AlertController,
+    private navCtrl: NavController,
+    private carService: CarService
+  ) { }
 
   ngOnInit() {
     console.log(this.services)
@@ -21,7 +27,7 @@ export class ChangeSettingsComponent  implements OnInit {
      async editService(service:any,type:string){
         const modal = await this.modalCtrl.create({
           component: AddServiceComponent,
-          cssClass: type == 'car' ? 'editCarKmModal' : 'addServiceModal',
+          cssClass: type == 'car' ? 'editCarKmModal' : 'editServiceModal',
           componentProps:{
               service:service,
               type:type,
@@ -46,5 +52,45 @@ export class ChangeSettingsComponent  implements OnInit {
             this.car.car_km = data.km
          }
       }
+
+      async presentAlert() {
+        const alert = await this.alertController.create({
+          header: 'Remove Car',
+          message: 'Are you sure you want to remove this car?',
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                console.log('Car deletion cancelled');
+              }
+            },
+            {
+              text: 'Yes',
+              handler: () => {
+                console.log('Car marked as deleted');
+                this.deleteUserCar(this.car.id)
+              }
+            }
+          ]
+        });
+    
+        await alert.present();
+      }
+    
+      deleteUserCar(id:number){
+    
+        this.carService.deleteUserCar(id).pipe(first()).subscribe({
+          next:async(response)=>{
+              await this.modalCtrl.dismiss({value:{
+                deleted:true,
+                car:response.data
+              }});
+            this.navCtrl.navigateRoot('authed/user/dashboard')
+          }
+        })
+    
+      }
+  
 
 }
