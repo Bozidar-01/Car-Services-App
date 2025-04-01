@@ -5,6 +5,7 @@ import { BehaviorSubject, first, Subscription } from 'rxjs';
 import { Preferences } from '@capacitor/preferences';
 import { environment } from 'src/environments/environment';
 import User from 'onesignal-cordova-plugin/dist/UserNamespace';
+import { NavController } from '@ionic/angular';
 
 @Component({
   standalone:false,
@@ -20,7 +21,7 @@ export class MainHeaderComponent  implements OnInit {
   user: any = null;
 
   
-  constructor(private router: Router,public publicService: PublicService) { 
+  constructor(private router: Router,public publicService: PublicService,private navCtrl: NavController) { 
     this.router.events.subscribe(() => {
       this.isVisible = this.router.url !== '/authed/user/profile';
     });
@@ -59,4 +60,8 @@ export class MainHeaderComponent  implements OnInit {
         })
   }
   
+
+  goToProfile(){
+    this.navCtrl.navigateRoot('authed/user/profile')
+  }
 }

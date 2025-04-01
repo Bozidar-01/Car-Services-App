@@ -8,7 +8,8 @@
   }
   
   .profile-pic {
-    width: 40%;
+    height: 160px !important;
+    width: 160px !important;
     object-fit: cover !important;
     margin: 0 auto;
     border-radius: 50%;
@@ -38,7 +39,7 @@
   }
   
   .galleryImg {
-    height: 30px;
+    height: 30px !important;
     position: absolute;
     left: 55%;
     bottom: 60px;
