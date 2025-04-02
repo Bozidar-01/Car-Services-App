@@ -1,0 +1,27 @@
+ion-card{
+    border-radius: 10px;
+    border: 0.5px solid #124a49;
+    box-shadow: none;
+    padding: 3px 10px;
+    width: 98%;
+    margin: 5px auto;
+}
+
+ion-card-subtitle{
+    color:#124a49 !important;
+}
+
+.login{
+    --background:#124a49 !important;
+    width: 90%;
+    margin: 40px auto;
+    margin-bottom: 10px;
+}
+
+.divider{
+    height: 2px; 
+    border-top: 0.1px solid var(--ion-color-primary) !important ;
+    width: 80%;
+    margin: 30px auto;
+    margin-bottom: 5px !important;
+}

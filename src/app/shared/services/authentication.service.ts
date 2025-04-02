@@ -83,6 +83,25 @@ export class AuthenticationService {
 
   }
 
+  registerAccount(registerAccount: any): Observable<any> {
+    return this.httpApiClient.post<any>(
+       'register',registerAccount,true,true).pipe(map(response => {
+      if (response) {
+        // const newLoginReq: LoginResponse = {
+          // token: response.data.token,
+          // access_token: response.access_token,
+          // expires_at: response.expires_at,
+        // };
+        // Preferences.set({
+        //   key: environment.storageDataKeys.token, value: JSON.stringify(newLoginReq)
+        // });
+        // this.httpApiClient.setToken(newLoginReq)
+      }
+
+      return response;
+    }));
+  }
+
   setToken(token: verifyResponse) {
     this.httpApiClient.setToken(token);
   }

@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { AuthPageRoutingModule } from './auth-routing.module';
 
 import { AuthPage } from './auth.page';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,6 @@ import { AuthPage } from './auth.page';
     AuthPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [AuthPage]
+  declarations: [AuthPage,LoginComponent,RegisterComponent]
 })
 export class AuthPageModule {}

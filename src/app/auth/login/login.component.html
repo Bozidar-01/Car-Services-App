@@ -1,3 +1,43 @@
-<p>
-  login works!
-</p>
+<ion-card-subtitle color="dark" style="text-align: center; text-transform: none; font-size: 40px; margin-bottom: 30px;">
+  Login
+</ion-card-subtitle>
+
+
+
+<ion-list>
+
+  <form [formGroup]="loginForm">
+  <ion-item lines="none">
+      <ion-card>
+        <ion-item lines="none" class="ion-no-padding">
+        <ion-input formControlName="email" type="text" placeholder="E-mail address"></ion-input>
+          </ion-item>
+      </ion-card>
+  </ion-item>
+  <ion-item lines="none">
+      <ion-card>
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password" type="password" placeholder="Password"></ion-input>
+          <ion-buttons slot="end" style="transform: translateX(20px);
+        ">
+            <ion-button (click)="showPassword = !showPassword">
+              <ion-icon  slot="icon-only" name="{{ !showPassword ? 'eye-outline' : 'eye-off-outline'}}"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-card>
+  </ion-item>
+  </form>
+
+  <ion-button class="login" expand="block" (click)="login()">
+      Login
+  </ion-button>
+
+  <div class="divider"></div>
+
+
+  <ion-button fill="clear" expand="block" (click)="register()" class="ion-no-padding ion-no-margin" style="font-size: 12px;">
+    No Account? Register!
+</ion-button>
+  
+</ion-list>

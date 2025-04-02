@@ -105,7 +105,7 @@
 
 <!-- THIRD STEP -->
 <div *ngIf="type == 'thirdStep'" [@enterRightAnimation] style="margin: 30px 0;">
-  <ion-card button (click)="type='needsService'">
+  <ion-card button (click)="type='needsService'"  *ngIf="overdueServices>1">
     <div class="subtitle-overlay-alert"></div>
     <ion-item lines="none">
       <ion-label style="font-size: 16px; font-weight: bold; color: rgb(180, 139, 6);">

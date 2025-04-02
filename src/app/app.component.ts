@@ -15,13 +15,11 @@ register();
   standalone: false,
 })
 export class AppComponent implements OnInit {
-  user:User
-  private userSubject$ = new BehaviorSubject<User | null>(null);
+
   @ViewChild(HeaderMenuComponent) headerMenu: HeaderMenuComponent;
-  constructor(private userService:UserService,public publicService: PublicService) {}
+  constructor(public publicService: PublicService) {}
 
   ngOnInit() {
-    this.getUser()
   }
 
   loadUserData() {
@@ -31,18 +29,5 @@ export class AppComponent implements OnInit {
   }
 
 
-  getUser(){
-    this.userService.getUserData().pipe(first()).subscribe({
-      next:async(response)=>{
-        this.user = response.data;
-        await Preferences.set({
-          key: environment.carServiceStorageKey.user,
-          value: JSON.stringify(this.user),
-        });
 
-        this.userSubject$.next(this.user);
-        this.publicService.updateUser(this.user)
-      }
-    })
-  }
 }
