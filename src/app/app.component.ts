@@ -7,6 +7,10 @@ import { HeaderMenuComponent } from './shared/components/header-menu/header-menu
 import { UserService } from './shared/services/user.service';
 import { BehaviorSubject, first } from 'rxjs';
 import { PublicService } from './shared/services/public.service';
+import { Capacitor } from '@capacitor/core';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
+
 register();
 @Component({
   selector: 'app-root',
@@ -17,7 +21,12 @@ register();
 export class AppComponent implements OnInit {
 
   @ViewChild(HeaderMenuComponent) headerMenu: HeaderMenuComponent;
-  constructor(public publicService: PublicService) {}
+  constructor(public publicService: PublicService) {
+    if (Capacitor.getPlatform() === 'android') {
+      this.initializeApp();
+      this.lockOrientation();
+    }
+  }
 
   ngOnInit() {
   }
@@ -28,6 +37,20 @@ export class AppComponent implements OnInit {
     }
   }
 
+  initializeApp() {
+    this.setStatusBarStyle();
+  }
 
+
+  async setStatusBarStyle() {
+    if (Capacitor.getPlatform() === 'android') {
+      await StatusBar.setBackgroundColor({ color: '#ffffff' });
+      await StatusBar.setStyle({ style: Style.Light });
+    }
+  }
+
+  async lockOrientation() {
+    await ScreenOrientation.lock({ orientation: 'portrait' });
+  }
 
 }
