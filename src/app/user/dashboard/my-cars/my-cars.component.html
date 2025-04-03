@@ -28,6 +28,10 @@ space-between="15"
       <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
         {{ car?.car_model?.cars.model.split(' ')[0] }}
       </ion-card-subtitle>
+      <ion-chip *ngIf="car.main_car == 1" name="alert-circle-outline" color="medium" style="position: absolute; top: 35px; right: 60px; z-index: 99; font-size: 10px;">
+        Daily Driver
+      </ion-chip>
+
       <ion-icon *ngIf="carsInNeedOfService?.includes(car.id)" slot="end" name="alert-circle-outline" color="warning" style="position: absolute; top: 43px; right: 20px; z-index: 99; font-size: 26px;"></ion-icon>
       <ion-img *ngIf="!car.image" src="assets/car.png"></ion-img>
       <ion-img *ngIf="car.image" [src]="car.image"></ion-img>

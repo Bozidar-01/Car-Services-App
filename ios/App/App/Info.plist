@@ -28,6 +28,10 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to allow you to save photos taken with the camera.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need camera access to take pictures or videos for your profile or cases.</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

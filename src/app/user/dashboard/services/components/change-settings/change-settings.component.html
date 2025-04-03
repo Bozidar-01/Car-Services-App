@@ -21,7 +21,7 @@
 
     <ion-card *ngIf="car.main_car !== 1">
       <ion-item lines="none" style="font-size: 16px;">
-      <ion-checkbox (click)="presentAlertMainCar()">Make This My Main Car</ion-checkbox>
+      <ion-checkbox [checked]="checkboxValue" (ionChange)="presentAlertMainCar($event)">Set as My Main Car</ion-checkbox>
     </ion-item>
     </ion-card>
     

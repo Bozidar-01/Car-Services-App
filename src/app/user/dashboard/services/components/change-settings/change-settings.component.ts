@@ -14,6 +14,7 @@ import { AlertsService } from 'src/app/shared/services/alerts.service';
 export class ChangeSettingsComponent  implements OnInit {
   @Input() services:any
   @Input() car:any;
+  checkboxValue: boolean = false;
   constructor(public modalCtrl: ModalController,
     private alertController: AlertController,
     private navCtrl: NavController,
@@ -95,37 +96,45 @@ export class ChangeSettingsComponent  implements OnInit {
       makeCarMain(id:number){
         this.carService.makeCarMain(id).pipe(first()).subscribe({
           next:async(response)=>{
-            this.alertService.presentToast('Car marked as main!', 'bottom' , 'success');
-              await this.modalCtrl.dismiss();
+            this.alertService.presentToast('This car has been set as your main car!', 'bottom', 'success');
+            await this.modalCtrl.dismiss();
           }
         })
     
       }
-
-      async presentAlertMainCar() {
+      async presentAlertMainCar(event: any) {
+        // Capture the initial checked state
+        const isChecked = event.detail.checked;
+      
         const alert = await this.alertController.create({
           header: 'Main Car',
-          message: 'Make This My Main Car',
+          message: 'Mark this car as my main vehicle',
           buttons: [
             {
               text: 'Cancel',
               role: 'cancel',
               handler: () => {
+                // Revert checkbox state if user cancels
+                this.checkboxValue = false;
+                event.target.checked = false;
                 console.log('Service completion cancelled');
               }
             },
             {
               text: 'Yes',
               handler: () => {
+                // Confirm the action and update the checkbox
                 console.log('Service marked as completed');
-                this.makeCarMain(this.car.id)
+                this.checkboxValue = true;
+                event.target.checked = true;
+                this.makeCarMain(this.car.id);
               }
             }
           ]
         });
-    
+      
         await alert.present();
       }
-  
+      
 
 }
