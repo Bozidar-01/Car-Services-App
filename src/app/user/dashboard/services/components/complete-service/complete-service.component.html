@@ -21,6 +21,11 @@
     </ion-item>
     <ion-item lines="none" style="margin-top: 10px;">
       <ion-card>
+        <ion-checkbox (click)="usedProduct=!usedProduct">Did you use any product?</ion-checkbox>
+      </ion-card>
+    </ion-item>
+    <ion-item *ngIf="usedProduct" lines="none" style="margin-top: 10px;">
+      <ion-card>
         <ion-input formControlName="product_used" style="--placeholder-opacity:1;" type="text" 
         placeholder="Product Used"></ion-input>
       </ion-card>

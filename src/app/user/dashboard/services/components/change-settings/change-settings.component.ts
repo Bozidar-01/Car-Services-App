@@ -3,6 +3,7 @@ import { AlertController, ModalController, NavController } from '@ionic/angular'
 import { AddServiceComponent } from '../add-service/add-service.component';
 import { CarService } from 'src/app/shared/services/car.service';
 import { first } from 'rxjs';
+import { AlertsService } from 'src/app/shared/services/alerts.service';
 
 @Component({
   standalone:false,
@@ -16,12 +17,11 @@ export class ChangeSettingsComponent  implements OnInit {
   constructor(public modalCtrl: ModalController,
     private alertController: AlertController,
     private navCtrl: NavController,
-    private carService: CarService
+    private carService: CarService,
+    private alertService:AlertsService
   ) { }
 
-  ngOnInit() {
-    console.log(this.services)
-  }
+  ngOnInit() {}
 
 
      async editService(service:any,type:string){
@@ -53,7 +53,7 @@ export class ChangeSettingsComponent  implements OnInit {
          }
       }
 
-      async presentAlert() {
+      async presentAlertDelete() {
         const alert = await this.alertController.create({
           header: 'Remove Car',
           message: 'Are you sure you want to remove this car?',
@@ -90,6 +90,41 @@ export class ChangeSettingsComponent  implements OnInit {
           }
         })
     
+      }
+
+      makeCarMain(id:number){
+        this.carService.makeCarMain(id).pipe(first()).subscribe({
+          next:async(response)=>{
+            this.alertService.presentToast('Car marked as main!', 'bottom' , 'success');
+              await this.modalCtrl.dismiss();
+          }
+        })
+    
+      }
+
+      async presentAlertMainCar() {
+        const alert = await this.alertController.create({
+          header: 'Main Car',
+          message: 'Make This My Main Car',
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                console.log('Service completion cancelled');
+              }
+            },
+            {
+              text: 'Yes',
+              handler: () => {
+                console.log('Service marked as completed');
+                this.makeCarMain(this.car.id)
+              }
+            }
+          ]
+        });
+    
+        await alert.present();
       }
   
 

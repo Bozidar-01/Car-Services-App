@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DetailsComponent } from '../details/details.component';
 import { ServicesComponent } from '../services/services.component';
 import { CarService } from 'src/app/shared/services/car.service';
 import { first } from 'rxjs';
+import Swiper from 'swiper';
 
 @Component({
   standalone:false,
@@ -11,8 +12,10 @@ import { first } from 'rxjs';
   templateUrl: './my-cars.component.html',
   styleUrls: ['./my-cars.component.scss'],
 })
-export class MyCarsComponent  implements OnInit {
-
+export class MyCarsComponent  implements OnInit,AfterViewInit {
+  @ViewChild('swiperRef') swiperElement: any;
+  swiper?: Swiper;
+  previousCarOrder: number[] = [];
   myCars: Array<any> = []
   count: number = 0
   carsInNeedOfService: Array<any>
@@ -24,6 +27,11 @@ export class MyCarsComponent  implements OnInit {
    this.getMyCars()
    this.countServiceCars()
   }
+
+  ngAfterViewInit() {
+    this.swiper = this.swiperElement?.nativeElement?.swiper;
+  }
+
 
     async viewServices(car:any){
       const modal = await this.modalCtrl.create({
@@ -46,14 +54,28 @@ export class MyCarsComponent  implements OnInit {
       }
     }
 
-    getMyCars(){
+    getMyCars() {
       this.carService.getUserCars().pipe(first()).subscribe({
-        next:(response)=>{
-            this.myCars = response.data
-            this.showLoader = false
+        next: (response) => {
+          const newCarOrder = response.data.map(car => car.id);
+    
+          // Check if the order has changed
+          const hasOrderChanged = this.previousCarOrder.length &&
+            !this.previousCarOrder.every((id, index) => id === newCarOrder[index]);
+    
+          // Update myCars
+          this.myCars = response.data;
+          this.showLoader = false;
+          this.previousCarOrder = [...newCarOrder]; // Save the new order
+    
+          // Reset Swiper index if order changed
+          if (hasOrderChanged && this.swiper && this.myCars.length) {
+            this.swiper.slideTo(0);
+          }
         }
-      })
+      });
     }
+    
 
     countServiceCars(){
       this.carService.countServiceCars().pipe(first()).subscribe({

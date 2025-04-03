@@ -13,6 +13,7 @@ import { CarService } from 'src/app/shared/services/car.service';
 })
 export class CompleteServiceComponent  implements OnInit {
   serviceForm:FormGroup
+  usedProduct: boolean = false;
   @Input() service:any
   constructor(public modalCtrl: ModalController,
     private alertController: AlertController,
@@ -24,7 +25,7 @@ export class CompleteServiceComponent  implements OnInit {
 
     this.serviceForm = new FormGroup({
       price: new FormControl('',Validators.required),
-      product_used: new FormControl('',Validators.required),
+      product_used: new FormControl(null),
     })
   }
 

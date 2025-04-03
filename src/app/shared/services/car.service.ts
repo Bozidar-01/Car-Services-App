@@ -86,4 +86,8 @@ export class CarService {
     return this.httpApiClient.get<any>(`cars/deleteUserCar/${id}`)
   }
 
+  makeCarMain(id:number): Observable<any> {
+    return this.httpApiClient.get<any>(`cars/makeCarMain/${id}`)
+  }
+
 }

@@ -1,7 +1,7 @@
 <ion-content scrollY="false">
   <div class="header">
     <ion-card-subtitle style="text-transform: none; font-size: 28px; z-index: 3; line-height: 1.2; position: absolute; left: 20px; bottom: 20px;" color="snow">
-        Car Service Tracker
+        Maintenance Tracker
     </ion-card-subtitle>
   </div>
 
@@ -19,7 +19,7 @@
 
 
       <div *ngIf="carsSegment == 'available'" [@fadeInOut]>
-        <app-available-cars></app-available-cars>
+        <app-available-cars (type)="updateType($event)"></app-available-cars>
       </div>
 
       <div *ngIf="carsSegment == 'own'" [@fadeInOut]>

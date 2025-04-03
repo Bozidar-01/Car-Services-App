@@ -19,7 +19,7 @@ import { environment } from 'src/environments/environment';
     trigger('enterAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(100%)' }),
-        animate('750ms ease-in-out', style({ opacity: 1, transform: 'translateY(0)' }))
+        animate('1000ms ease-in-out', style({ opacity: 1, transform: 'translateY(0)' }))
       ])
     ]),
     trigger('exitLeftAnimation', [
@@ -30,7 +30,7 @@ import { environment } from 'src/environments/environment';
     trigger('enterRightAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateX(100%)' }),
-        animate('1300ms ease-in-out', style({ opacity: 1, transform: 'translateX(0)' }))
+        animate('1000ms ease-in-out', style({ opacity: 1, transform: 'translateX(0)' }))
       ])
     ])
   ]

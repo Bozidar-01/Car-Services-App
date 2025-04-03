@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DetailsComponent } from '../details/details.component';
 import { CarService } from 'src/app/shared/services/car.service';
@@ -11,6 +11,7 @@ import { first } from 'rxjs';
   styleUrls: ['./available-cars.component.scss'],
 })
 export class AvailableCarsComponent  implements OnInit {
+  @Output() type = new EventEmitter<string>();
   selectedCard: HTMLElement | null = null; // Track the currently selected card
   cars:Array<any>=[]
   filteredCars:Array<any>=[]
@@ -44,7 +45,12 @@ export class AvailableCarsComponent  implements OnInit {
     if(data?.value){
       this.getCars()
       this.getCarBrands()
+      this.changeType();
     }
+  }
+
+  changeType(){
+    this.type.emit('own')
   }
 
 

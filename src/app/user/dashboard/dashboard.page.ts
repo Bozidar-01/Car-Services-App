@@ -43,6 +43,10 @@ export class DashboardPage implements OnInit {
   ionViewWillEnter(){
     this.getUser()
   }
+
+  updateType(event:any){  
+    this.carsSegment = event
+  }
   
 
   changeSegment(event:any){

@@ -13,7 +13,7 @@
   </ion-label>
 </ion-item>
 
-<ng-container *ngIf="services.length && loaded">
+<ng-container *ngIf="services?.length && loaded">
 
 
   <div style="margin-bottom: 80px;">
@@ -25,7 +25,8 @@
         <ion-label>
           {{service.default_service.name}}
           <br>
-          <small style="font-size: 14px;">Used:  {{service.product_used}}</small>
+          <small *ngIf="service.product_used" style="font-size: 12px;">Used:  {{service.product_used}}</small>
+          <small *ngIf="!service.product_used" style="font-size: 12px;">No Product Used</small>
         </ion-label>
         <ion-label slot="end">
           <ion-button fill="outline" disabled style="opacity: 1;">
@@ -40,7 +41,8 @@
         <ion-label>
           {{service.custom_service.name}}
           <br>
-          <small style="font-size: 14px;">Used:  {{service.product_used}}</small>
+          <small *ngIf="service.product_used" style="font-size: 12px;">Used:  {{service.product_used}}</small>
+          <small *ngIf="!service.product_used" style="font-size: 12px;">No Product Used</small>
         </ion-label>
         <ion-label slot="end">
           <ion-button fill="outline" disabled style="opacity: 1;">
