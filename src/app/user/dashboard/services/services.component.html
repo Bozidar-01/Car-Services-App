@@ -33,7 +33,7 @@
           {{type=='needsService' ? `${overdueServices} Overdue Service` : type == 'serviced' ? 'Completed Services' : type == 'mods' ? 'Mods' : ''}}
         </ion-label>
         <ion-label slot="end" style="height: 40px;">
-          <ion-button *ngIf="type !='firstStep' && type != 'secondStep' && type != 'thirdStep'" fill="clear" class="action-button ion-no-padding ion-no-margin" (click)="type='thirdStep'">
+          <ion-button *ngIf="type !='firstStep' && type != 'secondStep' && type != 'thirdStep'  && type != undefined" fill="clear" class="action-button ion-no-padding ion-no-margin" (click)="type='thirdStep'">
             <ion-icon style="font-size: 30px !important;" name="close-circle-outline" [color]="type === 'needsService'? 'warning':'primary'"></ion-icon>
           </ion-button>
         </ion-label>
@@ -51,7 +51,7 @@
              class="ion-no-padding"
            >
            <p style="font-weight: 600;">
-             {{ newCarForm?.get('purchase_date')?.value ?(newCarForm?.get('purchase_date')?.value | date: 'MMM d, y') : 'Purchase Date'}}
+             {{ newCarForm?.get('purchase_date')?.value ?(newCarForm?.get('purchase_date')?.value | date: 'dd MMM, YYYY') : 'Purchase Date'}}
              </p>
            </ion-label>
             </ion-card>

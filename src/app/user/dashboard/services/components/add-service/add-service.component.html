@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border" style="background: #fff !important; padding: 10px; margin-top: 0 !important; padding-top: 0 !important;">
   <ion-toolbar class="ion-no-border" style="--background: #fff !important;">
     <ion-label slot="start" style="font-size:18px; font-weight: bold;">
-      {{type === 'service' ? 'Add a custom service' :  type === 'mod' ? 'Add a mod' : 'Update Km'}}
+      {{type === 'service' ? 'Add a custom service' :  type === 'mod' ? 'Add a mod' :type === 'completedService' ? 'Add Service' : 'Update Km'}}
     </ion-label>
     <ion-buttons slot="end">
         <ion-button (click)="modalCtrl.dismiss()" style="font-size: 22px;">
@@ -13,6 +13,70 @@
 
 
 <ion-content>
+
+  <form *ngIf="type === 'completedService'" [formGroup]="completedServiceForm">
+    <ion-item lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-input formControlName="name" style="--placeholder-opacity:1;" type="text" placeholder="Service Name"></ion-input>
+      </ion-card>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-card>
+        <ion-input formControlName="price" style="--placeholder-opacity:1;" type="tel" placeholder="Price"></ion-input>
+      </ion-card>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-card>
+        <ion-checkbox (ionChange)="usedProduct=!usedProduct">Did you use any product?</ion-checkbox>
+      </ion-card>
+    </ion-item>
+    <ion-item *ngIf="usedProduct" lines="none">
+      <ion-card>
+        <ion-input formControlName="product_used" style="--placeholder-opacity:1;" type="text" placeholder="Product Used"></ion-input>
+      </ion-card>
+    </ion-item>
+    <ion-item lines="none"  id="datePickerModal">
+      <ion-card class="input">
+
+        <ion-label
+        style="padding: 14px 0"
+        class="ion-no-padding"
+      >
+      <p style="font-weight: 600;">
+        {{ completedServiceForm?.get('service_date')?.value ?(completedServiceForm?.get('service_date')?.value | date: 'dd MMM, YYYY') : 'Service Date'}}
+        </p>
+      </ion-label>
+       </ion-card>
+     </ion-item>
+
+     <ion-modal
+     #dateModal
+     [initialBreakpoint]="1"
+     [breakpoints]="[0, 1]"
+     [keepContentsMounted]="true"
+     trigger="datePickerModal"
+     cssClass="bottom-modal my-custom-modal"
+   >
+     <ng-template>
+       <ion-card-subtitle style="text-transform: none; padding: 20px; font-size: 26px;" color="dark">
+         Service Date
+       </ion-card-subtitle>
+       <ion-datetime
+         style="width: 100%; height: 350px; --background: var(--ion-color-snow) !important; padding-bottom: 20px;"
+         presentation="date"
+         [locale]="'en-US'"
+         size="cover"
+         id="datetime"
+         formControlName="service_date"
+         [max]="maxDate"
+         (ionChange)="selectDate($event)"
+       ></ion-datetime>
+     </ng-template>
+   </ion-modal>
+  </form>
+
+
+
   <form *ngIf="type === 'service'" [formGroup]="serviceForm">
     <ion-item lines="none" style="margin-top: 10px;">
       <ion-card>
@@ -24,9 +88,6 @@
         <ion-select formControlName="service_interval" style="width: 100%;" interface="action-sheet" label="Service Interval">
           <ion-select-option [value]="interval" *ngFor="let interval of serviceIntervals">
             {{interval}} km
-          </ion-select-option>
-          <ion-select-option [value]="'oneTime'">
-            One Time
           </ion-select-option>
         </ion-select>
       </ion-card>
@@ -64,11 +125,13 @@
 
 <ion-footer style="padding: 10px;">
   <ion-button color="primary" style="width: 95%; margin: 0 auto;" expand="block" shape="round"
-  (click)="type === 'service' ? (service ? updateService() : addCustomService()) : type === 'mod' ? addMod() : updateKm()">
-    {{type === 'service' ? service ? 'Update' : 'Add Service' : type === 'mod' ? 'Add Mod' : 'Update Km'}}
-  </ion-button>
+  (click)="type === 'service' ? (service ? updateService() : addCustomService()) : type === 'mod' ? addMod() :
+   type === 'completedService' ? addCompletedService() : updateKm() " > 
+  {{type === 'service' ? service ? 'Update' : 'Add Service' : type === 'mod' ? 'Add Mod' : type === 'completedService' ? 'Add Service' : 'Update Km'}}
+</ion-button>
   <ion-button [color]="service.status === 'active' || service.status === 'completed' ? 'danger' : 'success'" style="width: 95%; margin: 0 auto; margin-top: 10px;" expand="block" shape="round" fill="outline" (click)="service.status === 'active' || service.status === 'completed' ? toggleService('inactive') : toggleService('active')"
   *ngIf="type === 'service' && service">
     {{service.status === 'active' || service.status === 'completed' ? 'Disable' : 'Enable'}} Service
   </ion-button>
 </ion-footer>
+

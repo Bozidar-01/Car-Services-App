@@ -49,6 +49,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
   services: Array<any>;
   addOptions = [
     { value: 'service', label: 'Add New Service' },
+    { value: 'completedService', label: 'Add Completed Service' },
     { value: 'mod', label: 'Add New Mod' },
   ];
 
@@ -98,6 +99,8 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
       await this.addServiceModal('service');
     } else if (selectedValue === 'mod') {
       await this.addServiceModal('mod');
+    } else if (selectedValue === 'completedService') {
+      await this.addServiceModal('completedService');
     }
     if (this.addSelect) {
       this.addSelect.value = null;
@@ -131,7 +134,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
   async addServiceModal(type: string) {
     const modal = await this.modalCtrl.create({
       component: AddServiceComponent,
-      cssClass: type === 'service' ? 'addServiceModal' : 'addModModal',
+      cssClass: type === 'service' ? 'addServiceModal' : type === 'mod' ? 'addModModal' : 'addOldServiceModal',
       componentProps: {
         car: this.car,
         type: type,
@@ -206,9 +209,17 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
 
   updateOverdueCount() {
     this.overdueServices = 0; // Reset to 0 before counting
-    this.overdueServices = this.services?.filter(service => service.status === 'active').length || 0;
+    
+    const currentDate = new Date(); 
+    
+    this.overdueServices = this.services?.filter(service => 
+        service.status === 'active' &&
+        new Date(service.next_service) <= currentDate &&
+        service.next_service_km <= this.car.car_km
+    ).length || 0;
+
     console.log('Updated overdueServices:', this.overdueServices); // Debug
-  }
+}
 
   async loadUserData() {
     const { value } = await Preferences.get({ key: environment.carServiceStorageKey.user });
