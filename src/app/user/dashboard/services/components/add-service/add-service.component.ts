@@ -16,8 +16,12 @@ export class AddServiceComponent  implements OnInit {
   @Input() car:any;
   @Input() type:string='service';
   serviceForm:FormGroup
+  completedServiceForm: FormGroup
   modForm:FormGroup
   carForm:FormGroup
+  maxDate: string = new Date().toISOString().split('T')[0];
+  usedProduct: boolean = false;
+
   
   serviceIntervals: number[] = [
     5000, 
@@ -66,6 +70,13 @@ export class AddServiceComponent  implements OnInit {
           mod_type: ['', Validators.required],
           price: ['', Validators.required],
        });
+      }else if(this.type === 'completedService'){
+        this.completedServiceForm = this.fb.group({
+          name: ['', Validators.required],
+          price: ['',Validators.required],
+          service_date: ['', Validators.required],
+          product_used: [''],
+       });
       }else{
         this.carForm = this.fb.group({
           car_km: [this.car.car_km, Validators.required],
@@ -81,8 +92,11 @@ export class AddServiceComponent  implements OnInit {
     }else{
       let data = {
         custom_service:{
+
           name: this.serviceForm.value.name,
-          service_interval: this.serviceForm.value.service_interval,
+          product_used: this.serviceForm.value.product_used,
+          price: this.serviceForm.value.price,
+          date: this.serviceForm.value.service_interval,
         },
         user_car_id: this.car.id
       }
@@ -98,6 +112,33 @@ export class AddServiceComponent  implements OnInit {
       })
     }
   }
+
+
+  addCompletedService(){
+    if(this.completedServiceForm.invalid){
+      this.alertService.presentToast('Please fill the above fields!','bottom','danger');
+      return;
+    }else{
+      let data = {
+        custom_service:{
+          name: this.completedServiceForm.value.name,
+          price: this.completedServiceForm.value.price,
+          product_used: this.completedServiceForm.value.product_used,
+          service_date: this.completedServiceForm.value.service_date,
+        },
+        user_car_id: this.car.id
+      }
+            
+      this.carService.addCompletedService(data).pipe(first()).subscribe({
+        next:(response)=>{
+          this.alertService.presentToast('Service added!','bottom','success');
+
+          this.modalCtrl.dismiss()
+        }
+      })
+    }
+  }
+
 
   updateService(){
     if(this.serviceForm.invalid){
@@ -189,6 +230,15 @@ export class AddServiceComponent  implements OnInit {
           this.service.status = response.data.status
         }
       })
+    }
+
+
+    selectDate(event: any) {
+      const selectedValue = event.detail.value;
+      if (selectedValue) {
+        this.completedServiceForm.patchValue({ service_date: selectedValue });
+        // this.modalCtrl.dismiss();
+      }
     }
 
 }

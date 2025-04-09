@@ -90,4 +90,9 @@ export class CarService {
     return this.httpApiClient.get<any>(`cars/makeCarMain/${id}`)
   }
 
+  addCompletedService(data): Observable<any> {
+    return this.httpApiClient.post<any>(`cars/addCompletedService`,data,true)
+  }
+
+
 }

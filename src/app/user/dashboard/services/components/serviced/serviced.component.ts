@@ -37,7 +37,7 @@ export class ServicedComponent  implements OnInit {
       calculateTotal(services) {
         this.total = 0;
         services.forEach(service => {
-          const price = Number(service.price) || 0; // Convert to number, default to 0
+          const price = service?.custom_service?.price ? Number(service.custom_service.price) + Number(service.price) : Number(service.price) || 0; // Convert to number, default to 0
           this.total += price;
         });
         this.totalEuro = (this.total / 61.3).toFixed(2);
