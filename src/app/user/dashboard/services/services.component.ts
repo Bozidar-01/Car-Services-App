@@ -15,25 +15,37 @@ import { environment } from 'src/environments/environment';
   selector: 'app-services',
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss'],
-  animations: [
-    trigger('enterAnimation', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(100%)' }),
-        animate('1000ms ease-in-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ]),
-    trigger('exitLeftAnimation', [
-      transition(':leave', [
-        animate('300ms ease-in-out', style({ opacity: 0, transform: 'translateX(-100%)' }))
-      ])
-    ]),
-    trigger('enterRightAnimation', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(100%)' }),
-        animate('1000ms ease-in-out', style({ opacity: 1, transform: 'translateX(0)' }))
-      ])
+animations: [
+  trigger('enterAnimation', [
+    transition(':enter', [
+      style({ opacity: 0, transform: 'translate3d(0, 50px, 0)' }),
+      animate(
+        '400ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+        style({ opacity: 1, transform: 'translate3d(0, 0, 0)' })
+      )
     ])
-  ]
+  ]),
+
+  trigger('exitLeftAnimation', [
+    transition(':leave', [
+      animate(
+        '300ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+        style({ opacity: 0, transform: 'translate3d(-100%, 0, 0)' })
+      )
+    ])
+  ]),
+
+  trigger('enterRightAnimation', [
+    transition(':enter', [
+      style({ opacity: 0, transform: 'translate3d(100%, 0, 0)' }),
+      animate(
+        '400ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+        style({ opacity: 1, transform: 'translate3d(0, 0, 0)' })
+      )
+    ])
+  ])
+]
+
 })
 export class ServicesComponent implements OnInit, ViewWillEnter {
   type: string;
@@ -124,7 +136,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
     const { data } = await modal.onDidDismiss();
     if (data?.value && !data.value.deleted) {
       this.services = data.value;
-      this.updateOverdueCount(); // Recalculate with reset
+      this.getServices();  
     }
     if(data.value.deleted){
       this.modalCtrl.dismiss({value:''})

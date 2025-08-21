@@ -132,7 +132,7 @@
 </div>
 
 <div *ngIf="type == 'needsService'" [@enterAnimation] style="margin-top: 30px;">
-<app-needs-service [services]="services" (overdueServices)="servicesOverdue($event)"></app-needs-service>
+<app-needs-service [services]="services" [car]="car" (overdueServices)="servicesOverdue($event)"></app-needs-service>
 </div>
 
 <div *ngIf="type == 'serviced'" [@enterAnimation] style="margin-top: 0;">

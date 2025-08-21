@@ -9,6 +9,7 @@ import { CompleteServiceComponent } from '../complete-service/complete-service.c
   styleUrls: ['./needs-service.component.scss'],
 })
 export class NeedsServiceComponent implements OnInit {
+  @Input() car:any
   @Input() services:any
   @Output() overdueServices = new EventEmitter<number>();
   overdueSrv:number = 0;
