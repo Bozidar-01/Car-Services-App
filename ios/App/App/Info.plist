@@ -30,8 +30,6 @@
 	<string>LaunchScreen</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need access to your photo library to allow you to save photos taken with the camera.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need camera access to take pictures or videos for your profile or cases.</string>
 	<key>UIMainStoryboardFile</key>
@@ -45,10 +43,10 @@
 	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Your app needs access to the photo library</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Allow the app to save images to your Photos.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow the app to access and save images to your Photos.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
