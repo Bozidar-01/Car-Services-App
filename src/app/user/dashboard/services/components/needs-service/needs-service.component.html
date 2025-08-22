@@ -1,43 +1,65 @@
 <div style="margin-bottom: 80px;">
-<ng-container  *ngFor="let service of services">
+  <ng-container *ngIf="services && services.length > 0; else allDone">
+
+    <ng-container *ngFor="let service of services">
+
+      <!-- Custom service -->
+      <ion-card class="service-card" *ngIf="service.custom_service && service.status === 'active'">
+        <ion-item lines="none">
+          <ion-label>
+            {{ service.custom_service.name }}
+            <br>
+            <small style="font-size: 14px;">
+              {{ service.daysDiffText || 'Calculating...' }}
+            </small>
+            <br>
+            <small *ngIf="service.next_service_km <= car.car_km" style="font-size: 14px;">
+              Overdue Km: {{ car.car_km - service.next_service_km }}
+            </small>
+          </ion-label>
+          <ion-label slot="end">
+            <ion-button fill="outline" (click)="completeServiceModal(service)">
+              Complete Service
+            </ion-button>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+      
+      <!-- Default service -->
+      <ion-card class="service-card" *ngIf="!service.custom_service && service.default_service && service.status === 'active'">
+        <ion-item lines="none">
+          <ion-label>
+            {{ service.default_service.name }}
+            <br>
+            <small style="font-size: 14px;">
+              {{ service.daysDiffText || 'Calculating...' }}
+            </small>
+            <br>
+            <small *ngIf="service.next_service_km <= car.car_km" style="font-size: 14px;">
+              Overdue Km: {{ car.car_km - service.next_service_km }}
+            </small>
+          </ion-label>
+          <ion-label slot="end">
+            <ion-button fill="outline" (click)="completeServiceModal(service)">
+              Complete Service
+            </ion-button>
+          </ion-label>
+        </ion-item>
+      </ion-card>
 
 
-    <ion-card class="service-card" *ngIf="!service.custom_service && service.default_service && service.status == 'active'">
-      <ion-item  lines="none">
-        <ion-label>
-          {{service.default_service.name}}
-          <br>
-          <small style="font-size: 14px;">{{ getDaysDifference(service.next_service).text }}</small> <br>
-          <small *ngIf="service.next_service_km <= car.car_km" style="font-size: 14px;">Overdue Km: {{ car.car_km-service.next_service_km }}</small>
-        </ion-label>
-        <ion-label slot="end">
-          <ion-button fill="outline" (click)="completeServiceModal(service)">
-            Complete Service
-          </ion-button>
-        </ion-label>
-      </ion-item>
-      
-      
-    </ion-card>
-    
-    <ion-card class="service-card"  *ngIf="service.custom_service && service.status == 'active'" >
-      
-      <ion-item  lines="none">
-        <ion-label>
-          {{service.custom_service.name}} 
-          <br>
-          <small style="font-size: 14px;">{{ getDaysDifference(service.next_service).text }}</small> <br>
-          <small *ngIf="service.next_service_km <= car.car_km" style="font-size: 14px;">Overdue Km: {{ car.car_km-service.next_service_km }}</small>
+    </ng-container>
 
-        </ion-label>
-        <ion-label slot="end">
-          <ion-button fill="outline" (click)="completeServiceModal(service)">
-            Complete Service
-          </ion-button>
-        </ion-label>
-      </ion-item>
-      
-    </ion-card>
-    
   </ng-container>
+
+  <!-- Template to show when no active services exist -->
+  <ng-template #allDone>
+    <ion-card class="service-card">
+      <ion-item lines="none">
+        <ion-label style="text-align: center; width: 100%;">
+          All services are done!
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ng-template>
 </div>

@@ -29,7 +29,8 @@
           <br>
           <small *ngIf="service.product_used" style="font-size: 12px;">Used:  {{service.product_used}}</small>
           <small *ngIf="!service.product_used" style="font-size: 12px;">No Product Used</small> <br>
-          <small *ngIf="service.last_service_km" style="font-size: 12px;">Service Km: {{service.last_service_km}}</small>
+          <small *ngIf="service.last_service_km" style="font-size: 12px;">Service Km: {{service.last_service_km}}</small> <br>
+          <small *ngIf="service.last_serviced" style="font-size: 12px;">Service Date: {{service.last_serviced | date: 'dd MMM, YYY'}}</small>
         </ion-label>
         <ion-label slot="end">
           <ion-button fill="outline" disabled style="opacity: 1;">
@@ -46,7 +47,8 @@
           <br>
           <small *ngIf="service.product_used" style="font-size: 12px;">Used:  {{service.product_used}}</small>
           <small *ngIf="!service.product_used" style="font-size: 12px;">No Product Used</small> <br>
-          <small *ngIf="service.last_service_km" style="font-size: 12px;">Service Km: {{service.last_service_km}}</small>
+          <small *ngIf="service.last_service_km" style="font-size: 12px;">Service Km: {{service.last_service_km}}</small> <br>
+          <small *ngIf="service.last_serviced" style="font-size: 12px;">Service Date: {{service.last_serviced | date: 'dd MMM, YYY'}}</small>
           <!-- <small style="font-size: 12px;">{{service.custom_service.service_date | date:'dd MMM, YYYY'}}</small> -->
 
         </ion-label>

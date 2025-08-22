@@ -12,3 +12,26 @@ ion-header ion-toolbar {
     padding-top: 5px !important;
     margin-top: 5px !important;
   }
+
+    ion-modal {
+    --height: auto;
+  }
+
+  #datetime {
+    --background: var(--ion-color-snow);
+    --wheel-highlight-background: var(--ion-color-snow);
+    --wheel-fade-background-rgb: 255, 255, 255; /* Must be RGB, e.g., for #f9f9f9 */
+    width: 100%;
+    height: 350px;
+    padding-bottom: 20px;
+  }
+  
+  /* Target the wheel’s base background via Shadow DOM */
+  #datetime::part(wheel) {
+    background: var(--ion-color-snow) !important;
+  }
+  
+  /* Fallback for picker columns */
+  #datetime .picker-column {
+    background: var(--ion-color-snow) !important;
+  }

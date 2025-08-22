@@ -12,26 +12,91 @@
 </ion-header>
 
 
-<ion-content scrollY="false">
+<ion-content scrollY="true">
   <form [formGroup]="serviceForm">
     <ion-item lines="none" style="margin-top: 10px;">
       <ion-card>
-        <ion-input formControlName="price" style="--placeholder-opacity:1;" type="text" placeholder="Price"></ion-input>
+        <ion-input formControlName="price" type="text" placeholder="Price"></ion-input>
       </ion-card>
     </ion-item>
+
     <ion-item lines="none" style="margin-top: 10px;">
       <ion-card>
-        <ion-checkbox (ionChange)="usedProduct=!usedProduct">Did you use any product?</ion-checkbox>
+        <ion-checkbox (ionChange)="usedProduct = !usedProduct">Did you use any product?</ion-checkbox>
       </ion-card>
     </ion-item>
+
     <ion-item *ngIf="usedProduct" lines="none" style="margin-top: 10px;">
       <ion-card>
-        <ion-input formControlName="product_used" style="--placeholder-opacity:1;" type="text" 
-        placeholder="Product Used"></ion-input>
+        <ion-input formControlName="product_used" type="text" placeholder="Product Used"></ion-input>
       </ion-card>
     </ion-item>
+
+    <!-- ✅ Custom KM option -->
+    <ion-item lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-checkbox (ionChange)="customKm = !customKm">Custom KM?</ion-checkbox>
+      </ion-card>
+    </ion-item>
+
+    <ion-item *ngIf="customKm" lines="none" style="margin-top: 10px;">
+      <ion-card>
+        <ion-input formControlName="custom_km" type="number" placeholder="Enter KM"></ion-input>
+      </ion-card>
+    </ion-item>
+
+    <!-- ✅ Custom Date option -->
+   <!-- Custom Date Checkbox -->
+<ion-item lines="none" style="margin-top: 10px;">
+  <ion-card>
+    <ion-checkbox (ionChange)="customDate = !customDate">Custom Date?</ion-checkbox>
+  </ion-card>
+</ion-item>
+
+<!-- Date Picker Modal Trigger -->
+ <ion-item style="margin-top: 10px;" lines="none"  id="datePickerModal" [ngStyle]="{'display': !customDate ? 'none' : '' }">
+      <ion-card class="input">
+
+        <ion-label
+        style="padding: 14px 0"
+        class="ion-no-padding"
+      >
+      <p style="font-weight: 600;">
+       {{ serviceForm?.get('custom_date')?.value 
+            ? (serviceForm?.get('custom_date')?.value | date: 'dd MMM, YYYY') 
+            : 'Select Service Date'}}
+        </p>
+      </ion-label>
+       </ion-card>
+     </ion-item>
+
+     <ion-modal
+     #dateModal
+     [initialBreakpoint]="1"
+     [breakpoints]="[0, 1]"
+     [keepContentsMounted]="true"
+     trigger="datePickerModal"
+     cssClass="bottom-modal my-custom-modal"
+   >
+     <ng-template>
+       <ion-card-subtitle style="text-transform: none; padding: 20px; font-size: 26px;" color="dark">
+         Service Date
+       </ion-card-subtitle>
+       <ion-datetime
+         style="width: 100%; height: 350px; --background: var(--ion-color-snow) !important; padding-bottom: 20px;"
+         presentation="date"
+         [locale]="'en-US'"
+         size="cover"
+         id="datetime"
+         formControlName="custom_date"
+         [max]="maxDate"
+         (ionChange)="selectDate($event)"
+       ></ion-datetime>
+     </ng-template>
+   </ion-modal>
+
   </form>
-  </ion-content>
+</ion-content>
 
 
 <ion-footer style="padding: 10px;">

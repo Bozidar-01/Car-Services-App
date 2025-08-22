@@ -226,7 +226,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
     
     this.overdueServices = this.services?.filter(service => 
         service.status === 'active' &&
-        new Date(service.next_service) <= currentDate &&
+        new Date(service.next_service) <= currentDate ||
         service.next_service_km <= this.car.car_km
     ).length || 0;
 
