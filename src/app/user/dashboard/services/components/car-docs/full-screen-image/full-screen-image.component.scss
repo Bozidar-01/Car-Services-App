@@ -1,45 +1,32 @@
-.fullscreen-header {
-  --background: #fff !important;
-  background: #fff !important;
-  .close-btn {
-    margin-top: 20px;
-    font-size: 28px;
-    color: #fff;
-  }
+/* Dark mode friendly */
+.fullscreen-content {
+  --background: #fff;
+  background: var(--background);
 }
 
-.fullscreen-content {
-  --background: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.fullscreen-header {
+  --background: transparent;
+}
+ 
+.image-wrapper {
+  position: relative;
+  width: 100%;
   height: 100%;
+  background: #fff;
+  overflow: hidden;       /* hide overscroll while panning */
+  touch-action: none;     /* let us handle pinch + pan */
+  user-select: none;
+  display: grid;
+  place-items: center;    /* only visible before we set initial translate */
+}
 
-  .image-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    .press-text {
-      position: absolute;
-      bottom: 40px;
-      color: #fff;
-      font-size: 16px;
-      background: rgba(0,0,0,0.5);
-      padding: 5px 10px;
-      border-radius: 8px;
-    }
-  }
+.image-wrapper img {
+  display: block;
+  will-change: transform;
+  transform-origin: 0 0;  /* our math assumes top-left origin */
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;   /* wrapper gets the events */
 }
 
 
@@ -49,4 +36,36 @@ ion-toolbar{
   background: #fff !important;
   padding-top:  env(safe-area-inset-bottom);  
 
+}
+
+.wrapper {
+  position: fixed;
+  inset: 0;
+  background:#fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+}
+
+.zoom-image {
+  max-width: 100%;
+  max-height: 100%;
+  will-change: transform;
+  transition: transform 0.05s linear;
+  pointer-events: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 5px;
+  z-index: 9999;
+  margin-top: 10px;
+  font-size: 28px;
+}
+
+ion-icon{
+    z-index: 99999;
 }
