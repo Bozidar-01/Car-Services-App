@@ -11,13 +11,14 @@
 <ion-content class="fullscreen-content">
   <div 
     class="image-wrapper" 
-    (mousedown)="startPress($event)" 
+
+  >
+    <img [src]="car?.car_document" alt="Car Document" />
+    <!-- <p *ngIf="pressing" class="press-text">Hold to save...</p> -->
+  </div>
+</ion-content>
+    <!-- (mousedown)="startPress($event)" 
     (mouseup)="cancelPress()" 
     (mouseleave)="cancelPress()" 
     (touchstart)="startPress($event)" 
-    (touchend)="cancelPress()"
-  >
-    <img [src]="car?.car_document" alt="Car Document" />
-    <p *ngIf="pressing" class="press-text">Hold to save...</p>
-  </div>
-</ion-content>
+    (touchend)="cancelPress()" -->
