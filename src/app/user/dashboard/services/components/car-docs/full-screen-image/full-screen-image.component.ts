@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalController, ToastController, Platform } from '@ionic/angular';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Media, MediaSaveOptions } from '@capacitor-community/media';
 
 @Component({
   standalone:false,
@@ -33,48 +35,62 @@ export class FullScreenImageComponent {
     clearTimeout(this.pressTimeout);
   }
 
-  async saveImage() {
-    try {
-      if (this.platform.is('capacitor') || this.platform.is('cordova')) {
-        // Native save logic for mobile
-        const base64 = await this.getBase64FromUrl(this.car.car_document);
-        // Use Capacitor Filesystem or other plugin to save
-        // Example: await Filesystem.writeFile({ path: 'car_doc.jpg', data: base64, directory: Directory.Documents });
-      } else {
-        // Browser: trigger download
-        const link = document.createElement('a');
-        link.href = this.car.car_document;
-        link.download = 'car_document.jpg';
-        link.click();
-      }
+
+
+async saveImage() {
+  try {
+    if (this.platform.is('capacitor') || this.platform.is('cordova')) {
+      // Mobile: save image to Photos
+      const base64 = await this.getBase64FromUrl(this.car.car_document);
+
+      // Remove the Base64 prefix (e.g., "data:image/png;base64,") if present
+      const cleanBase64 = base64.replace(/^data:image\/[a-z]+;base64,/, '');
+
+      // Save to Photos gallery
+      const options: MediaSaveOptions = {
+        path: cleanBase64, // Base64-encoded image data
+        fileName: `car_document_${new Date().getTime()}.png`, // Optional: specify file name
+        // albumIdentifier: 'MyAppAlbum', // Optional: specify an album (uncomment if needed)
+      };
+
+      await Media.savePhoto(options);
 
       const toast = await this.toastCtrl.create({
-        message: 'Image saved successfully!',
+        message: 'Image saved to Photos!',
         duration: 1500,
         color: 'success',
         position: 'bottom',
       });
-      toast.present();
-    } catch (err) {
-      console.error(err);
-      const toast = await this.toastCtrl.create({
-        message: 'Failed to save image.',
-        duration: 1500,
-        color: 'danger',
-        position: 'bottom',
-      });
-      toast.present();
+      await toast.present();
+    } else {
+      // Web: open in new tab
+      window.open(this.car.car_document, '_blank');
     }
-  }
-
-  private async getBase64FromUrl(url: string): Promise<string> {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    return await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
+  } catch (err) {
+    console.error('Error saving image:', err);
+    const toast = await this.toastCtrl.create({
+      message: 'Failed to save image.',
+      duration: 1500,
+      color: 'danger',
+      position: 'bottom',
     });
+    await toast.present();
   }
+}
+
+private async getBase64FromUrl(url: string): Promise<string> {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch image: ${response.statusText}`);
+  }
+  const blob = await response.blob();
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
 }
