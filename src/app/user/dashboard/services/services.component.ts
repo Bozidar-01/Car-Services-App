@@ -9,6 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertsService } from 'src/app/shared/services/alerts.service';
 import { Preferences } from '@capacitor/preferences';
 import { environment } from 'src/environments/environment';
+import { CarDocsComponent } from './components/car-docs/car-docs.component';
 
 @Component({
   standalone: false,
@@ -162,6 +163,23 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
       this.allServices.push(data.value);
       await this.getServices(); // This will update services and overdueServices
     }
+  }
+
+    async carDocsModal() {
+    const modal = await this.modalCtrl.create({
+      component: CarDocsComponent,
+      cssClass: 'carDocsModal',
+      componentProps: {
+        car: this.car,
+      },
+      backdropDismiss: true,
+      animated: true,
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+ 
   }
 
   addNewCarDetails() {

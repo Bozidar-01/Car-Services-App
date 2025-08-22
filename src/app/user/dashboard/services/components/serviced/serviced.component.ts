@@ -26,7 +26,9 @@ export class ServicedComponent  implements OnInit {
               this.services = response.data
               setTimeout(() => {
                 this.loaded = true;
-                this.calculateTotal(response.data)
+                if(this.services){
+                  this.calculateTotal(this.services)
+                }
               }, 200);
               this.cdr.detectChanges();
           }

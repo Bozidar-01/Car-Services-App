@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border doc-modal-header">
+  <ion-toolbar class="ion-no-border">
+    <ion-label slot="start" class="modal-title">
+      Car Documents
+    </ion-label>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" class="close-btn" (click)="modalCtrl.dismiss()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="doc-card">
+    <ion-card-content>
+      <!-- Upload Button -->
+      <div class="upload-container">
+        <ion-button class="galleryImg" fill="clear" onclick="document.getElementById('fileInput').click()">
+          <ion-icon color="dark" name="image"></ion-icon>
+          <input 
+            type="file" 
+            (change)="uploadCarDocument($event)" 
+            id="fileInput" 
+            style="display: none" 
+            accept="image/*" 
+          />
+        </ion-button>
+        <p class="upload-text">Upload or take a photo of your car document</p>
+      </div>
+
+      <!-- Preview -->
+      <div class="car-doc-preview" *ngIf="car?.car_document" (click)="openFullImage()">
+        <img [src]="car.car_document" alt="Car Document" />
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

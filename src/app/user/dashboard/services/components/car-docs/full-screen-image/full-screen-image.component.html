@@ -1,0 +1,23 @@
+<ion-header class="ion-no-border fullscreen-header">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" class="close-btn" (click)="close()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fullscreen-content">
+  <div 
+    class="image-wrapper" 
+    (mousedown)="startPress($event)" 
+    (mouseup)="cancelPress()" 
+    (mouseleave)="cancelPress()" 
+    (touchstart)="startPress($event)" 
+    (touchend)="cancelPress()"
+  >
+    <img [src]="car?.car_document" alt="Car Document" />
+    <p *ngIf="pressing" class="press-text">Hold to save...</p>
+  </div>
+</ion-content>

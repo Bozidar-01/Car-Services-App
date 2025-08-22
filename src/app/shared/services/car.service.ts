@@ -94,5 +94,9 @@ export class CarService {
     return this.httpApiClient.post<any>(`cars/addCompletedService`,data,true)
   }
 
+    uploadCarDocument(data:any): Observable<any> {
+    return this.httpApiClient.post<any>(`cars/uploadDocs`,data,true)
+  }
+
 
 }

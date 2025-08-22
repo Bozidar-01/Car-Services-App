@@ -37,6 +37,11 @@
             <ion-icon style="font-size: 30px !important;" name="close-circle-outline" [color]="type === 'needsService'? 'warning':'primary'"></ion-icon>
           </ion-button>
         </ion-label>
+        <ion-label slot="end" style="height: 40px;">
+          <ion-button *ngIf="type == 'thirdStep'" fill="clear" class="action-button ion-no-padding ion-no-margin" (click)="carDocsModal()">
+            <ion-icon style="font-size: 26px !important;" name="documents-outline"  [color]="'primary'"></ion-icon>
+          </ion-button>
+        </ion-label>
       </ion-item>
 
  

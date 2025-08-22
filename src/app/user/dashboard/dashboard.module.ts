@@ -18,6 +18,8 @@ import { AddServiceComponent } from './services/components/add-service/add-servi
 import { ChangeSettingsComponent } from './services/components/change-settings/change-settings.component';
 import { CompleteServiceComponent } from './services/components/complete-service/complete-service.component';
 import { SkeletonLoaderModule } from 'src/app/shared/components/skeleton-loader/skeleton-loader.module';
+import { CarDocsComponent } from './services/components/car-docs/car-docs.component';
+import { FullScreenImageComponent } from './services/components/car-docs/full-screen-image/full-screen-image.component';
 
 @NgModule({
   imports: [
@@ -28,7 +30,7 @@ import { SkeletonLoaderModule } from 'src/app/shared/components/skeleton-loader/
     ReactiveFormsModule,
     SkeletonLoaderModule
   ],
-  declarations: [DashboardPage,DetailsComponent,AvailableCarsComponent,MyCarsComponent,ServicesComponent,ServicedComponent,NeedsServiceComponent,ModsComponent,AddServiceComponent,ChangeSettingsComponent,CompleteServiceComponent],
+  declarations: [DashboardPage,DetailsComponent,AvailableCarsComponent,MyCarsComponent,ServicesComponent,ServicedComponent,NeedsServiceComponent,ModsComponent,AddServiceComponent,ChangeSettingsComponent,CompleteServiceComponent,CarDocsComponent,FullScreenImageComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
   
 })
