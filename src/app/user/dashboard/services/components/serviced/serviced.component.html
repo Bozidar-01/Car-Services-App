@@ -19,7 +19,7 @@
 
 
   <div style="margin-bottom: 80px;">
-<ng-container  *ngFor="let service of services">
+<ng-container  *ngFor="let service of services.slice().reverse()">
 
 
     <ion-card class="service-card" *ngIf="!service.custom_service && service.default_service && service.status == 'completed'">

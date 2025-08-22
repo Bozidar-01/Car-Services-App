@@ -27,6 +27,10 @@ export class HeaderMenuComponent  implements OnInit {
     {
       name: 'Fire Department',
       contact: '193'
+    },
+    {
+      name: 'Emergency Help',
+      contact: '194'
     }
   ]
 

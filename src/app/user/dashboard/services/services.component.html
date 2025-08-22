@@ -30,7 +30,7 @@
           'color': type === 'needsService' ? 'var(--ion-color-warning)' : 'var(--ion-color-primary)'
         }">
           {{type=='firstStep' || type == 'secondStep' ? 'Let us know a few things first' : type == 'thirdStep' ? 'Services' : ''}}
-          {{type=='needsService' ? `${overdueServices} Overdue Service` : type == 'serviced' ? 'Completed Services' : type == 'mods' ? 'Mods' : ''}}
+          {{type=='needsService' ? overdueServices > 1 ? `${overdueServices} Overdue Services` : `${overdueServices} Overdue Service` : type == 'serviced' ? 'Completed Services' : type == 'mods' ? 'Mods' : ''}}
         </ion-label>
         <ion-label slot="end" style="height: 40px;">
           <ion-button *ngIf="type !='firstStep' && type != 'secondStep' && type != 'thirdStep'  && type != undefined" fill="clear" class="action-button ion-no-padding ion-no-margin" (click)="type='thirdStep'">
