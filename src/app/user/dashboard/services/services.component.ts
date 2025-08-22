@@ -53,6 +53,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
   newCarForm: FormGroup;
   maxDate: string = new Date().toISOString().split('T')[0];
   user: any;
+  loaded:boolean = false;
   @ViewChild('dateModal') modal: IonModal;
   @Input() car: any;
   overdueServices: number = 0;
@@ -86,6 +87,9 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
     } else {
       await Promise.all([this.getAllServices(), this.getServices()]);
       this.type = 'thirdStep';
+      setTimeout(() => {            
+        this.loaded = true;
+      }, 500);
     }
   }
 
@@ -230,7 +234,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
       this.carService.getUserServices(this.car.id).pipe(first()).subscribe({
         next: (response) => {
           this.services = response.data;
-          this.updateOverdueCount(); // Recalculate with reset
+          this.updateOverdueCount(); // Recalculate with reset         
           resolve(true);
         },
       });
@@ -247,7 +251,6 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
         new Date(service.next_service) <= currentDate ||
         service.next_service_km <= this.car.car_km
     ).length || 0;
-
     console.log('Updated overdueServices:', this.overdueServices); // Debug
 }
 

@@ -14,3 +14,11 @@
         style="width: 90%; height: 90px; margin: 0 auto; border-radius: 15px; margin-bottom: 10px !important;"
       ></ion-skeleton-text>      
 </ng-container>
+
+<ng-container *ngIf="type==='thirdStepServices'">
+      <ion-skeleton-text  
+      *ngFor="let item of [0,1,2]"
+       animated
+        style="width: 90%; height: 80px; margin: 0 auto; border-radius: 15px; margin-bottom: 10px !important;"
+      ></ion-skeleton-text>      
+</ng-container>
