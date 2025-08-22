@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { DetailsComponent } from '../details/details.component';
 import { CarService } from 'src/app/shared/services/car.service';
 import { first } from 'rxjs';
+import { PublicService } from 'src/app/shared/services/public.service';
 
 @Component({
   standalone:false,
@@ -20,9 +21,10 @@ export class AvailableCarsComponent  implements OnInit {
   selectedFilter:string = 'cars';
   selectedBrand = null;
   showLoader: boolean = true
-  constructor(private modalCtrl: ModalController,private carService: CarService) { }
 
-  ngOnInit() {
+  constructor(private modalCtrl: ModalController,private carService: CarService,public publicService: PublicService) { }
+
+ async ngOnInit() {
     this.getCars()
     this.getCarBrands()
   }
@@ -77,12 +79,14 @@ export class AvailableCarsComponent  implements OnInit {
   }
 
   getCars(){
-
     this.carService.getCars().pipe(first()).subscribe({
       next:(response)=>{
-        this.cars = response.data
+        this.cars = response.data.cars
         this.filteredCars = this.cars
-
+        if (!this.publicService.firstLoadDone() && response.data.userCars > 0) {
+            this.changeType();
+            this.publicService.setFirstLoad(true)
+          }
           this.showLoader = false
       }
     })

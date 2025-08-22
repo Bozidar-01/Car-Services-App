@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { BehaviorSubject, from, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -9,11 +9,15 @@ import { environment } from 'src/environments/environment';
 export class PublicService {
   private userSubject = new BehaviorSubject<any>(null); // Store and emit user data
   public user$: Observable<any> = this.userSubject.asObservable();
-  
+  firstLoadDone = signal(false);
+
 
   constructor() { }
 
-
+  setFirstLoad(value: boolean) {
+    this.firstLoadDone.set(value);
+  }
+  
   getUserData(){
     return from(Preferences.get({ key: environment.carServiceStorageKey.user })).pipe(
       map(result => {

@@ -24,8 +24,8 @@ export class ServicedComponent  implements OnInit {
         this.carService.getCompletedServices(this.car.id).pipe(first()).subscribe({
           next:(response)=>{
               this.services = response.data
-              this.loaded = true;
               setTimeout(() => {
+                this.loaded = true;
                 this.calculateTotal(response.data)
               }, 200);
               this.cdr.detectChanges();

@@ -12,6 +12,10 @@
   </ion-label>
 </ion-item>
 
+<div style="margin-top: 10px;">
+  <app-skeleton-loader [type]="'services'" *ngIf="!loaded"></app-skeleton-loader>
+</div>
+
 <div *ngIf="allMods?.length && loaded" style="margin-bottom: 80px;">
 
   <ion-card class="service-card" *ngFor="let mod of allMods">

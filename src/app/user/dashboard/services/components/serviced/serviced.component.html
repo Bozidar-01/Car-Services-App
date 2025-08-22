@@ -1,5 +1,5 @@
 
-<ion-item *ngIf="services?.length && loaded" lines="none" style="padding: 0 10px;">
+<ion-item  lines="none" style="padding: 0 10px;">
   <ion-label style="font-weight: bold;">
     Total
   </ion-label>
@@ -12,7 +12,9 @@
     </ion-button>
   </ion-label>
 </ion-item>
-
+<div style="margin-top: 10px;">
+  <app-skeleton-loader [type]="'services'" *ngIf="!loaded"></app-skeleton-loader>
+</div>
 <ng-container *ngIf="services?.length && loaded">
 
 

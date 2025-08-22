@@ -6,3 +6,11 @@
       ></ion-skeleton-text>      
     </div>
 </ng-container>
+
+<ng-container *ngIf="type==='services'">
+      <ion-skeleton-text  
+      *ngFor="let item of [0,1,2,3,4,5]"
+       animated
+        style="width: 90%; height: 90px; margin: 0 auto; border-radius: 15px; margin-bottom: 10px !important;"
+      ></ion-skeleton-text>      
+</ng-container>

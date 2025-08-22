@@ -24,8 +24,8 @@ export class ModsComponent  implements OnInit {
         this.carService.getAllMods(this.car.id).pipe(first()).subscribe({
           next:(response)=>{
               this.allMods = response.data
-              this.loaded = true;
               setTimeout(() => {
+                this.loaded = true;
                 this.calculateTotal(response.data)
               }, 200);
           }
