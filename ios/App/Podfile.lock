@@ -106,16 +106,16 @@ EXTERNAL SOURCES:
     :path: "../capacitor-cordova-ios-plugins"
 
 SPEC CHECKSUMS:
-  Capacitor: de199cba6c8b20995428ad0b7cb0bc6ca625ffd4
-  CapacitorApp: 9cb31064a6c6bb2b1438583733a7bf45557fc1da
+  Capacitor: 23fff43571a4d1e3ee7d67b5a3588c6e757c2913
+  CapacitorApp: 45cb7cbef4aa380b9236fd6980033eb5cde6fcd2
   CapacitorCordova: 63d476958d5022d76f197031e8b7ea3519988c64
-  CapacitorHaptics: 7be406a91e4eb87287f321c6c68e1709d6837b3a
-  CapacitorKeyboard: 4db71e694e7afb5d7c0be09b05495c19f7d6c914
-  CapacitorNetwork: 30c2e78a0ed32530656cb426c8ee6c2caec10dbf
-  CapacitorPreferences: 8e4bef1f937fc991a19d7ea99330c36a62edd24b
-  CapacitorScreenOrientation: 6d989dff97440c7bfa78deee13952d7fb03c27f3
-  CapacitorStatusBar: a8c4c83ed2e973bdafb979e80e4b00d027832cb7
-  CordovaPluginsStatic: 9f4401884e30f12a9635e55a2bf04d253a0b72d8
+  CapacitorHaptics: 1fba3e460e7614349c6d5f868b1fccdc5c87b66d
+  CapacitorKeyboard: 2c26c6fccde35023c579fc37d4cae6326d5e6343
+  CapacitorNetwork: cd17b98182841055ff58629213242a1f22f4a76b
+  CapacitorPreferences: e24a50a936f0e4f54a6b43be6121f923b4d91c27
+  CapacitorScreenOrientation: 6590ca2800f2ddab521fae2580808fc7e66dfa1c
+  CapacitorStatusBar: 438e90beeeefa8276b24e6c5991cb02dd13e51bf
+  CordovaPluginsStatic: c298313f6cdd516c5174459c585551c727da4af9
   OneSignalXCFramework: 1a3b28dfbff23aabce585796d23c1bef37772774
 
 PODFILE CHECKSUM: 9c9cbc522caab74648e968e59578a10b5fff58e6
