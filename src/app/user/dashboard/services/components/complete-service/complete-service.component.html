@@ -16,7 +16,7 @@
   <form [formGroup]="serviceForm">
     <ion-item lines="none" style="margin-top: 10px;">
       <ion-card>
-        <ion-input formControlName="price" type="text" placeholder="Price"></ion-input>
+        <ion-input formControlName="price" type="tel" placeholder="Price"></ion-input>
       </ion-card>
     </ion-item>
 
@@ -41,7 +41,7 @@
 
     <ion-item *ngIf="customKm" lines="none" style="margin-top: 10px;">
       <ion-card>
-        <ion-input formControlName="custom_km" type="number" placeholder="Enter KM"></ion-input>
+        <ion-input formControlName="custom_km" type="tel" placeholder="Enter KM"></ion-input>
       </ion-card>
     </ion-item>
 

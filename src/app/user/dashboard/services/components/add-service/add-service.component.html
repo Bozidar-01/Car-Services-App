@@ -94,7 +94,7 @@
     </ion-item>
     <ion-item lines="none" style="margin-top: 10px;">
       <ion-card>
-        <ion-input formControlName="date_interval" style="--placeholder-opacity:1;" type="number" placeholder="Months Interval"></ion-input>
+        <ion-input formControlName="date_interval" style="--placeholder-opacity:1;" type="tel" placeholder="Months Interval"></ion-input>
         <p style="position: absolute; right: 20px; top: 4px;">Months</p>
       </ion-card>
     </ion-item>
@@ -108,7 +108,7 @@
     </ion-item>
     <ion-item lines="none" style="margin-top: 10px;">
       <ion-card>
-        <ion-input formControlName="price" style="--placeholder-opacity:1;" type="number" placeholder="Price"></ion-input>
+        <ion-input formControlName="price" style="--placeholder-opacity:1;" type="tel" placeholder="Price"></ion-input>
       </ion-card>
     </ion-item>
   </form>
@@ -116,7 +116,7 @@
   <form *ngIf="type === 'car'" [formGroup]="carForm">
     <ion-item lines="none" style="margin-top: 10px;">
       <ion-card>
-        <ion-input formControlName="car_km" style="--placeholder-opacity:1;" type="number" placeholder="Update Km"></ion-input>
+        <ion-input formControlName="car_km" style="--placeholder-opacity:1;" type="tel" placeholder="Update Km"></ion-input>
       </ion-card>
     </ion-item>
   </form>
