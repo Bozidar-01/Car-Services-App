@@ -88,9 +88,15 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
       Keyboard.addListener('keyboardWillShow', () => {
         this.isKeyboardOpen = true;
       });
+      Keyboard.addListener('keyboardDidShow', () => {
+        this.isKeyboardOpen = true;
+      });
 
       // Listen for keyboard hide
       Keyboard.addListener('keyboardWillHide', () => {
+        this.isKeyboardOpen = false;
+      });
+      Keyboard.addListener('keyboardDidHide', () => {
         this.isKeyboardOpen = false;
       });
     }
