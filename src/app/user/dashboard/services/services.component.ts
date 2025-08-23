@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AlertController, IonContent, IonModal, IonSelect, ModalController, NavController, ViewWillEnter } from '@ionic/angular';
+import { AlertController, IonContent, IonModal, IonSelect, ModalController, NavController, Platform, ViewWillEnter } from '@ionic/angular';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ChangeSettingsComponent } from './components/change-settings/change-settings.component';
 import { AddServiceComponent } from './components/add-service/add-service.component';
@@ -10,6 +10,7 @@ import { AlertsService } from 'src/app/shared/services/alerts.service';
 import { Preferences } from '@capacitor/preferences';
 import { environment } from 'src/environments/environment';
 import { CarDocsComponent } from './components/car-docs/car-docs.component';
+import { Keyboard } from '@capacitor/keyboard';
 
 @Component({
   standalone: false,
@@ -51,6 +52,7 @@ animations: [
 export class ServicesComponent implements OnInit, ViewWillEnter {
   type: string;
   newCarForm: FormGroup;
+  isKeyboardOpen = false;
   maxDate: string = new Date().toISOString().split('T')[0];
   user: any;
   loaded:boolean = false;
@@ -71,6 +73,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
     public modalCtrl: ModalController,
     private carService: CarService,
     private alertsService: AlertsService,
+    private platform: Platform
   ) {}
 
   ngOnInit() {
@@ -79,6 +82,25 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
       purchase_date: new FormControl('', Validators.required),
       car_price: new FormControl('', Validators.required),
     });
+
+    if (this.platform.is('capacitor')) {
+      // Listen for keyboard show
+      Keyboard.addListener('keyboardWillShow', () => {
+        this.isKeyboardOpen = true;
+      });
+
+      // Listen for keyboard hide
+      Keyboard.addListener('keyboardWillHide', () => {
+        this.isKeyboardOpen = false;
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    // Clean up listeners to prevent memory leaks
+    if (this.platform.is('capacitor')) {
+      Keyboard.removeAllListeners();
+    }
   }
 
   async ionViewWillEnter() {

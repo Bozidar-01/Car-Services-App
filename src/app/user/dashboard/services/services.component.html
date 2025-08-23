@@ -177,7 +177,8 @@
       </div>
    </div>
 
-<div *ngIf="type=='thirdStep'">
+<div *ngIf="type === 'thirdStep' && !isKeyboardOpen">
+  
   <!-- Left FAB -->
   <ion-fab slot="fixed" vertical="bottom" horizontal="start">
     <ion-fab-button color="snow">
@@ -197,7 +198,7 @@
   </ion-fab>
 
   <!-- Middle Text -->
-  <div style="position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); font-weight: 550; font-size: 14px; color: var(--ion-color-primary);">
+  <div style="position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); font-weight: 550; font-size: 14px; color: var(--ion-color-primary); margin-bottom: env(safe-area-inset-bottom);">
     Total: {{car.total_price | number:'1.2-2'}} €
   </div>
 
