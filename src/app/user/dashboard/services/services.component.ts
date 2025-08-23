@@ -77,6 +77,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
     this.newCarForm = new FormGroup({
       car_km: new FormControl('', Validators.required),
       purchase_date: new FormControl('', Validators.required),
+      car_price: new FormControl('', Validators.required),
     });
   }
 
@@ -97,6 +98,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
     this.type = 'secondStep';
     setTimeout(async () => {
       await Promise.all([this.getAllServices(), this.getServices()]);
+      this.loaded=true
       this.type = 'thirdStep';
     }, 2000);
   }
@@ -194,6 +196,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
       let data = {
         id: this.car.id,
         car_km: this.newCarForm.value.car_km,
+        car_price: this.newCarForm.value.car_price,
         purchase_date: this.newCarForm.value.purchase_date,
       };
       this.carService.addNewUserCarDetails(data).pipe(first()).subscribe({
@@ -261,9 +264,13 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
     }
   }
 
-  servicesOverdue(srv:number) {
-    this.overdueServices = srv; 
-  }
+  servicesOverdue(srv:any) {
+    if(srv){
+      this.overdueServices = srv.overdueSrv; 
+      this.services.length = 0;
+      this.services.push(...srv.services);
+    }
+   }
 
 
 

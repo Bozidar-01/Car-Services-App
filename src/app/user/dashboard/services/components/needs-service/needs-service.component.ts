@@ -11,7 +11,7 @@ import { CompleteServiceComponent } from '../complete-service/complete-service.c
 export class NeedsServiceComponent implements OnInit {
   @Input() car: any;
   @Input() services: any[] = [];
-  @Output() overdueServices = new EventEmitter<number>();
+  @Output() overdueServices = new EventEmitter<any>();
   overdueSrv: number = 0;
 
   constructor(public modalCtrl: ModalController) {}
@@ -64,7 +64,11 @@ export class NeedsServiceComponent implements OnInit {
     });
 
     this.overdueSrv = this.services.filter(s => s.status === 'active').length;
-    this.overdueServices.emit(this.overdueSrv);
+    let data ={
+      overdueSrv:this.overdueSrv,
+      services:this.services
+    }
+    this.overdueServices.emit(data);
   }
 
 async completeServiceModal(service: any) {
@@ -105,7 +109,11 @@ async completeServiceModal(service: any) {
 
       // Update overdue services count
       this.overdueSrv = this.services.filter(srv => srv.status === 'active').length;
-      this.overdueServices.emit(this.overdueSrv);
+    let data ={
+      overdueSrv:this.overdueSrv,
+      services:this.services
+    }
+      this.overdueServices.emit(data);
     }
   }
 }

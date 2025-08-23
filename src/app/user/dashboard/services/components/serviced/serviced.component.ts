@@ -36,13 +36,19 @@ export class ServicedComponent  implements OnInit {
       }
 
 
-      calculateTotal(services) {
-        this.total = 0;
-        services.forEach(service => {
-          const price = service?.custom_service?.price ? Number(service.custom_service.price) + Number(service.price) : Number(service.price) || 0; // Convert to number, default to 0
-          this.total += price;
-        });
-        this.totalEuro = (this.total / 61.3).toFixed(2);
-        this.cdr.detectChanges();
-      }
+calculateTotal(services) {
+  this.total = 0;
+  services.forEach(service => {
+    const price = Number(service?.price || 0);
+    const customPrice = Number(service?.custom_service?.price || 0);
+
+    const totalPrice = price + customPrice;
+    this.total += totalPrice;
+  });
+
+  this.totalEuro = (this.total / 61.3).toFixed(2);
+  this.cdr.detectChanges();
+}
+
+
 }

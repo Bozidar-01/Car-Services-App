@@ -76,6 +76,7 @@ export class AddServiceComponent  implements OnInit {
           price: ['',Validators.required],
           service_date: ['', Validators.required],
           product_used: [''],
+          car_km: [''],
        });
       }else{
         this.carForm = this.fb.group({
@@ -124,8 +125,10 @@ export class AddServiceComponent  implements OnInit {
         custom_service:{
           name: this.completedServiceForm.value.name,
           price: this.completedServiceForm.value.price,
+          status:'completed',
           product_used: this.completedServiceForm.value.product_used,
-          service_date: this.completedServiceForm.value.service_date,
+          last_serviced: this.completedServiceForm.value.service_date,
+          last_service_km: this.completedServiceForm.value.car_km,
         },
         user_car_id: this.car.id
       }
@@ -135,7 +138,9 @@ export class AddServiceComponent  implements OnInit {
           this.alertService.presentToast('Service added!','bottom','success');
 
           this.modalCtrl.dismiss()
-        }
+        },error:(err)=> {
+            this.alertService.presentToast(err.error.message,'bottom','warning');
+        },
       })
     }
   }

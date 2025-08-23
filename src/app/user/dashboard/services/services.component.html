@@ -89,7 +89,13 @@
           
           <ion-item lines="none">
             <ion-card class="input">
-              <ion-input formControlName="car_km" (ionBlur)="scrollToTop()" type="number" placeholder="KM on car"></ion-input>
+              <ion-input formControlName="car_km" (ionBlur)="scrollToTop()" type="tel" placeholder="KM on car"></ion-input>
+            </ion-card>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-card class="input">
+              <ion-input formControlName="car_price" (ionBlur)="scrollToTop()" type="tel" placeholder="Purchase Price"></ion-input>
             </ion-card>
           </ion-item>
           
