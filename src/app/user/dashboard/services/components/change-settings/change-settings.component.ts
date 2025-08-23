@@ -63,13 +63,11 @@ export class ChangeSettingsComponent  implements OnInit {
               text: 'Cancel',
               role: 'cancel',
               handler: () => {
-                console.log('Car deletion cancelled');
               }
             },
             {
               text: 'Yes',
               handler: () => {
-                console.log('Car marked as deleted');
                 this.deleteUserCar(this.car.id)
               }
             }
@@ -117,14 +115,12 @@ export class ChangeSettingsComponent  implements OnInit {
                 // Revert checkbox state if user cancels
                 this.checkboxValue = false;
                 event.target.checked = false;
-                console.log('Service completion cancelled');
               }
             },
             {
               text: 'Yes',
               handler: () => {
                 // Confirm the action and update the checkbox
-                console.log('Service marked as completed');
                 this.checkboxValue = true;
                 event.target.checked = true;
                 this.makeCarMain(this.car.id);

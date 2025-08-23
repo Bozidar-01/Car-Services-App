@@ -102,9 +102,7 @@ export class AddServiceComponent  implements OnInit {
         },
         user_car_id: this.car.id
       }
-      
-      console.log(data)
-      
+            
       this.carService.addCustomService(data).pipe(first()).subscribe({
         next:(response)=>{
           this.alertService.presentToast('Service added!','bottom','success');
@@ -161,8 +159,6 @@ export class AddServiceComponent  implements OnInit {
       user_car_id: this.car.id
     }
 
-    console.log(data)
-
     this.carService.updateService(data).pipe(first()).subscribe({
       next:(response)=>{
         this.alertService.presentToast('Service updated!','bottom','success');
@@ -173,7 +169,6 @@ export class AddServiceComponent  implements OnInit {
   }
   
   addMod(){
-    console.log('here')
     if(this.modForm.invalid){
       this.alertService.presentToast('Please fill the above fields!','bottom','danger');
       return;

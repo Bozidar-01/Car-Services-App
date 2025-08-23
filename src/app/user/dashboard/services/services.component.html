@@ -23,7 +23,7 @@
   </ion-label>
 
   <!-- Middle: Car price -->
-  <ion-label style="color: var(--ion-color-primary); font-weight: bold; text-align: center; font-style: 12px !important;">
+  <ion-label *ngIf="car.car_price" style="color: var(--ion-color-primary); font-weight: bold; text-align: center; font-style: 12px !important;">
     {{ car.car_price | number:'1.2-2' }} €
   </ion-label>
 

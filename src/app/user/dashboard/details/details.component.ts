@@ -21,7 +21,6 @@ selectedModel:any = null
 
   selectModel(model:any){
       this.selectedModel = model
-      console.log(this.selectedModel)
   }
 
 

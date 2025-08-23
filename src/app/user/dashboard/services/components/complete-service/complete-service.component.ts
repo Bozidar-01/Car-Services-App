@@ -84,6 +84,8 @@ export class CompleteServiceComponent implements OnInit {
       next: (response) => {
         this.alertService.presentToast('Service Complete!', 'bottom', 'success');
         this.modalCtrl.dismiss({ value: response.data });
+      },error: (err) => {
+          this.alertService.presentToast(err.error.message,'bottom','warning');
       },
     });
   }

@@ -86,7 +86,6 @@ async completeServiceModal(service: any) {
   const { data } = await modal.onDidDismiss();
 
   if (data?.value) {
-    console.log(data.value)
     const returnedService = data.value;
     const index = this.services.findIndex(s => s.id === service.id);
 

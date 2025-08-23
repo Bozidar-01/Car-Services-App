@@ -233,7 +233,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
       };
       this.carService.addNewUserCarDetails(data).pipe(first()).subscribe({
         next: (response) => {
-          this.car = { ...this.car, car_km: this.newCarForm.value.car_km, purchase_date: this.newCarForm.value.purchase_date };
+          this.car = { ...this.car, car_km: this.newCarForm.value.car_km, purchase_date: this.newCarForm.value.purchase_date, car_price: this.newCarForm.value.car_price };
           this.submit();
         },
       });
@@ -286,7 +286,6 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
         new Date(service.next_service) <= currentDate ||
         service.next_service_km <= this.car.car_km
     ).length || 0;
-    console.log('Updated overdueServices:', this.overdueServices); // Debug
 }
 
   async loadUserData() {
