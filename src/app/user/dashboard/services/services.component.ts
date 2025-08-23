@@ -1,10 +1,10 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AlertController, IonContent, IonModal, IonSelect, ModalController, NavController, Platform, ViewWillEnter } from '@ionic/angular';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ChangeSettingsComponent } from './components/change-settings/change-settings.component';
 import { AddServiceComponent } from './components/add-service/add-service.component';
 import { CarService } from 'src/app/shared/services/car.service';
-import { first } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertsService } from 'src/app/shared/services/alerts.service';
 import { Preferences } from '@capacitor/preferences';
@@ -63,6 +63,7 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
   @ViewChild('addSelect', { static: false }) addSelect: IonSelect;
   allServices: Array<any>;
   services: Array<any>;
+  private keyboardSubscriptions: Subscription[] = [];
   addOptions = [
     { value: 'service', label: 'Add New Service' },
     { value: 'completedService', label: 'Add Completed Service' },
@@ -73,7 +74,9 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
     public modalCtrl: ModalController,
     private carService: CarService,
     private alertsService: AlertsService,
-    private platform: Platform
+    private platform: Platform,
+    private ngZone: NgZone,
+    private change: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -83,23 +86,22 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
       car_price: new FormControl('', Validators.required),
     });
 
-    if (this.platform.is('capacitor')) {
-      // Listen for keyboard show
-      Keyboard.addListener('keyboardWillShow', () => {
-        this.isKeyboardOpen = true;
-      });
-      Keyboard.addListener('keyboardDidShow', () => {
-        this.isKeyboardOpen = true;
-      });
-
-      // Listen for keyboard hide
-      Keyboard.addListener('keyboardWillHide', () => {
-        this.isKeyboardOpen = false;
-      });
-      Keyboard.addListener('keyboardDidHide', () => {
-        this.isKeyboardOpen = false;
-      });
-    }
+    this.ngZone.run(() => {
+      if (this.platform.is('ios') || this.platform.is('android')) {
+        Keyboard.addListener('keyboardDidShow', (data) => {
+          this.isKeyboardOpen = true;
+          this.change.detectChanges();
+        });
+        Keyboard.addListener('keyboardWillShow', (data) => {
+          this.isKeyboardOpen = true;
+          this.change.detectChanges();
+        });
+        Keyboard.addListener('keyboardDidHide', () => {
+          this.isKeyboardOpen = false;
+          this.change.detectChanges();
+        });
+      }
+    });
   }
 
   ngOnDestroy() {

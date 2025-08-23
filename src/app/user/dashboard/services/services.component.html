@@ -177,7 +177,7 @@
       </div>
    </div>
 
-<div *ngIf="type === 'thirdStep' && !isKeyboardOpen">
+<div *ngIf="type === 'thirdStep' "  [ngClass]="isKeyboardOpen ? 'hide' : ''">
   
   <!-- Left FAB -->
   <ion-fab slot="fixed" vertical="bottom" horizontal="start">
