@@ -86,4 +86,8 @@ export class MyCarsComponent  implements OnInit,AfterViewInit {
       })
     }
 
+    trackByCarId(index, car) {
+      return car.id;
+    }
+
 }

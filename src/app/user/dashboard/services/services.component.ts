@@ -168,6 +168,8 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
     if (data?.value && type === 'service') {
       this.allServices.push(data.value);
       await this.getServices(); // This will update services and overdueServices
+    }else if (data?.value){
+          this.car.total_price = this.car.total_price + (data.value)/61.3
     }
   }
 
@@ -270,6 +272,10 @@ export class ServicesComponent implements OnInit, ViewWillEnter {
       this.services.length = 0;
       this.services.push(...srv.services);
     }
+   }
+
+  updateCarPrice(price:any) {
+      this.car.total_price = this.car.total_price + (price)/61.3
    }
 
 

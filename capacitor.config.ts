@@ -7,7 +7,11 @@ const config: CapacitorConfig = {
   plugins: {
     Media: {
       androidGalleryMode: true
-    }
+    },
+    Keyboard: {
+      resize: 'body', 
+      style: 'light',
+    },
   }
 };
 

@@ -137,7 +137,7 @@ export class AddServiceComponent  implements OnInit {
         next:(response)=>{
           this.alertService.presentToast('Service added!','bottom','success');
 
-          this.modalCtrl.dismiss()
+          this.modalCtrl.dismiss({value: this.completedServiceForm.value.price})
         },error:(err)=> {
             this.alertService.presentToast(err.error.message,'bottom','warning');
         },
@@ -187,7 +187,7 @@ export class AddServiceComponent  implements OnInit {
     this.carService.addMod(data).pipe(first()).subscribe({
       next:(response)=>{
         this.alertService.presentToast('Mod added!','bottom','success');
-        this.modalCtrl.dismiss()
+        this.modalCtrl.dismiss({value: this.modForm.value.price})
       }
     })
   }

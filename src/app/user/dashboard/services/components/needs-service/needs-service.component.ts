@@ -12,6 +12,7 @@ export class NeedsServiceComponent implements OnInit {
   @Input() car: any;
   @Input() services: any[] = [];
   @Output() overdueServices = new EventEmitter<any>();
+  @Output() carOutput = new EventEmitter<any>();
   overdueSrv: number = 0;
 
   constructor(public modalCtrl: ModalController) {}
@@ -85,6 +86,7 @@ async completeServiceModal(service: any) {
   const { data } = await modal.onDidDismiss();
 
   if (data?.value) {
+    console.log(data.value)
     const returnedService = data.value;
     const index = this.services.findIndex(s => s.id === service.id);
 
@@ -115,6 +117,7 @@ async completeServiceModal(service: any) {
     }
       this.overdueServices.emit(data);
     }
+    this.carOutput.emit(data.value.price)
   }
 }
 

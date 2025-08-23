@@ -23,7 +23,7 @@ space-between="15"
 </ng-container>
 
 <ng-container *ngIf="myCars?.length">
-  <swiper-slide class="swiper-slide" *ngFor="let car of myCars">
+  <swiper-slide class="swiper-slide" *ngFor="let car of myCars;trackBy: trackByCarId">
     <div class="custom-card">
       <ion-card-subtitle style="text-transform: none; font-size: 22px; padding: 15px; font-weight: 600;" color="dark">
         {{ car?.car_model?.cars.model.split(' ')[0] }}

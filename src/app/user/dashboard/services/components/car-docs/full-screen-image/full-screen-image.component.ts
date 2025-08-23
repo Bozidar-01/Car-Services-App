@@ -37,10 +37,39 @@ export class FullScreenImageComponent implements AfterViewInit {
 
   constructor(private modalCtrl: ModalController, private ngZone: NgZone) {}
 
-  ngAfterViewInit() {
-    this.wrapperRect = this.wrapperElement.nativeElement.getBoundingClientRect();
-    this.centerImage();
+async ngAfterViewInit() {
+  this.wrapperRect = this.wrapperElement.nativeElement.getBoundingClientRect();
+  this.car.car_document = await this.getOptimizedImageUrl(this.car.car_document);
+  this.centerImage();
+}
+
+private async getOptimizedImageUrl(url: string, maxWidth: number = 800): Promise<string> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Failed to fetch image: ${response.statusText}`);
+    const blob = await response.blob();
+
+    const img = new Image();
+    img.src = URL.createObjectURL(blob);
+    await new Promise(resolve => (img.onload = resolve));
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    let { width, height } = img;
+    if (width > maxWidth) {
+      height = (maxWidth / width) * height;
+      width = maxWidth;
+    }
+    canvas.width = width;
+    canvas.height = height;
+    ctx?.drawImage(img, 0, 0, width, height);
+
+    return canvas.toDataURL('image/jpeg', 0.8); // JPEG for better performance
+  } catch (err) {
+    console.error('Error optimizing image:', err);
+    return url; // Fallback to original URL
   }
+}
 
   close() {
     this.modalCtrl.dismiss();
@@ -63,7 +92,8 @@ export class FullScreenImageComponent implements AfterViewInit {
 
   private applyTransform() {
     const img = this.imageElement.nativeElement;
-    img.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.scale})`;
+    img.style.transition = this.pointers.size === 0 ? 'transform 0.2s ease-out' : 'none';
+    img.style.transform = `translate3d(${this.translateX}px, ${this.translateY}px, 0) scale(${this.scale})`;
     img.style.transformOrigin = 'center center';
   }
 
@@ -103,12 +133,19 @@ export class FullScreenImageComponent implements AfterViewInit {
     }
   }
 
-  // Pointer Move
-  onPointerMove(ev: PointerEvent) {
-    if (!this.pointers.has(ev.pointerId)) return;
-    this.pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+private lastMoveTime = 0;
+private readonly MOVE_THROTTLE_MS = 16; // ~60fps
 
-    this.ngZone.runOutsideAngular(() => {
+onPointerMove(ev: PointerEvent) {
+  if (!this.pointers.has(ev.pointerId)) return;
+  this.pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+
+  const now = performance.now();
+  if (now - this.lastMoveTime < this.MOVE_THROTTLE_MS) return;
+  this.lastMoveTime = now;
+
+  this.ngZone.runOutsideAngular(() => {
+    requestAnimationFrame(() => {
       if (this.pointers.size === 1) {
         const p = this.pointers.get(ev.pointerId)!;
         const dx = p.x - this.panStart.x;
@@ -131,8 +168,8 @@ export class FullScreenImageComponent implements AfterViewInit {
         this.applyBounds();
       }
     });
-  }
-
+  });
+}
   // Pointer Up
   onPointerUp(ev: PointerEvent) {
     this.pointers.delete(ev.pointerId);
